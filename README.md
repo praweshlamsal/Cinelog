@@ -13,6 +13,12 @@ A **Cinelog** designed for cinephiles to log, rate, and review movies they’ve 
   - Users can receive notifications for upcoming film releases
   - Users have an in-app tutorial for first-time usage
 
+- ### Sunny Gurung
+    - Users can tag diary entries with genres
+    - Users can mark diary entries as favorites
+    - Users can rate movies with a star system
+    - Users can change the app’s language in the app settings
+
 #  Data Source
 - [The Open Movie Database] (https://www.omdbapi.com/)
 - [Firebase (Firestore)](https://console.firebase.google.com/project/cinelog-78efc/firestore/databases/-default-/data)
