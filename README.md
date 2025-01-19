@@ -7,7 +7,7 @@
 A **Cinelog** designed for cinephiles to log, rate, and review movies they’ve watched. Track your cinematic journey, organize your favorite films, and explore new recommendations.
 
 #  Features
--   ##Prawesh Lamsal
+- ### Prawesh Lamsal
   - Users can view a history of their edits to diary entries
   - Users can share diary entries with others
   - Users can receive notifications for upcoming film releases
