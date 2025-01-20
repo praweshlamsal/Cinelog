@@ -1,7 +1,7 @@
-# 📖 Group ID : 5
+# 📖 Group ID : 5 
 # Members
 - Prawesh Lamsal
-- Sunny Gurung
+- Sunny Gurung  
 
 # 🎬 Cinelog
 A **Cinelog** designed for cinephiles to log, rate, and review movies they’ve watched. Track your cinematic journey, organize your favorite films, and explore new recommendations.
