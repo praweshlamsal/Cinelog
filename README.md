@@ -2,6 +2,7 @@
 # Members
 - Prawesh Lamsal
 - Sunny Gurung
+- Faraz Ahmed
 
 # 🎬 Cinelog
 A **Cinelog** designed for cinephiles to log, rate, and review movies they’ve watched. Track your cinematic journey, organize your favorite films, and explore new recommendations.
@@ -18,6 +19,12 @@ A **Cinelog** designed for cinephiles to log, rate, and review movies they’ve 
     - Users can mark diary entries as favorites
     - Users can rate movies with a star system
     - Users can change the app’s language in the app settings
+
+- ## Faraz Ahmed
+    - Users can create and view diary entries for films 
+    - Users can update or delete diary entries
+    - Users can search diary entries by movie title
+    - Users can filter diary entries by date watched
 
 #  Data Source
 - [The Open Movie Database] (https://www.omdbapi.com/)
