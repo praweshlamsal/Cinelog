@@ -6,4 +6,11 @@
     <string name="todo">TODO</string>
     <string name="category">Category</string>
     <string name="search_movie">Search Movie</string>
+    <string name="save_movie">Save Movie</string>
+    <string name="poster_url">Poster URL</string>
+    <string name="imdb_id">IMDB ID</string>
+    <string name="type_movie_series">Type (Movie/Series)</string>
+    <string name="year">Year</string>
+    <string name="my_movie">My Movie</string>
+    <string name="movie_details">Movie Details</string>
 </resources>
