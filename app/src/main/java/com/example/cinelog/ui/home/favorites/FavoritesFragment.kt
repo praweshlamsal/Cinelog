@@ -37,9 +37,13 @@ class FavoritesFragment() : Fragment(R.layout.fragment_favorites), MovieListView
         binding.moviesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.moviesRecyclerView.adapter = movieAdapter
 
+        loadFavorites()
     }
 
-
+    private fun loadFavorites() {
+        val movies = sharedPrefHelper.getMoviesList()
+        movieAdapter.submitList(movies)
+    }
 
     override fun onSharedClicked(movie: Movie) {
         TODO("Not yet implemented")
