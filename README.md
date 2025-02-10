@@ -14,6 +14,7 @@ A **Cinelog** designed for cinephiles to log, rate, and review movies they’ve 
   - Users can share diary entries with others
   - Users can receive notifications for upcoming film releases
   - Users have an in-app tutorial for first-time usage
+  
 - ### Aashutosh Rimal
   - Users can visualize their movie-watching habits in a graph
   - Users can shake their device to generate a random movie suggestion from their diary
