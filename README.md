@@ -1,4 +1,4 @@
-# 📖 Group ID : 5 
+# 📖Section INFO-6134-01-25W Group 5 
 # Members
 - Prawesh Lamsal
 - Sunny Gurung
@@ -21,7 +21,6 @@ A **Cinelog** designed for cinephiles to log, rate, and review movies they’ve 
   - Users can set the app to dark mode in the app settings
   - Users have an animated splash screen when starting the app
   
-
 - ### Sunny Gurung
     - Users can tag diary entries with genres
     - Users can mark diary entries as favorites
