@@ -5,4 +5,6 @@ import com.example.cinelog.model.Movie
 
 interface MovieListView {
     fun onSharedClicked(movie: Movie)
+    fun onFabButtonClicked(movie: Movie,fabIcon: ImageView)
+
 }

@@ -52,7 +52,7 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list),MovieListView {
         movieViewModel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
 
         categoryAdapter = CategoryAdapter()
-        movieAdapter = MovieAdapter(this)
+        movieAdapter = MovieAdapter(this,false)
 
         binding.categoriesRecyclerView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -114,5 +114,13 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list),MovieListView {
 
     override fun onSharedClicked(movie: Movie) {
         shareMovie(movie)
+    }
+
+    override fun onFabButtonClicked(movie: Movie, fabIcon: ImageView) {
+        sharedPrefHelper.saveMovie(movie)
+        fabIcon.setImageResource(R.drawable.ic_fab_fill)
+
+        Toast.makeText(requireContext(), "Saved to favorites", Toast.LENGTH_SHORT).show()
+
     }
 }
