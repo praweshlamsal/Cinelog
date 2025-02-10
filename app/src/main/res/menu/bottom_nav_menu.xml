@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/movieListFragment"
+        android:icon="@drawable/ic_movie"
+        android:title="Movies" />
+    <item
+        android:id="@+id/graphFragment"
+        android:icon="@drawable/ic_graph"
+        android:title="Graph" />
+    <item
+        android:id="@+id/favoritesFragment"
+        android:icon="@drawable/ic_favorite"
+        android:title="Favorties" />
+    <item
+        android:id="@+id/myMovieFragment"
+        android:icon="@drawable/ic_my_movies"
+        android:title="My Movies" />
+    <item
+        android:id="@+id/othersFragment"
+        android:icon="@drawable/ic_other"
+        android:title="Others" />
+
+</menu>

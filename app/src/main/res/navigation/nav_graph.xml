@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:startDestination="@id/movieListFragment"
+    android:id="@+id/nav_graph">
+
+    <!-- Movie List Fragment -->
+    <fragment
+        android:id="@+id/movieListFragment"
+        android:name="com.example.cinelog.ui.home.movieList.MovieListFragment"
+        android:label="Movies" />
+
+    <!-- Graph Fragment -->
+    <fragment
+        android:id="@+id/graphFragment"
+        android:name="com.example.cinelog.ui.home.graph.GraphFragment"
+        android:label="Graph" />
+
+    <!-- Favorites Fragment -->
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.example.cinelog.ui.home.favorites.FavoritesFragment"
+        android:label="Favorites" />
+    <!-- myMovieFragment -->
+    <fragment
+        android:id="@+id/myMovieFragment"
+        android:name="com.example.cinelog.ui.home.myMovies.MyMoviesFragment"
+        android:label="My Movies" />
+
+    <!-- Others Fragment -->
+    <fragment
+        android:id="@+id/othersFragment"
+        android:name="com.example.cinelog.ui.home.others.OthersFragment"
+        android:label="Others" />
+
+
+
+
+
+
+</navigation>
