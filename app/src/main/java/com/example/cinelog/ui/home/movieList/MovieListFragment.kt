@@ -54,6 +54,11 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list),MovieListView {
         categoryAdapter = CategoryAdapter()
         movieAdapter = MovieAdapter(this,false)
 
+        binding.fbAddButton.setOnClickListener{
+            val intent = Intent(requireContext(), SaveMovieActivity::class.java)
+            startActivity(intent)
+        }
+
         binding.categoriesRecyclerView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = categoryAdapter

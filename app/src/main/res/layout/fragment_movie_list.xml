@@ -89,6 +89,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/categoriesRecyclerView" />
 
-
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:id="@+id/fbAddButton"
+        android:layout_marginBottom="64dp"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/ic_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="32dp"
+        app:useCompatPadding="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
