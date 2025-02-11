@@ -122,6 +122,7 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list),MovieListView {
 
         // Prepare text message with movie details
         val shareText = """
+            Hello fans have you watched this ?
         🎬 *${movie.title}* (${movie.year})
         📽️ Type: ${movie.type}
         🌟 IMDb: https://www.imdb.com/title/${movie.imdbID}
