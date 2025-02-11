@@ -44,7 +44,11 @@ class GraphFragment : Fragment(R.layout.fragment_graph) {
         )
 
         val dataSet = PieDataSet(entries, "Genre Popularity")
-        dataSet.colors = listOf(Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW, Color.MAGENTA)
+        dataSet.colors = listOf(0xFF9B5A5A.toInt(), // Matte Red
+            0xFF6D7072.toInt(), // Matte Blue
+            0xFF5E7350.toInt(), // Matte Green
+            0xFFD1B77F.toInt(), // Matte Yellow
+            0xFF946C81.toInt()) // Matte Magenta
 
         val data = PieData(dataSet)
         pieChart.data = data
@@ -65,7 +69,8 @@ class GraphFragment : Fragment(R.layout.fragment_graph) {
 
         val labels = listOf("Inception", "Avengers", "Interstellar", "Joker", "Parasite")
         val dataSet = BarDataSet(entries, "Top 5 Watched Movies")
-        dataSet.colors = listOf(Color.BLUE, Color.CYAN, Color.GRAY, Color.GREEN, Color.RED)
+        dataSet.colors = listOf(0xFF6D7072.toInt(), 0xFF7FA6B8.toInt(), 0xFF8B8C89.toInt(), 0xFF5E7350.toInt(), 0xFF9B5A5A.toInt())
+
 
         val data = BarData(dataSet)
         barChart.data = data
@@ -91,7 +96,7 @@ class GraphFragment : Fragment(R.layout.fragment_graph) {
 
         val labels = listOf("Mon", "Tue", "Wed", "Thu", "Fri")
         val dataSet = LineDataSet(entries, "Daily Watch Time (Hours)")
-        dataSet.color = Color.BLUE
+        dataSet.color = 0xFF6D7072.toInt() // Matte Blue
         dataSet.valueTextColor = Color.BLACK
         dataSet.setDrawCircles(true)
         dataSet.setCircleColor(Color.RED)

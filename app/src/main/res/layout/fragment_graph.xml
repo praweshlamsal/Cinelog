@@ -16,23 +16,6 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="24dp"/>
-            <com.github.mikephil.charting.charts.PieChart
-                android:padding="12dp"
-                android:id="@+id/pieChart"
-                android:layout_width="match_parent"
-                android:layout_height="300dp" />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="24dp"/>
-
-            <com.github.mikephil.charting.charts.BarChart
-                android:id="@+id/barChart"
-                android:padding="12dp"
-                android:layout_width="match_parent"
-                android:layout_height="300dp" />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="24dp"/>
 
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/lineChart"
@@ -42,6 +25,26 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="64dp"/>
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/barChart"
+                android:padding="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="300dp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="24dp"/>
+            <com.github.mikephil.charting.charts.PieChart
+                android:padding="12dp"
+                android:id="@+id/pieChart"
+                android:layout_width="match_parent"
+                android:layout_height="300dp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="24dp"/>
+
+
+
+
         </LinearLayout>
     </ScrollView>
 
