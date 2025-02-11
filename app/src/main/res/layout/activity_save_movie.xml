@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+
+    android:background="@color/white">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:title="@string/movie_details"
+        app:navigationIcon="@drawable/ic_back"
+        app:titleTextColor="@android:color/white" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+        <EditText
+            android:id="@+id/etTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/movie_title"
+            android:inputType="text"
+            android:padding="12dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/edittext_background" />
+
+        <EditText
+            android:id="@+id/etPoster"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/poster_url"
+            android:inputType="textUri"
+            android:layout_marginBottom="12dp"
+            android:padding="12dp"
+            android:background="@drawable/edittext_background" />
+
+        <EditText
+            android:id="@+id/etImdbID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/imdb_id"
+            android:inputType="text"
+            android:layout_marginBottom="12dp"
+            android:padding="12dp"
+            android:background="@drawable/edittext_background" />
+
+        <EditText
+            android:id="@+id/etType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/type_movie_series"
+            android:inputType="text"
+            android:layout_marginBottom="12dp"
+            android:padding="12dp"
+            android:background="@drawable/edittext_background" />
+
+        <EditText
+            android:id="@+id/etYear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/year"
+            android:inputType="number"
+            android:padding="12dp"
+            android:background="@drawable/edittext_background" />
+
+        <Button
+            android:id="@+id/btnSaveMovie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/save_movie"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:backgroundTint="@color/design_default_color_primary"
+            android:textColor="@color/white"
+            android:layout_marginTop="16dp"
+            android:padding="12dp" />
+    </LinearLayout>
+</LinearLayout>

@@ -10,7 +10,7 @@ import com.example.cinelog.model.Movie
 import com.example.cinelog.ui.home.movieList.MovieListView
 
 
-class MovieAdapter(private val movieListView: MovieListView) :
+class MovieAdapter(private val movieListView: MovieListView, val isFab: Boolean) :
     RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     private var movies = listOf<Movie>()
@@ -49,6 +49,15 @@ class MovieAdapter(private val movieListView: MovieListView) :
 
             binding.ivShare.setOnClickListener {
                 movieListView.onSharedClicked(movie)
+            }
+
+            if (!isFab) {
+                binding.fabButton.setOnClickListener {
+                    movieListView.onFabButtonClicked(movie, binding.fabButton)
+
+                }
+            } else {
+                binding.fabButton.setImageResource(R.drawable.ic_fab_fill)
             }
         }
     }
