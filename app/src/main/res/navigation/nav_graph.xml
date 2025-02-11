@@ -24,7 +24,7 @@
     <!-- myMovieFragment -->
     <fragment
         android:id="@+id/myMovieFragment"
-        android:name="com.example.cinelog.ui.home.myMovies.MyMoviesFragment"
+        android:name="com.example.cinelog.ui.home.myMovies.MyMovieListFragment"
         android:label="My Movies" />
 
     <!-- Others Fragment -->
