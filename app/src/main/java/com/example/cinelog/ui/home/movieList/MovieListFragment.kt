@@ -1,18 +1,27 @@
 package com.example.cinelog.ui.home.movieList
 
+import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.example.cinelog.R
 import com.example.cinelog.data.local.sharedPref.SharedPrefHelper
 import com.example.cinelog.data.remote.network.RetrofitClient
@@ -21,10 +30,14 @@ import com.example.cinelog.databinding.FragmentMovieListBinding
 import com.example.cinelog.model.Movie
 import com.example.cinelog.ui.home.movieList.adapters.CategoryAdapter
 import com.example.cinelog.ui.home.movieList.adapters.MovieAdapter
+import com.example.cinelog.ui.home.saveMovie.SaveMovieActivity
 import com.example.cinelog.viewModel.MovieViewModel
 import com.example.cinelog.viewModel.MovieViewModelFactory
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 
 class MovieListFragment : Fragment(R.layout.fragment_movie_list),MovieListView {
 
@@ -105,16 +118,55 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list),MovieListView {
     }
 
     private fun shareMovie(movie: Movie) {
-        val gson = Gson()
-        val movieJson = gson.toJson(movie)
+        val context = requireContext() // Get Fragment's context
 
-        val shareIntent = Intent(Intent.ACTION_SEND).apply {
-            type = "text/plain"
-            putExtra(Intent.EXTRA_TEXT, movieJson)
-            putExtra(Intent.EXTRA_SUBJECT, "Check out this movie!")
+        // Prepare text message with movie details
+        val shareText = """
+        🎬 *${movie.title}* (${movie.year})
+        📽️ Type: ${movie.type}
+        🌟 IMDb: https://www.imdb.com/title/${movie.imdbID}
+        
+        🎥 Check it out! 🍿
+    """.trimIndent()
+
+        Glide.with(context)
+            .asBitmap()
+            .load(movie.poster)
+            .diskCacheStrategy(DiskCacheStrategy.ALL) // Cache for faster loading
+            .into(object : CustomTarget<Bitmap>() {
+                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                    val uri = resource.toUri(context) // Convert Bitmap to URI
+
+                    // Create share intent with text and image
+                    val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                        type = "text/plain" // Set the MIME type to text/plain
+                        putExtra(Intent.EXTRA_TEXT, shareText) // Attach the formatted text
+                        putExtra(Intent.EXTRA_STREAM, uri) // Attach the image
+                        putExtra(Intent.EXTRA_SUBJECT, "Check out this movie!")
+                        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION) // Grant permission to read the URI
+                    }
+
+                    // Use Intent.createChooser to show options to share via different apps
+                    startActivity(Intent.createChooser(shareIntent, "Share Movie via"))
+                }
+
+                override fun onLoadCleared(placeholder: Drawable?) {}
+            })
+    }
+
+    private fun Bitmap.toUri(context: Context): Uri {
+        val imagesFolder = File(context.cacheDir, "images").apply { mkdirs() } // ✅ Create cache directory
+        val file = File(imagesFolder, "shared_movie.png")
+
+        try {
+            FileOutputStream(file).use { outputStream ->
+                this.compress(Bitmap.CompressFormat.PNG, 100, outputStream) // ✅ Save image
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
         }
 
-        startActivity(Intent.createChooser(shareIntent, "Share Movie via"))
+        return FileProvider.getUriForFile(context, "${context.packageName}.provider", file)
     }
 
     override fun onSharedClicked(movie: Movie) {

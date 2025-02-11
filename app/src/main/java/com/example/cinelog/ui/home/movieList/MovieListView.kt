@@ -1,5 +1,6 @@
 package com.example.cinelog.ui.home.movieList
 
+import android.content.Context
 import android.widget.ImageView
 import com.example.cinelog.model.Movie
 
