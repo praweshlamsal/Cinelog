@@ -13,7 +13,6 @@ import com.example.cinelog.model.BarChartData
 import com.example.cinelog.model.LineChartData
 import com.example.cinelog.model.PieChartData
 import com.example.cinelog.util.Constant
-import com.example.cinelog.util.PushDataToFireBase
 import com.example.cinelog.viewModel.MovieViewModel
 import com.example.cinelog.viewModel.MovieViewModelFactory
 import com.github.mikephil.charting.charts.BarChart
@@ -31,8 +30,8 @@ class GraphFragment : Fragment(R.layout.fragment_graph) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-      /*  //Push all the Required Data to firebase
-        PushDataToFireBase( FirebaseFirestore.getInstance())*/
+//        //Push all the Required Data to firebase
+//        PushDataToFireBase( FirebaseFirestore.getInstance())
 
 
         val movieRepository = MovieRepository(
@@ -66,8 +65,6 @@ class GraphFragment : Fragment(R.layout.fragment_graph) {
         movieViewModel.fetchBarChartData(Constant.GRAPH_ID)
         movieViewModel.fetchLineChartData(Constant.GRAPH_ID)
     }
-
-
     }
 
     private fun setupPieChart(pieChart: PieChart, data: List<PieChartData>) {

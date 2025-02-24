@@ -47,29 +47,29 @@ class PushDataToFireBase(private val db: FirebaseFirestore) {
 
         // Push Pie Chart Data
         getPieChartData().forEach { data ->
-            db.collection("graph").document(graphId)
-                .collection("piechart").document()
+            db.collection(Constant.GRAPH).document(graphId)
+                .collection(Constant.PIE_CHART).document()
                 .set(data)
-                .addOnSuccessListener { Log.d("Firestore", "PieChart Data Added: $data") }
-                .addOnFailureListener { e -> Log.e("Firestore", "Error adding PieChart data", e) }
+                .addOnSuccessListener { Log.d(Constant.FIRE_STORE, "PieChart Data Added: $data") }
+                .addOnFailureListener { e -> Log.e(Constant.FIRE_STORE, "Error adding PieChart data", e) }
         }
 
         // Push Bar Chart Data (Fixing Wrong Data)
         getBarChartData().forEach { data ->
-            db.collection("graph").document(graphId)
-                .collection("barchart").document()
+            db.collection(Constant.GRAPH).document(graphId)
+                .collection(Constant.BAR_CHART).document()
                 .set(data)
-                .addOnSuccessListener { Log.d("Firestore", "BarChart Data Added: $data") }
-                .addOnFailureListener { e -> Log.e("Firestore", "Error adding BarChart data", e) }
+                .addOnSuccessListener { Log.d(Constant.FIRE_STORE, "BarChart Data Added: $data") }
+                .addOnFailureListener { e -> Log.e(Constant.FIRE_STORE, "Error adding BarChart data", e) }
         }
 
         // Push Line Chart Data
         getLineChartData().forEach { data ->
-            db.collection("graph").document(graphId)
-                .collection("linechart").document()
+            db.collection(Constant.GRAPH).document(graphId)
+                .collection(Constant.LINE_CHART).document()
                 .set(data)
-                .addOnSuccessListener { Log.d("Firestore", "LineChart Data Added: $data") }
-                .addOnFailureListener { e -> Log.e("Firestore", "Error adding LineChart data", e) }
+                .addOnSuccessListener { Log.d(Constant.FIRE_STORE, "LineChart Data Added: $data") }
+                .addOnFailureListener { e -> Log.e(Constant.FIRE_STORE, "Error adding LineChart data", e) }
         }
     }
 }

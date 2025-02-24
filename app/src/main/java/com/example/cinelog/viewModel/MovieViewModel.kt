@@ -18,42 +18,68 @@ class MovieViewModel(private val movieRepository: MovieRepository) : ViewModel()
     private val _categoryList = MutableLiveData<List<Category>>()
     val categoryList: LiveData<List<Category>> = _categoryList
 
-    private  val _pieChartDataList = MutableLiveData<List<PieChartData>>()
-    val  pieChartDataList: LiveData<List<PieChartData>> = _pieChartDataList
+    private val _pieChartDataList = MutableLiveData<List<PieChartData>>()
+    val pieChartDataList: LiveData<List<PieChartData>> = _pieChartDataList
 
-    private  val _barChartDataList = MutableLiveData<List<BarChartData>>()
-    val  barChartDataList: LiveData<List<BarChartData>> = _barChartDataList
+    private val _barChartDataList = MutableLiveData<List<BarChartData>>()
+    val barChartDataList: LiveData<List<BarChartData>> = _barChartDataList
 
-    private  val _lineChartDataList = MutableLiveData<List<LineChartData>>()
-    val  lineChartDataList: LiveData<List<LineChartData>> = _lineChartDataList
+    private val _lineChartDataList = MutableLiveData<List<LineChartData>>()
+    val lineChartDataList: LiveData<List<LineChartData>> = _lineChartDataList
 
-
+    // Fetching Movies from the repository (API)
     suspend fun fetchMovies(searchQuery: String, page: Int) {
-
         val movieResponse = movieRepository.getMovies(searchQuery, page)
         val currentList = _movieList.value ?: emptyList()
         _movieList.postValue(currentList + movieResponse)
     }
 
+    // Fetching PieChart data from FireStore
     fun fetchPieChartData(graphId: String) {
         movieRepository.getPieChartData(graphId) { data ->
             _pieChartDataList.postValue(data)
         }
     }
 
+    // Fetching BarChart data from FireStore
     fun fetchBarChartData(graphId: String) {
         movieRepository.getBarChartData(graphId) { data ->
             _barChartDataList.postValue(data)
         }
     }
 
+    // Fetching LineChart data from FireStore
     fun fetchLineChartData(graphId: String) {
         movieRepository.getLineChartData(graphId) { data ->
             _lineChartDataList.postValue(data)
         }
     }
 
+    // Save a favourite movie to FireStore (Favourite Movies collection)
+    fun saveMovie(movie: Movie) {
+        movieRepository.saveMovie(movie)
+    }
 
+    // Fetching all favourite movies from FireStore (Favourite Movies collection)
+    fun fetchMoviesFromFireStore() {
+        movieRepository.getMoviesList { movieList ->
+            _movieList.postValue(movieList)
+        }
+    }
+
+    // Saving  my_movie to FireStore (My Movies collection)
+    fun saveMyMovie(movie: Movie) {
+        movieRepository.saveMyMovie(movie)
+    }
+
+    // Fetching all my_movies from FireStore (My Movies collection)
+    fun fetchMyMoviesFromFireStore() {
+        movieRepository.getMyMoviesList { myMoviesList ->
+            _movieList.postValue(myMoviesList)
+        }
+    }
+
+    // Fetching predefined categories
     fun fetchCategories() {
         val categories = listOf(
             Category("Action", "https://cdn-icons-png.flaticon.com/512/16391/16391182.png"),
@@ -65,4 +91,5 @@ class MovieViewModel(private val movieRepository: MovieRepository) : ViewModel()
         )
         _categoryList.value = categories
     }
+
 }

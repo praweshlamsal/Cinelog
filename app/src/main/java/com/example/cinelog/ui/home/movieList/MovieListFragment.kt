@@ -48,7 +48,6 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list),MovieListView {
     private lateinit var categoryAdapter: CategoryAdapter
     private lateinit var sharedPrefHelper: SharedPrefHelper
 
-
     private var currentPage = 1
 
     override fun onCreateView(
