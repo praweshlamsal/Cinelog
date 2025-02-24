@@ -12,7 +12,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class MovieRepository(private val apiService: ApiService, private val db: FirebaseFirestore) {
 
-    suspend fun getMovies(searchQuery: String, page: Int): List<Movie> {
+   public suspend fun getMovies(searchQuery: String, page: Int): List<Movie> {
         return try {
             val response = apiService.getMovieList(searchQuery, Constant.API_KEY, page)
             Log.d(Constant.MOVIE_REPO, "API Response: $response")
@@ -160,6 +160,11 @@ class MovieRepository(private val apiService: ApiService, private val db: Fireba
                 Log.e(Constant.MOVIE_REPO, "Error fetching my movies", e)
                 callback(emptyList()) // Return empty list in case of error
             }
+    }
+
+    suspend fun getRandomMovie(): Movie {
+        return getMovies("movie" , 1).random()
+
     }
 
 }

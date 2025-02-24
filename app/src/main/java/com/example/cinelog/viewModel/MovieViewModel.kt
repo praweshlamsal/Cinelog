@@ -3,17 +3,22 @@ package com.example.cinelog.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.cinelog.data.repository.MovieRepository
 import com.example.cinelog.model.BarChartData
 import com.example.cinelog.model.Category
 import com.example.cinelog.model.LineChartData
 import com.example.cinelog.model.Movie
 import com.example.cinelog.model.PieChartData
+import kotlinx.coroutines.launch
 
 class MovieViewModel(private val movieRepository: MovieRepository) : ViewModel() {
 
     private val _movieList = MutableLiveData<List<Movie>>()
     val movieList: LiveData<List<Movie>> = _movieList
+
+    private val _randomMovie = MutableLiveData<Movie>()
+    val randomMovie: LiveData<Movie> get() = _randomMovie
 
     private val _categoryList = MutableLiveData<List<Category>>()
     val categoryList: LiveData<List<Category>> = _categoryList
@@ -92,4 +97,10 @@ class MovieViewModel(private val movieRepository: MovieRepository) : ViewModel()
         _categoryList.value = categories
     }
 
+    fun fetchRandomMovie() {
+        viewModelScope.launch {
+            val movie = movieRepository.getRandomMovie()
+            _randomMovie.postValue(movie)
+        }
+    }
 }

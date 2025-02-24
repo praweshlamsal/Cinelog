@@ -31,6 +31,7 @@ import com.example.cinelog.model.Movie
 import com.example.cinelog.ui.home.movieList.adapters.CategoryAdapter
 import com.example.cinelog.ui.home.movieList.adapters.MovieAdapter
 import com.example.cinelog.ui.home.saveMovie.SaveMovieActivity
+import com.example.cinelog.ui.shakeToSuggest.ShakeToSuggestActivity
 import com.example.cinelog.viewModel.MovieViewModel
 import com.example.cinelog.viewModel.MovieViewModelFactory
 import com.google.firebase.firestore.FirebaseFirestore
@@ -90,6 +91,10 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list),MovieListView {
 
         movieViewModel.categoryList.observe(viewLifecycleOwner) { categoryList ->
             categoryAdapter.submitList(categoryList)
+        }
+        binding.btRdmMovie.setOnClickListener{
+            val intent = Intent(requireContext(), ShakeToSuggestActivity::class.java)
+            startActivity(intent)
         }
 
 

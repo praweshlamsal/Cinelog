@@ -13,4 +13,7 @@
     <string name="year">Year</string>
     <string name="my_movie">My Movie</string>
     <string name="movie_details">Movie Details</string>
+    <string name="shake_your_device">SHAKE YOUR DEVICE</string>
+    <string name="retry">Retry</string>
+    <string name="suggest_random_movie">Suggest Random Movie</string>
 </resources>

@@ -73,4 +73,7 @@ dependencies {
     implementation(libs.firebaseAnalytics)
     implementation(libs.firestore)
 
+    //for animation
+    implementation(libs.lottie)
+
 }
