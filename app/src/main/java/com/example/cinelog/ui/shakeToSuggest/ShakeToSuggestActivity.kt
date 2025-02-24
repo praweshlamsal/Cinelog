@@ -23,6 +23,7 @@ import com.example.cinelog.viewModel.MovieViewModelFactory
 import com.google.firebase.firestore.FirebaseFirestore
 
 class ShakeToSuggestActivity : AppCompatActivity(), SensorEventListener {
+
     private lateinit var binding: ActivityShakeToSuggestBinding
     private var sensorManager: SensorManager? = null
     private var lastShakeTime: Long = 0
@@ -45,6 +46,7 @@ class ShakeToSuggestActivity : AppCompatActivity(), SensorEventListener {
         vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
 
         startInitialAnimation()
+
         viewModel.randomMovie.observe(this) { movie ->
             updateMovieUI(movie)
         }
@@ -166,7 +168,11 @@ class ShakeToSuggestActivity : AppCompatActivity(), SensorEventListener {
             cancelAnimation()
         }
 
-        startInitialAnimation()
+        // Make lavCatInHole invisible and show lavShakeDevice & lavCatInBottom
+        binding.lavCatInHole.visibility = View.GONE
+        binding.lavShakeDevice.visibility = View.VISIBLE
+        binding.lavCatInBottom.visibility = View.VISIBLE
+        binding.tvShakeYourPhone.visibility = View.VISIBLE
     }
 
     private fun vibratePhone() {
