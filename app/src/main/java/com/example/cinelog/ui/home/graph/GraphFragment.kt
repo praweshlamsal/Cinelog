@@ -4,111 +4,136 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.cinelog.R
+import com.example.cinelog.data.remote.network.RetrofitClient
+import com.example.cinelog.data.repository.MovieRepository
+import com.example.cinelog.model.BarChartData
+import com.example.cinelog.model.LineChartData
+import com.example.cinelog.model.PieChartData
+import com.example.cinelog.util.Constant
+import com.example.cinelog.util.PushDataToFireBase
+import com.example.cinelog.viewModel.MovieViewModel
+import com.example.cinelog.viewModel.MovieViewModelFactory
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.charts.PieChart
-import com.github.mikephil.charting.data.BarData
-import com.github.mikephil.charting.data.BarDataSet
-import com.github.mikephil.charting.data.BarEntry
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.data.PieData
-import com.github.mikephil.charting.data.PieDataSet
-import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.google.firebase.firestore.FirebaseFirestore
 
 class GraphFragment : Fragment(R.layout.fragment_graph) {
 
+
+    private lateinit var movieViewModel: MovieViewModel
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+      /*  //Push all the Required Data to firebase
+        PushDataToFireBase( FirebaseFirestore.getInstance())*/
+
+
+        val movieRepository = MovieRepository(
+            apiService = RetrofitClient.apiService,
+            db = FirebaseFirestore.getInstance()
+        )
+
+        val factory = MovieViewModelFactory.MovieViewModelFactory(movieRepository)
+        movieViewModel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
+
 
         val pieChart = view.findViewById<PieChart>(R.id.pieChart)
         val barChart = view.findViewById<BarChart>(R.id.barChart)
         val lineChart = view.findViewById<LineChart>(R.id.lineChart)
 
-        setupPieChart(pieChart)
-        setupBarChart(barChart)
-        setupLineChart(lineChart)
+
+        movieViewModel.pieChartDataList.observe(viewLifecycleOwner, Observer {
+            setupPieChart(pieChart, it)
+        })
+
+        movieViewModel.barChartDataList.observe(viewLifecycleOwner, Observer {
+            setupBarChart(barChart, it)
+        })
+
+        movieViewModel.lineChartDataList.observe(viewLifecycleOwner, Observer {
+            setupLineChart(lineChart, it)
+        })
+
+
+        movieViewModel.fetchPieChartData(Constant.GRAPH_ID)
+        movieViewModel.fetchBarChartData(Constant.GRAPH_ID)
+        movieViewModel.fetchLineChartData(Constant.GRAPH_ID)
     }
 
 
-    private fun setupPieChart(pieChart: PieChart) {
-        val entries = listOf(
-            PieEntry(35f, "Action"),
-            PieEntry(25f, "Comedy"),
-            PieEntry(15f, "Drama"),
-            PieEntry(10f, "Horror"),
-            PieEntry(15f, "Sci-Fi")
-        )
+    }
 
-        val dataSet = PieDataSet(entries, "Genre Popularity")
-        dataSet.colors = listOf(0xFF9B5A5A.toInt(), // Matte Red
-            0xFF6D7072.toInt(), // Matte Blue
-            0xFF5E7350.toInt(), // Matte Green
-            0xFFD1B77F.toInt(), // Matte Yellow
-            0xFF946C81.toInt()) // Matte Magenta
+    private fun setupPieChart(pieChart: PieChart, data: List<PieChartData>) {
+        val entries = data.map { PieEntry(it.percentage, it.category) }
 
-        val data = PieData(dataSet)
-        pieChart.data = data
+        val dataSet = PieDataSet(entries, "Genre Popularity").apply {
+            colors = listOf(
+                0xFF9B5A5A.toInt(), // Matte Red
+                0xFF6D7072.toInt(), // Matte Blue
+                0xFF5E7350.toInt(), // Matte Green
+                0xFFD1B77F.toInt(), // Matte Yellow
+                0xFF946C81.toInt()  // Matte Magenta
+            )
+        }
+
+        pieChart.data = PieData(dataSet)
         pieChart.description.text = "Movie Genre Popularity (%)"
         pieChart.animateY(1000)
         pieChart.setEntryLabelColor(Color.BLACK)
     }
 
+    private fun setupBarChart(barChart: BarChart, data: List<BarChartData>) {
+        val entries = data.mapIndexed { index, barData -> BarEntry(index.toFloat(), barData.watchHours) }
+        val labels = data.map { it.movieName }
 
-    private fun setupBarChart(barChart: BarChart) {
-        val entries = listOf(
-            BarEntry(0f, 120f),
-            BarEntry(1f, 95f),
-            BarEntry(2f, 85f),
-            BarEntry(3f, 70f),
-            BarEntry(4f, 60f)
-        )
+        val dataSet = BarDataSet(entries, "Top 5 Watched Movies").apply {
+            colors = listOf(
+                0xFF6D7072.toInt(), 0xFF7FA6B8.toInt(),
+                0xFF8B8C89.toInt(), 0xFF5E7350.toInt(),
+                0xFF9B5A5A.toInt()
+            )
+        }
 
-        val labels = listOf("Inception", "Avengers", "Interstellar", "Joker", "Parasite")
-        val dataSet = BarDataSet(entries, "Top 5 Watched Movies")
-        dataSet.colors = listOf(0xFF6D7072.toInt(), 0xFF7FA6B8.toInt(), 0xFF8B8C89.toInt(), 0xFF5E7350.toInt(), 0xFF9B5A5A.toInt())
-
-
-        val data = BarData(dataSet)
-        barChart.data = data
+        barChart.data = BarData(dataSet)
         barChart.description.text = "Total Watch Hours per Movie"
         barChart.setFitBars(true)
         barChart.animateY(1000)
 
-        val xAxis = barChart.xAxis
-        xAxis.valueFormatter = IndexAxisValueFormatter(labels)
-        xAxis.granularity = 1f
-        xAxis.setDrawGridLines(false)
+        barChart.xAxis.apply {
+            valueFormatter = IndexAxisValueFormatter(labels)
+            granularity = 1f
+            setDrawGridLines(false)
+        }
     }
 
+    private fun setupLineChart(lineChart: LineChart, data: List<LineChartData>) {
+        val entries = data.mapIndexed { index, lineData -> Entry(index.toFloat(), lineData.watchHours) }
+        val labels = data.map { it.day }
 
-    private fun setupLineChart(lineChart: LineChart) {
-        val entries = listOf(
-            Entry(0f, 3.5f),
-            Entry(1f, 4.0f),
-            Entry(2f, 2.8f),
-            Entry(3f, 5.2f),
-            Entry(4f, 4.8f)
-        )
+        val dataSet = LineDataSet(entries, "Daily Watch Time (Hours)").apply {
+            color = 0xFF6D7072.toInt() // Matte Blue
+            valueTextColor = Color.BLACK
+            setDrawCircles(true)
+            setCircleColor(Color.RED)
+        }
 
-        val labels = listOf("Mon", "Tue", "Wed", "Thu", "Fri")
-        val dataSet = LineDataSet(entries, "Daily Watch Time (Hours)")
-        dataSet.color = 0xFF6D7072.toInt() // Matte Blue
-        dataSet.valueTextColor = Color.BLACK
-        dataSet.setDrawCircles(true)
-        dataSet.setCircleColor(Color.RED)
-
-        val data = LineData(dataSet)
-        lineChart.data = data
+        lineChart.data = LineData(dataSet)
         lineChart.description.text = "Daily Watch Hours Trend"
         lineChart.animateX(1000)
 
-        val xAxis = lineChart.xAxis
-        xAxis.valueFormatter = IndexAxisValueFormatter(labels)
-        xAxis.granularity = 1f
-        xAxis.setDrawGridLines(false)
+        lineChart.xAxis.apply {
+            valueFormatter = IndexAxisValueFormatter(labels)
+            granularity = 1f
+            setDrawGridLines(false)
+        }
     }
-}
+
+
+

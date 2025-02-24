@@ -4,8 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.cinelog.data.repository.MovieRepository
+import com.example.cinelog.model.BarChartData
 import com.example.cinelog.model.Category
+import com.example.cinelog.model.LineChartData
 import com.example.cinelog.model.Movie
+import com.example.cinelog.model.PieChartData
 
 class MovieViewModel(private val movieRepository: MovieRepository) : ViewModel() {
 
@@ -15,6 +18,14 @@ class MovieViewModel(private val movieRepository: MovieRepository) : ViewModel()
     private val _categoryList = MutableLiveData<List<Category>>()
     val categoryList: LiveData<List<Category>> = _categoryList
 
+    private  val _pieChartDataList = MutableLiveData<List<PieChartData>>()
+    val  pieChartDataList: LiveData<List<PieChartData>> = _pieChartDataList
+
+    private  val _barChartDataList = MutableLiveData<List<BarChartData>>()
+    val  barChartDataList: LiveData<List<BarChartData>> = _barChartDataList
+
+    private  val _lineChartDataList = MutableLiveData<List<LineChartData>>()
+    val  lineChartDataList: LiveData<List<LineChartData>> = _lineChartDataList
 
 
     suspend fun fetchMovies(searchQuery: String, page: Int) {
@@ -23,6 +34,25 @@ class MovieViewModel(private val movieRepository: MovieRepository) : ViewModel()
         val currentList = _movieList.value ?: emptyList()
         _movieList.postValue(currentList + movieResponse)
     }
+
+    fun fetchPieChartData(graphId: String) {
+        movieRepository.getPieChartData(graphId) { data ->
+            _pieChartDataList.postValue(data)
+        }
+    }
+
+    fun fetchBarChartData(graphId: String) {
+        movieRepository.getBarChartData(graphId) { data ->
+            _barChartDataList.postValue(data)
+        }
+    }
+
+    fun fetchLineChartData(graphId: String) {
+        movieRepository.getLineChartData(graphId) { data ->
+            _lineChartDataList.postValue(data)
+        }
+    }
+
 
     fun fetchCategories() {
         val categories = listOf(

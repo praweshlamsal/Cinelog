@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.org.jetbrains.kotlin.kapt)
+    alias {libs.plugins.googleservices }
 }
 
 android {
@@ -68,4 +69,8 @@ dependencies {
 
     implementation(libs.glide)
     implementation(libs.mpandroidchart)
+    implementation(platform(libs.firebase))
+    implementation(libs.firebaseAnalytics)
+    implementation(libs.firestore)
+
 }

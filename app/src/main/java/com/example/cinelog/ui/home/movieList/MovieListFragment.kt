@@ -33,6 +33,7 @@ import com.example.cinelog.ui.home.movieList.adapters.MovieAdapter
 import com.example.cinelog.ui.home.saveMovie.SaveMovieActivity
 import com.example.cinelog.viewModel.MovieViewModel
 import com.example.cinelog.viewModel.MovieViewModelFactory
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import java.io.File
@@ -59,6 +60,7 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list),MovieListView {
         // Initialize ViewModel
         val movieRepository = MovieRepository(
             apiService = RetrofitClient.apiService,
+            db = FirebaseFirestore.getInstance()
         )
 
         val factory = MovieViewModelFactory.MovieViewModelFactory(movieRepository)

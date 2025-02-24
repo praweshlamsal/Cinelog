@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "970549858565",
+    "project_id": "cinelog-daea5",
+    "storage_bucket": "cinelog-daea5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:970549858565:android:04bd6331422d0d7f95e76c",
+        "android_client_info": {
+          "package_name": "com.example.cinelog"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2R6j1t5jCuEx7R2JxdlsQNdUAc7BTSj4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
