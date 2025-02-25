@@ -30,6 +30,7 @@ class ShakeToSuggestActivity : AppCompatActivity(), SensorEventListener {
     private lateinit var viewModel: MovieViewModel
     private var vibrator: Vibrator? = null
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityShakeToSuggestBinding.inflate(layoutInflater)
@@ -53,6 +54,9 @@ class ShakeToSuggestActivity : AppCompatActivity(), SensorEventListener {
 
         binding.btRetry.setOnClickListener {
             resetProcess()
+        }
+        binding.ivBack.setOnClickListener{
+            this.finish()
         }
     }
 
@@ -104,7 +108,7 @@ class ShakeToSuggestActivity : AppCompatActivity(), SensorEventListener {
             binding.lavCatInHole.visibility = View.GONE
             binding.lavCatInBottom.visibility = View.VISIBLE
             binding.lavShakeDevice.visibility = View.VISIBLE
-        }, 2000)
+        }, 3000)
     }
 
     private fun onShakeDetected() {

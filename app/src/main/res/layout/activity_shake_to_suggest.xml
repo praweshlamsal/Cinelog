@@ -7,7 +7,14 @@
     android:layout_height="match_parent"
     android:background="#88D4C9"
     tools:context=".ui.shakeToSuggest.ShakeToSuggestActivity">
-
+<ImageView
+    android:id="@+id/ivBack"
+    android:padding="16dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/ic_black_back"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"/>
     <TextView
         android:id="@+id/tvShakeYourPhone"
         android:layout_margin="12dp"
