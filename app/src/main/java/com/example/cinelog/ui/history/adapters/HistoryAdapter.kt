@@ -14,14 +14,15 @@ class HistoryAdapter(private val historyEvents: List<HistoryEvent>) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
+
         val binding = ItemHistoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return HistoryViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
         val historyEvent = historyEvents[position]
-        holder.binding.tvAction.text = historyEvent.action
-        holder.binding.tvMovieTitle.text = historyEvent.movieTitle
+        holder.binding.tvAction.text = historyEvent.movie_action
+        holder.binding.tvMovieTitle.text = historyEvent.movie_name
     }
 
     override fun getItemCount(): Int = historyEvents.size

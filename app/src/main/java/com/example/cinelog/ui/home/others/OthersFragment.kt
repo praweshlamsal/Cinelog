@@ -10,14 +10,18 @@ import android.widget.ListView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.cinelog.R
+import com.example.cinelog.data.remote.network.RetrofitClient
+import com.example.cinelog.data.repository.MovieRepository
 import com.example.cinelog.databinding.FragmentOthersBinding
 import com.example.cinelog.ui.history.HistoryActivity
-import com.example.cinelog.viewModel.HistoryViewModel
+import com.example.cinelog.viewModel.MovieViewModel
+import com.example.cinelog.viewModel.MovieViewModelFactory
+import com.google.firebase.firestore.FirebaseFirestore
 
 class OthersFragment : Fragment(R.layout.fragment_others) {
     private lateinit var binding: FragmentOthersBinding
     private lateinit var listView: ListView
-    private lateinit var historyViewModel: HistoryViewModel
+    private lateinit var historyViewModel: MovieViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,7 +31,14 @@ class OthersFragment : Fragment(R.layout.fragment_others) {
         binding = FragmentOthersBinding.inflate(inflater, container, false)
 
         // Initialize ViewModel
-        historyViewModel = ViewModelProvider(this).get(HistoryViewModel::class.java)
+        val movieRepository = MovieRepository(
+            apiService = RetrofitClient.apiService,
+            db = FirebaseFirestore.getInstance()
+        )
+
+        val factory =  MovieViewModelFactory.MovieViewModelFactory(movieRepository)
+        historyViewModel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
+
 
         // Initialize ListView from View Binding
         listView = binding.listViewOthers

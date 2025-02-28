@@ -10,14 +10,18 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cinelog.R
+import com.example.cinelog.data.remote.network.RetrofitClient
+import com.example.cinelog.data.repository.MovieRepository
 import com.example.cinelog.databinding.ActivityHistoryBinding
 import com.example.cinelog.ui.history.adapters.HistoryAdapter
-import com.example.cinelog.viewModel.HistoryViewModel
+import com.example.cinelog.viewModel.MovieViewModel
+import com.example.cinelog.viewModel.MovieViewModelFactory
+import com.google.firebase.firestore.FirebaseFirestore
 
 class HistoryActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHistoryBinding
-    private lateinit var historyViewModel: HistoryViewModel
+    private lateinit var movieViewModel: MovieViewModel
     private lateinit var historyAdapter: HistoryAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,17 +33,27 @@ class HistoryActivity : AppCompatActivity() {
             this.finish()
         }
 
+        val movieRepository = MovieRepository(
+            apiService = RetrofitClient.apiService,
+            db = FirebaseFirestore.getInstance()
+        )
+
+        val factory =  MovieViewModelFactory.MovieViewModelFactory(movieRepository)
+        movieViewModel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
+
+
         // Initialize RecyclerView with LayoutManager
         binding.recyclerViewHistoryDetails.layoutManager = LinearLayoutManager(this)
 
         // Initialize ViewModel
-        historyViewModel = ViewModelProvider(this).get(HistoryViewModel::class.java)
 
         // Observe LiveData from ViewModel
-        historyViewModel.historyEvents.observe(this, Observer { historyEvents ->
+        movieViewModel.historyEvents.observe(this, Observer { historyEvents ->
             // Set the adapter with the list of history events
             historyAdapter = HistoryAdapter(historyEvents)
             binding.recyclerViewHistoryDetails.adapter = historyAdapter
         })
+
+        movieViewModel.fetchHistory()
     }
 }
