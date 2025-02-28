@@ -1,15 +1,11 @@
 package com.example.cinelog.data.local.sharedPref
 
-
-
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.cinelog.model.Movie
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-
-
 
 class SharedPrefHelper(context: Context) {
     private val sharedPreferences: SharedPreferences =
