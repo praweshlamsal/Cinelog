@@ -61,7 +61,6 @@ class MyMovieListFragment : Fragment(R.layout.fragment_favorites), MyMoviesView 
 
         movieViewModel.fetchMyMoviesFromFireStore();
 
-        //binding
 
     }
 
