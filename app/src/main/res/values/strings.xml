@@ -16,4 +16,5 @@
     <string name="shake_your_device">SHAKE YOUR DEVICE</string>
     <string name="retry">Retry</string>
     <string name="suggest_random_movie">Suggest Random Movie</string>
+    <string name="update_movie">Update movie</string>
 </resources>

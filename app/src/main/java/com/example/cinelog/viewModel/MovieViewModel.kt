@@ -97,10 +97,20 @@ class MovieViewModel(private val movieRepository: MovieRepository) : ViewModel()
         _categoryList.value = categories
     }
 
+
     fun fetchRandomMovie() {
         viewModelScope.launch {
             val movie = movieRepository.getRandomMovie()
             _randomMovie.postValue(movie)
         }
+    }
+
+    fun deleteMyMovie(movie: Movie) {
+        movieRepository.deleteMyMovieFirebase(movie)
+
+    }
+
+    fun editMyMovie(movie: Movie) {
+        movieRepository.editMyMoviesFirebase(movie)
     }
 }

@@ -1,26 +1,67 @@
 package com.example.cinelog.ui.home.saveMovie
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 import com.example.cinelog.R
 import com.example.cinelog.data.local.sharedPref.SharedPrefHelper
+import com.example.cinelog.data.remote.network.RetrofitClient
+import com.example.cinelog.data.repository.MovieRepository
 import com.example.cinelog.databinding.ActivitySaveMovieBinding
 import com.example.cinelog.model.Movie
+import com.example.cinelog.viewModel.MovieViewModel
+import com.example.cinelog.viewModel.MovieViewModelFactory
+import com.google.firebase.firestore.FirebaseFirestore
+
 
 class SaveMovieActivity : AppCompatActivity() {
+
+    private var isEditMode: Boolean = false
+    private lateinit var movieViewModel: MovieViewModel
     private lateinit var binding: ActivitySaveMovieBinding
-    private lateinit var sharedPrefHelper: SharedPrefHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySaveMovieBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        sharedPrefHelper = SharedPrefHelper(this)
+        isEditMode = intent.getBooleanExtra("isEditMode", false)
+
+        if (isEditMode) {
+            // Retrieve existing movie data
+            val title = intent.getStringExtra("title") ?: ""
+            val poster = intent.getStringExtra("poster") ?: ""
+            val imdbID = intent.getStringExtra("imdbID") ?: ""
+            val type = intent.getStringExtra("type") ?: ""
+            val year = intent.getStringExtra("year") ?: ""
+
+            // Assign values to the EditText fields
+            binding.etTitle.setText(title)
+            binding.etPoster.setText(poster)
+            binding.etImdbID.setText(imdbID)
+            binding.etType.setText(type)
+            binding.etYear.setText(year)
+
+            // Update button text to "Update Movie"
+            binding.btnSaveMovie.text = getString(R.string.update_movie)
+
+        } else {
+            Log.d("SaveMovieActivity", "Creating a New Movie")
+        }
+
+        val movieRepository = MovieRepository(
+            apiService = RetrofitClient.apiService,
+            db = FirebaseFirestore.getInstance()
+        )
+
+        val factory = MovieViewModelFactory.MovieViewModelFactory(movieRepository)
+        movieViewModel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
+
 
         binding.btnSaveMovie.setOnClickListener {
             saveMovie()
@@ -73,7 +114,7 @@ class SaveMovieActivity : AppCompatActivity() {
         }
 
         val movie = Movie(title = title, poster = poster, imdbID = imdbID, type = type, year = year, query = "null")
-        sharedPrefHelper.saveMyMovie(movie)
+        movieViewModel.saveMyMovie(movie)
         showToast("Movie saved successfully")
         finish()
     }

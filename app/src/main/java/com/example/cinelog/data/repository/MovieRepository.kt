@@ -166,8 +166,52 @@ class MovieRepository(private val apiService: ApiService, private val db: Fireba
         return getMovies("movie" , 1).random()
 
     }
+    fun deleteMyMovieFirebase(movie: Movie) {
+        val myMoviesRef = db.collection(Constant.MY_MOVIES_COLLECTION)
 
-}
+        myMoviesRef.whereEqualTo("title", movie.title)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                for (document in querySnapshot) {
+                    myMoviesRef.document(document.id)
+                        .delete()
+                        .addOnSuccessListener {
+                            Log.d(Constant.MOVIE_REPO, "Movie deleted: ${document.id}")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e(Constant.MOVIE_REPO, "Error deleting movie", e)
+                        }
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.e(Constant.MOVIE_REPO, "Error finding movie to delete", e)
+            }
+
+    }
+
+    fun editMyMoviesFirebase(movie: Movie) {
+        val myMoviesRef = db.collection(Constant.MY_MOVIES_COLLECTION)
+
+        myMoviesRef.whereEqualTo("title", movie.title)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                for (document in querySnapshot) {
+                    myMoviesRef.document(document.id)
+                        .set(movie)
+                        .addOnSuccessListener {
+                            Log.d(Constant.MOVIE_REPO, "Movie updated: ${document.id}")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e(Constant.MOVIE_REPO, "Error updating movie", e)
+                        }
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.e(Constant.MOVIE_REPO, "Error finding movie to update", e)
+            }
+    }
+
+    }
 
 
 

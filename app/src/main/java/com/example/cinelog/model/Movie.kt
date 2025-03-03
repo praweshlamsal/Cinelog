@@ -11,20 +11,20 @@ data class Movie(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
 
     @SerializedName("Title")
-    val title: String,
+    val title: String = "",
 
     @SerializedName("Poster")
-    val poster: String?,
+    val poster: String = "",
 
     @SerializedName("imdbID")
-    val imdbID: String?,
+    val imdbID: String = "",
 
     @SerializedName("Type")
-    val type: String?,
+    val type: String = "",
 
     @SerializedName("Year")
-    val year: String?,
+    val year: String = "",
 
     @ColumnInfo(name = "search_query")
-    val query: String
+    val query: String = "",
 )
