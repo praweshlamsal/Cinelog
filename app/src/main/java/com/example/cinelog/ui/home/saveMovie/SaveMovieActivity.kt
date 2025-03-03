@@ -1,5 +1,6 @@
 package com.example.cinelog.ui.home.saveMovie
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -17,6 +18,7 @@ import com.example.cinelog.model.Movie
 import com.example.cinelog.viewModel.MovieViewModel
 import com.example.cinelog.viewModel.MovieViewModelFactory
 import com.google.firebase.firestore.FirebaseFirestore
+import java.util.UUID
 
 
 class SaveMovieActivity : AppCompatActivity() {
@@ -24,7 +26,7 @@ class SaveMovieActivity : AppCompatActivity() {
     private var isEditMode: Boolean = false
     private lateinit var movieViewModel: MovieViewModel
     private lateinit var binding: ActivitySaveMovieBinding
-
+    private lateinit var  id: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySaveMovieBinding.inflate(layoutInflater)
@@ -34,6 +36,7 @@ class SaveMovieActivity : AppCompatActivity() {
 
         if (isEditMode) {
             // Retrieve existing movie data
+             id = intent.getStringExtra("id") ?: ""
             val title = intent.getStringExtra("title") ?: ""
             val poster = intent.getStringExtra("poster") ?: ""
             val imdbID = intent.getStringExtra("imdbID") ?: ""
@@ -113,9 +116,17 @@ class SaveMovieActivity : AppCompatActivity() {
             return
         }
 
-        val movie = Movie(title = title, poster = poster, imdbID = imdbID, type = type, year = year, query = "null")
-        movieViewModel.saveMyMovie(movie)
-        showToast("Movie saved successfully")
+        if (isEditMode){
+            Log.d(TAG, "EditMovie: $id")
+            val movie = Movie( id = id, title = title, poster = poster, imdbID = imdbID, type = type, year = year, query = "null")
+            movieViewModel.editMyMovie(movie)
+            showToast("Movie edited successfully")
+        }else{
+            val movie = Movie( id = UUID.randomUUID().toString(),title = title, poster = poster, imdbID = imdbID, type = type, year = year, query = "null")
+            movieViewModel.saveMyMovie(movie)
+            showToast("Movie saved successfully")
+        }
+
         finish()
     }
 

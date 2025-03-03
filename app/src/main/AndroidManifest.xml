@@ -24,7 +24,7 @@
         <activity
             android:name=".ui.shakeToSuggest.ShakeToSuggestActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

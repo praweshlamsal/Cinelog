@@ -72,6 +72,7 @@ class MyMovieListFragment : Fragment(R.layout.fragment_favorites), MyMoviesView 
 
     override fun editMovie(movie: Movie) {
         val intent = Intent(requireContext(), SaveMovieActivity::class.java).apply {
+            putExtra("id",movie.id)
             putExtra("title", movie.title)
             putExtra("poster", movie.poster)
             putExtra("imdbID", movie.imdbID)

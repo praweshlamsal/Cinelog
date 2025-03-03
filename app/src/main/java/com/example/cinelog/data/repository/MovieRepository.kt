@@ -132,7 +132,7 @@ class MovieRepository(private val apiService: ApiService, private val db: Fireba
     fun saveMyMovie(movie: Movie) {
              val myMoviesRef = db.collection(Constant.MY_MOVIES_COLLECTION)
 
-             myMoviesRef.whereEqualTo("title", movie.title)
+             myMoviesRef.whereEqualTo("id", movie.id)
                  .get()
                  .addOnSuccessListener { querySnapshot ->
                      if (querySnapshot.isEmpty) {
@@ -206,11 +206,15 @@ class MovieRepository(private val apiService: ApiService, private val db: Fireba
 
     fun editMyMoviesFirebase(movie: Movie) {
         val myMoviesRef = db.collection(Constant.MY_MOVIES_COLLECTION)
+        Log.d(Constant.MOVIE_REPO, "Movie updated: }")
 
-        myMoviesRef.whereEqualTo("title", movie.title)
+        myMoviesRef.whereEqualTo("id", movie.id)
+            .limit(1)
             .get()
             .addOnSuccessListener { querySnapshot ->
-                for (document in querySnapshot) {
+                if (!querySnapshot.isEmpty) {
+                    val document = querySnapshot.documents.first()
+
                     myMoviesRef.document(document.id)
                         .set(movie)
                         .addOnSuccessListener {
@@ -223,12 +227,15 @@ class MovieRepository(private val apiService: ApiService, private val db: Fireba
                         .addOnFailureListener { e ->
                             Log.e(Constant.MOVIE_REPO, "Error updating movie", e)
                         }
+                } else {
+                    Log.e(Constant.MOVIE_REPO, "Movie not found with ID: ${movie.id}")
                 }
             }
             .addOnFailureListener { e ->
                 Log.e(Constant.MOVIE_REPO, "Error finding movie to update", e)
             }
     }
+
 
     fun getHistory(callback: (List<HistoryEvent>) -> Unit){
         val myMoviesRef = db.collection(Constant.HISTORY)

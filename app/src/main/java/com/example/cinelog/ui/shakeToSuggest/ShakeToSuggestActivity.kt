@@ -47,17 +47,13 @@ class ShakeToSuggestActivity : AppCompatActivity(), SensorEventListener {
         vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
 
         startInitialAnimation()
+        remaining()
 
         viewModel.randomMovie.observe(this) { movie ->
             updateMovieUI(movie)
         }
 
-        binding.btRetry.setOnClickListener {
-            resetProcess()
-        }
-        binding.ivBack.setOnClickListener{
-            this.finish()
-        }
+
     }
 
     override fun onResume() {
@@ -108,7 +104,7 @@ class ShakeToSuggestActivity : AppCompatActivity(), SensorEventListener {
             binding.lavCatInHole.visibility = View.GONE
             binding.lavCatInBottom.visibility = View.VISIBLE
             binding.lavShakeDevice.visibility = View.VISIBLE
-        }, 3000)
+        }, 3500)
     }
 
     private fun onShakeDetected() {
@@ -143,6 +139,15 @@ class ShakeToSuggestActivity : AppCompatActivity(), SensorEventListener {
             .load(movie.poster)
             .placeholder(R.drawable.ic_movie)
             .into(binding.movieImage)
+    }
+
+    private fun remaining(){
+        binding.btRetry.setOnClickListener {
+            resetProcess()
+        }
+        binding.ivBack.setOnClickListener{
+            this.finish()
+        }
     }
 
     private fun animateCardView() {
