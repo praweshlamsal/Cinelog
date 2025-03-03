@@ -141,7 +141,7 @@ class MovieRepository(private val apiService: ApiService, private val db: Fireba
                              .addOnSuccessListener { documentReference ->
                                  Log.d(Constant.MOVIE_REPO, "My movie added: ${documentReference.id}")
                                  addHistoryEvent(
-                                     action = "Added to Favorites",
+                                     action = "Added New movie",
                                      movie = movie.title
                                  )
                              }
