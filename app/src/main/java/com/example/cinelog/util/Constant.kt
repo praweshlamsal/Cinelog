@@ -13,5 +13,6 @@ class Constant {
         const val BAR_CHART = "bar_chart"
         const val LINE_CHART = "line_chart"
         const val GRAPH = "graph"
+        const val HISTORY = "history"
     }
 }

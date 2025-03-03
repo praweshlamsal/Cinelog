@@ -3,16 +3,18 @@ package com.example.cinelog.data.repository
 import android.util.Log
 import com.example.cinelog.data.remote.ApiService
 import com.example.cinelog.model.BarChartData
+import com.example.cinelog.model.HistoryEvent
 import com.example.cinelog.model.LineChartData
 import com.example.cinelog.model.Movie
 import com.example.cinelog.model.PieChartData
 import com.example.cinelog.util.Constant
-import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
+
 
 class MovieRepository(private val apiService: ApiService, private val db: FirebaseFirestore) {
 
-   public suspend fun getMovies(searchQuery: String, page: Int): List<Movie> {
+    suspend fun getMovies(searchQuery: String, page: Int): List<Movie> {
         return try {
             val response = apiService.getMovieList(searchQuery, Constant.API_KEY, page)
             Log.d(Constant.MOVIE_REPO, "API Response: $response")
@@ -124,26 +126,31 @@ class MovieRepository(private val apiService: ApiService, private val db: Fireba
 
     // Save a movie to "my_movies" collection
     fun saveMyMovie(movie: Movie) {
-        val myMoviesRef = db.collection(Constant.MY_MOVIES_COLLECTION)
+             val myMoviesRef = db.collection(Constant.MY_MOVIES_COLLECTION)
 
-        myMoviesRef.whereEqualTo("title", movie.title)
-            .get()
-            .addOnSuccessListener { querySnapshot ->
-                if (querySnapshot.isEmpty) {
-                    // If movie does not exist in "myMovies", add it
-                    myMoviesRef.add(movie)
-                        .addOnSuccessListener { documentReference ->
-                            Log.d(Constant.MOVIE_REPO, "My movie added: ${documentReference.id}")
-                        }
-                        .addOnFailureListener { e ->
-                            Log.e(Constant.MOVIE_REPO, "Error adding my movie", e)
-                        }
-                }
-            }
-            .addOnFailureListener { e ->
-                Log.e(Constant.MOVIE_REPO, "Error checking for my movie", e)
-            }
-    }
+             myMoviesRef.whereEqualTo("title", movie.title)
+                 .get()
+                 .addOnSuccessListener { querySnapshot ->
+                     if (querySnapshot.isEmpty) {
+                         // If movie does not exist in "myMovies", add it
+                         myMoviesRef.add(movie)
+                             .addOnSuccessListener { documentReference ->
+                                 Log.d(Constant.MOVIE_REPO, "My movie added: ${documentReference.id}")
+                                 addHistoryEvent(
+                                     action = "Added to Favorites",
+                                     movie = movie.title
+                                 )
+                             }
+                             .addOnFailureListener { e ->
+                                 Log.e(Constant.MOVIE_REPO, "Error adding my movie", e)
+                             }
+                     }
+                 }
+                 .addOnFailureListener { e ->
+                     Log.e(Constant.MOVIE_REPO, "Error checking for my movie", e)
+
+                 }
+     }
 
     // Fetch all "my_movies" from FireStore
     fun getMyMoviesList(callback: (List<Movie>) -> Unit) {
@@ -211,6 +218,42 @@ class MovieRepository(private val apiService: ApiService, private val db: Fireba
             }
     }
 
+    fun getHistory(callback: (List<HistoryEvent>) -> Unit){
+        val myMoviesRef = db.collection(Constant.HISTORY)
+        myMoviesRef.get().addOnSuccessListener { result ->
+              val historyList = result.mapNotNull { document ->
+                  document.toObject(HistoryEvent::class.java)
+              }
+            callback(historyList)
+        }.addOnFailureListener{
+            e -> Log.e(Constant.HISTORY,"This is my history", e)
+            callback(emptyList())
+        }
+    }
+
+
+    private fun addHistoryEvent(/*context: Context,*/ action: String, movie: String) {
+        val event = HistoryEvent(
+            id = db.collection("history").document().id, // Generate Firestore ID
+            actionPerformed = action,
+            movieName = movie,
+            timeStamp = System.currentTimeMillis().toString()
+        )
+
+        db.collection("history")
+            .document(event.id)
+            .set(event, SetOptions.merge()) // Merge to avoid overwriting existing data
+            .addOnSuccessListener {
+                Log.d(Constant.MOVIE_REPO, "addHistoryEvent: History event added successfully!")
+                //Toast.makeText(context, "History event added successfully!", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { exception ->
+                Log.d(Constant.MOVIE_REPO, "addHistoryEvent: failure: ${exception.message}")
+                //  Toast.makeText(context, "Failed to add history: ${exception.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+}
     }
 
 

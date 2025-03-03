@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.cinelog.data.repository.MovieRepository
 import com.example.cinelog.model.BarChartData
 import com.example.cinelog.model.Category
+import com.example.cinelog.model.HistoryEvent
 import com.example.cinelog.model.LineChartData
 import com.example.cinelog.model.Movie
 import com.example.cinelog.model.PieChartData
@@ -31,6 +32,10 @@ class MovieViewModel(private val movieRepository: MovieRepository) : ViewModel()
 
     private val _lineChartDataList = MutableLiveData<List<LineChartData>>()
     val lineChartDataList: LiveData<List<LineChartData>> = _lineChartDataList
+
+    private val _historyEvents = MutableLiveData<List<HistoryEvent>>()
+    val historyEvents: LiveData<List<HistoryEvent>> get() = _historyEvents
+
 
     // Fetching Movies from the repository (API)
     suspend fun fetchMovies(searchQuery: String, page: Int) {
@@ -102,6 +107,14 @@ class MovieViewModel(private val movieRepository: MovieRepository) : ViewModel()
         viewModelScope.launch {
             val movie = movieRepository.getRandomMovie()
             _randomMovie.postValue(movie)
+        }
+    }
+
+
+
+    fun fetchHistory() {
+        movieRepository.getHistory { data ->
+            _historyEvents.postValue(data)
         }
     }
 

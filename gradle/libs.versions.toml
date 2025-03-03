@@ -63,6 +63,7 @@ lottie = {group= "com.airbnb.android", name = "lottie", version.ref= "lottieVers
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+
 org-jetbrains-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "org-jetbrains-kotlin-android" }
 googleservices = { id = "com.google.gms.google-services", version.ref= "googleservices" }
 
