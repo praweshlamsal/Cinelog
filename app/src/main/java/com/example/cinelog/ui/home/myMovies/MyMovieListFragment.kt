@@ -87,6 +87,7 @@ class MyMovieListFragment : Fragment(R.layout.fragment_favorites), MyMoviesView 
         movieViewModel.deleteMyMovie(movie)
     }
 
+
     override fun onSharedClicked(movie: Movie) {
         shareMovie(movie)
     }
