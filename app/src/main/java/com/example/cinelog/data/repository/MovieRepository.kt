@@ -8,16 +8,13 @@ import com.example.cinelog.model.LineChartData
 import com.example.cinelog.model.Movie
 import com.example.cinelog.model.PieChartData
 import com.example.cinelog.util.Constant
-import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.tasks.await
-import kotlinx.coroutines.withContext
+
 
 class MovieRepository(private val apiService: ApiService, private val db: FirebaseFirestore) {
 
-   public suspend fun getMovies(searchQuery: String, page: Int): List<Movie> {
+    suspend fun getMovies(searchQuery: String, page: Int): List<Movie> {
         return try {
             val response = apiService.getMovieList(searchQuery, Constant.API_KEY, page)
             Log.d(Constant.MOVIE_REPO, "API Response: $response")
@@ -138,12 +135,10 @@ class MovieRepository(private val apiService: ApiService, private val db: Fireba
                          myMoviesRef.add(movie)
                              .addOnSuccessListener { documentReference ->
                                  Log.d(Constant.MOVIE_REPO, "My movie added: ${documentReference.id}")
-                                 val historyEvent = HistoryEvent(
-                                     id = myMoviesRef.id, // Use Firestore document ID
-                                     movie_action = "Added to Favorites",
-                                     movie_name = movie.title
+                                 addHistoryEvent(
+                                     action = "Added to Favorites",
+                                     movie = movie.title
                                  )
-//                                 addHistoryEvent(historyEvent)
                              }
                              .addOnFailureListener { e ->
                                  Log.e(Constant.MOVIE_REPO, "Error adding my movie", e)
@@ -192,18 +187,26 @@ class MovieRepository(private val apiService: ApiService, private val db: Fireba
         }
     }
 
-    suspend fun addHistoryEvent(event: HistoryEvent): Boolean {
-         val historyCollection = db.collection(Constant.HISTORY)
 
-        return try {
-            historyCollection.document(event.id)
-                .set(event, SetOptions.merge()) // Merges existing data
-                .await() // Suspends until completion
-            true
-        } catch (e: Exception) {
-            e.printStackTrace()
-            false
-        }
+    private fun addHistoryEvent(/*context: Context,*/ action: String, movie: String) {
+        val event = HistoryEvent(
+            id = db.collection("history").document().id, // Generate Firestore ID
+            actionPerformed = action,
+            movieName = movie,
+            timeStamp = System.currentTimeMillis().toString()
+        )
+
+        db.collection("history")
+            .document(event.id)
+            .set(event, SetOptions.merge()) // Merge to avoid overwriting existing data
+            .addOnSuccessListener {
+                Log.d(Constant.MOVIE_REPO, "addHistoryEvent: History event added successfully!")
+                //Toast.makeText(context, "History event added successfully!", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { exception ->
+                Log.d(Constant.MOVIE_REPO, "addHistoryEvent: failure: ${exception.message}")
+                //  Toast.makeText(context, "Failed to add history: ${exception.message}", Toast.LENGTH_SHORT).show()
+            }
     }
 
 }

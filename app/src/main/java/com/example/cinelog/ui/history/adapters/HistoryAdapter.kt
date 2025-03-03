@@ -21,8 +21,8 @@ class HistoryAdapter(private val historyEvents: List<HistoryEvent>) :
 
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
         val historyEvent = historyEvents[position]
-        holder.binding.tvAction.text = historyEvent.movie_action
-        holder.binding.tvMovieTitle.text = historyEvent.movie_name
+        holder.binding.tvAction.text = historyEvent.actionPerformed
+        holder.binding.tvMovieTitle.text = historyEvent.movieName
     }
 
     override fun getItemCount(): Int = historyEvents.size
