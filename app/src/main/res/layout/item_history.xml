@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:padding="16dp"
     android:background="@drawable/bg_card"
     android:elevation="4dp"
@@ -10,35 +10,66 @@
     android:clipChildren="false"
     android:layout_margin="8dp">
 
-    <TextView
-    android:id="@+id/tvAction"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Action"
-    android:textSize="16sp"
-    android:textColor="#212121"
-    android:layout_marginEnd="8dp"
-    android:textStyle="bold"/>
+    <!-- Action Row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="8dp">
 
-    <!-- Movie Title Text -->
-    <TextView
-    android:id="@+id/tvMovieTitle"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_weight="1"
-    android:text="Movie Title"
-    android:textSize="16sp"
-    android:textColor="#757575"
-    android:ellipsize="end"
-    android:maxLines="1"/>
+        <!-- Action Icon -->
+        <ImageView
+            android:id="@+id/ivAction"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_action"
+        android:contentDescription="@string/action_icon"
+        android:layout_marginEnd="8dp"/>
 
-    <!-- Timestamp -->
-    <TextView
-    android:id="@+id/tvTimestamp"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="12:34 PM"
-    android:textSize="14sp"
-    android:textColor="#9E9E9E"
-    android:layout_marginStart="8dp"/>
+        <!-- Action Text -->
+        <TextView
+            android:id="@+id/tvAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Action"
+            android:textSize="16sp"
+            android:textColor="#212121"
+            android:textStyle="bold"/>
     </LinearLayout>
+
+    <!-- Movie Title Row -->
+    <TextView
+        android:id="@+id/tvMovieTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Movie Title"
+        android:textSize="16sp"
+        android:textColor="#757575"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:layout_marginBottom="8dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="end">
+
+        <ImageView
+            android:id="@+id/ivTimestamp"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_timestamp"
+            android:contentDescription="@string/action_icon"
+            android:layout_marginEnd="4dp"/>
+
+        <TextView
+            android:id="@+id/tvTimestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12:34 PM"
+            android:textSize="14sp"
+            android:textColor="#9E9E9E"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -17,4 +17,5 @@
     <string name="retry">Retry</string>
     <string name="suggest_random_movie">Suggest Random Movie</string>
     <string name="update_movie">Update movie</string>
+    <string name="action_icon">This is all my movie icon</string>
 </resources>
