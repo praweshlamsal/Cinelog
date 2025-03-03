@@ -26,6 +26,7 @@ class HistoryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Inflate the layout using View Binding
+
         binding = ActivityHistoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

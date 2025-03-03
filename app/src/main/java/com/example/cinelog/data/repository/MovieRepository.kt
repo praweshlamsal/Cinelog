@@ -95,6 +95,10 @@ class MovieRepository(private val apiService: ApiService, private val db: Fireba
                     // If movie does not exist, add it
                     moviesRef.add(movie)
                         .addOnSuccessListener { documentReference ->
+                            addHistoryEvent(
+                                action = "Saved Movie",
+                                movie = movie.title
+                            )
                             Log.d(Constant.MOVIE_REPO, "Movie added: ${documentReference.id}")
                         }
                         .addOnFailureListener { e ->
@@ -183,6 +187,10 @@ class MovieRepository(private val apiService: ApiService, private val db: Fireba
                     myMoviesRef.document(document.id)
                         .delete()
                         .addOnSuccessListener {
+                            addHistoryEvent(
+                                action = "Deleted Movie",
+                                movie = movie.title
+                            )
                             Log.d(Constant.MOVIE_REPO, "Movie deleted: ${document.id}")
                         }
                         .addOnFailureListener { e ->
@@ -206,6 +214,10 @@ class MovieRepository(private val apiService: ApiService, private val db: Fireba
                     myMoviesRef.document(document.id)
                         .set(movie)
                         .addOnSuccessListener {
+                            addHistoryEvent(
+                                action = "Edited Movie",
+                                movie = movie.title
+                            )
                             Log.d(Constant.MOVIE_REPO, "Movie updated: ${document.id}")
                         }
                         .addOnFailureListener { e ->
@@ -254,7 +266,6 @@ class MovieRepository(private val apiService: ApiService, private val db: Fireba
     }
 
 }
-    }
 
 
 
