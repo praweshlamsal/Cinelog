@@ -61,7 +61,6 @@ class MyMovieListFragment : Fragment(R.layout.fragment_favorites), MyMoviesView 
 
         movieViewModel.fetchMyMoviesFromFireStore();
 
-        //binding
 
     }
 
@@ -87,6 +86,7 @@ class MyMovieListFragment : Fragment(R.layout.fragment_favorites), MyMoviesView 
     override fun deleteMovie(movie: Movie) {
         movieViewModel.deleteMyMovie(movie)
     }
+
 
     override fun onSharedClicked(movie: Movie) {
         shareMovie(movie)
