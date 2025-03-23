@@ -33,4 +33,14 @@
     <string name="action">Action</string>
     <string name="_12_34_pm">12:34 PM</string>
     <string name="select_genres">Select Genres</string>
+    <string name="clear_serach">clear serach</string>
+    <string name="no_result_found">no result found</string>
+    <string name="try_different_search_term">try different search term</string>
+    <string name="rating_8_5">Rating: 8.5</string>
+    <string name="category_action">Category: Action</string>
+    <string name="search">Search</string>
+    <string name="network_error">network error</string>
+    <string name="error_state_image">error state image</string>
+    <string name="check_network">check network</string>
+    <string name="search_icon">search icon</string>
 </resources>
