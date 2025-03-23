@@ -1,6 +1,5 @@
 package com.example.cinelog.ui.home.saveMovie
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -17,54 +16,26 @@ import com.example.cinelog.databinding.ActivitySaveMovieBinding
 import com.example.cinelog.model.Movie
 import com.example.cinelog.viewModel.MovieViewModel
 import com.example.cinelog.viewModel.MovieViewModelFactory
+import com.google.android.material.chip.Chip
 import com.google.firebase.firestore.FirebaseFirestore
-import java.util.UUID
-
 
 class SaveMovieActivity : AppCompatActivity() {
-
-    private var isEditMode: Boolean = false
-    private lateinit var movieViewModel: MovieViewModel
     private lateinit var binding: ActivitySaveMovieBinding
-    private lateinit var  id: String
+    private lateinit var sharedPrefHelper: SharedPrefHelper
+    private lateinit var movieviewmodel: MovieViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySaveMovieBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        isEditMode = intent.getBooleanExtra("isEditMode", false)
+        sharedPrefHelper = SharedPrefHelper(this)
 
-        if (isEditMode) {
-            // Retrieve existing movie data
-             id = intent.getStringExtra("id") ?: ""
-            val title = intent.getStringExtra("title") ?: ""
-            val poster = intent.getStringExtra("poster") ?: ""
-            val imdbID = intent.getStringExtra("imdbID") ?: ""
-            val type = intent.getStringExtra("type") ?: ""
-            val year = intent.getStringExtra("year") ?: ""
-
-            // Assign values to the EditText fields
-            binding.etTitle.setText(title)
-            binding.etPoster.setText(poster)
-            binding.etImdbID.setText(imdbID)
-            binding.etType.setText(type)
-            binding.etYear.setText(year)
-
-            // Update button text to "Update Movie"
-            binding.btnSaveMovie.text = getString(R.string.update_movie)
-
-        } else {
-            Log.d("SaveMovieActivity", "Creating a New Movie")
-        }
-
-        val movieRepository = MovieRepository(
-            apiService = RetrofitClient.apiService,
-            db = FirebaseFirestore.getInstance()
-        )
-
+        val movieRepository = MovieRepository(apiService = RetrofitClient.apiService, db = FirebaseFirestore.getInstance())
         val factory = MovieViewModelFactory.MovieViewModelFactory(movieRepository)
-        movieViewModel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
+        movieviewmodel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
 
+        setupGenreChips()
 
         binding.btnSaveMovie.setOnClickListener {
             saveMovie()
@@ -80,6 +51,17 @@ class SaveMovieActivity : AppCompatActivity() {
         supportActionBar?.title = "Save Movie"
     }
 
+    private fun setupGenreChips() {
+        val genres = listOf("Action", "Drama", "Comedy", "Horror", "Sci-Fi", "Romance", "Adventure", "Thriller")
+        val chipGroup = binding.chipGroupGenres
+
+        for (genre in genres) {
+            val chip = Chip(this)
+            chip.text = genre
+            chip.isCheckable = true
+            chipGroup.addView(chip)
+        }
+    }
 
 
     private fun saveMovie() {
@@ -116,18 +98,32 @@ class SaveMovieActivity : AppCompatActivity() {
             return
         }
 
-        if (isEditMode){
-            Log.d(TAG, "EditMovie: $id")
-            val movie = Movie( id = id, title = title, poster = poster, imdbID = imdbID, type = type, year = year, query = "null")
-            movieViewModel.editMyMovie(movie)
-            showToast("Movie edited successfully")
-        }else{
-            val movie = Movie( id = UUID.randomUUID().toString(),title = title, poster = poster, imdbID = imdbID, type = type, year = year, query = "null")
-            movieViewModel.saveMyMovie(movie)
-            showToast("Movie saved successfully")
+        // Get selected genres
+        val selectedGenres = getSelectedGenres()
+        if (selectedGenres.isEmpty()) {
+            showToast("Please select at least one genre")
+            return
         }
 
+        val movie = Movie(title = title, poster = poster, imdbID = imdbID, type = type, year = year, query = "null",genres = selectedGenres)
+//        sharedPrefHelper.saveMyMovie(movie)
+        movieviewmodel.saveMyMovie(movie)
+
+        showToast("Movie saved successfully")
         finish()
+    }
+
+    private fun getSelectedGenres(): List<String> {
+        val selectedGenres = mutableListOf<String>()
+        for (i in 0 until binding.chipGroupGenres.childCount) {
+            val chip = binding.chipGroupGenres.getChildAt(i) as Chip
+            if (chip.isChecked) {
+                selectedGenres.add(chip.text.toString())
+                val TAG = "SaveMovieActivity"
+                Log.d(TAG, "getSelectedGenres: " + selectedGenres)
+            }
+        }
+        return selectedGenres
     }
 
     private fun showToast(message: String) {

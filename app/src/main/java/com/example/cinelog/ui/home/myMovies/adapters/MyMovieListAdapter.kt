@@ -43,6 +43,10 @@ class MyMovieListAdapter(private val movieListView: MyMoviesView, val isFab: Boo
             binding.movieOverview.text = movie.imdbID
             binding.movieReleaseDate.text = movie.year
 
+            // Join genres with a comma and display them
+            val genresText = movie.genres.joinToString(", ")
+            binding.movieGenre.text = "Genres: $genresText"
+
             Glide.with(binding.root.context)
                 .load(movie.poster)
                 .placeholder(R.drawable.ic_placeholder)

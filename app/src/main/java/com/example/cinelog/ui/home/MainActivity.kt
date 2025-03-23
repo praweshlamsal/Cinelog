@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Color
 import android.os.Build
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.example.cinelog.R
 import com.example.cinelog.databinding.ActivityMainBinding
+import com.example.cinelog.ui.history.HistoryActivity
+import com.example.cinelog.util.SaveThemeSettings
 
 class MainActivity : AppCompatActivity() {
 
@@ -43,7 +46,8 @@ class MainActivity : AppCompatActivity() {
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
-
+        val themeSettings = SaveThemeSettings(this)
+        themeSettings.loadThemePreference()
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.movieListFragment,

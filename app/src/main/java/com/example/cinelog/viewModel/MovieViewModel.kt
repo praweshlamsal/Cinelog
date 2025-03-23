@@ -36,12 +36,11 @@ class MovieViewModel(private val movieRepository: MovieRepository) : ViewModel()
     private val _historyEvents = MutableLiveData<List<HistoryEvent>>()
     val historyEvents: LiveData<List<HistoryEvent>> get() = _historyEvents
 
-
     // Fetching Movies from the repository (API)
     suspend fun fetchMovies(searchQuery: String, page: Int) {
         val movieResponse = movieRepository.getMovies(searchQuery, page)
         val currentList = _movieList.value ?: emptyList()
-        _movieList.postValue(currentList + movieResponse)
+        _movieList.postValue(movieResponse)
     }
 
     // Fetching PieChart data from FireStore
@@ -120,10 +119,11 @@ class MovieViewModel(private val movieRepository: MovieRepository) : ViewModel()
 
     fun deleteMyMovie(movie: Movie) {
         movieRepository.deleteMyMovieFirebase(movie)
-
+        fetchMyMoviesFromFireStore()
     }
 
     fun editMyMovie(movie: Movie) {
         movieRepository.editMyMoviesFirebase(movie)
+        fetchMyMoviesFromFireStore()
     }
 }

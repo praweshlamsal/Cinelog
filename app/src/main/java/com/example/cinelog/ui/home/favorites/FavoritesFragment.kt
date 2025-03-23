@@ -45,7 +45,7 @@ class FavoritesFragment() : Fragment(R.layout.fragment_favorites), MovieListView
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         sharedPrefHelper = SharedPrefHelper(requireContext())
-        movieAdapter = MovieAdapter(this,true)
+        movieAdapter = MovieAdapter(this, true)
 
         binding.moviesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.moviesRecyclerView.adapter = movieAdapter
@@ -55,7 +55,12 @@ class FavoritesFragment() : Fragment(R.layout.fragment_favorites), MovieListView
 
     private fun loadFavorites() {
         val movies = sharedPrefHelper.getMoviesList()
-        movieAdapter.submitList(movies)
+        if (movies.isEmpty()) {
+            binding.clEmpty.visibility = View.VISIBLE
+        } else {
+            binding.clEmpty.visibility = View.GONE
+            movieAdapter.submitList(movies)
+        }
     }
 
     private fun shareMovie(movie: Movie) {
@@ -97,7 +102,8 @@ class FavoritesFragment() : Fragment(R.layout.fragment_favorites), MovieListView
     }
 
     private fun Bitmap.toUri(context: Context): Uri {
-        val imagesFolder = File(context.cacheDir, "images").apply { mkdirs() } // ✅ Create cache directory
+        val imagesFolder =
+            File(context.cacheDir, "images").apply { mkdirs() } // ✅ Create cache directory
         val file = File(imagesFolder, "shared_movie.png")
 
         try {

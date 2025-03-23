@@ -1,53 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@drawable/bg_card"
+    android:background="?attr/colorSurface"
     android:elevation="4dp"
     android:clipToPadding="false"
     android:clipChildren="false"
     android:layout_margin="8dp">
 
-    <!-- Action Row -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginBottom="8dp">
 
-        <!-- Action Icon -->
         <ImageView
             android:id="@+id/ivAction"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_action"
-        android:contentDescription="@string/action_icon"
-        android:layout_marginEnd="8dp"/>
+            android:contentDescription="@string/action_icon"
+            android:layout_marginEnd="8dp"
+            app:tint="?android:attr/textColorPrimary" />
 
-        <!-- Action Text -->
         <TextView
             android:id="@+id/tvAction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Action"
+            android:text="@string/action"
             android:textSize="16sp"
-            android:textColor="#212121"
-            android:textStyle="bold"/>
+            android:textColor="?android:attr/textColorPrimary"
+            android:textStyle="bold" />
+
     </LinearLayout>
 
-    <!-- Movie Title Row -->
     <TextView
         android:id="@+id/tvMovieTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Movie Title"
+        android:text="@string/movie_title"
         android:textSize="16sp"
-        android:textColor="#757575"
+        android:textColor="?android:attr/textColorSecondary"
         android:ellipsize="end"
         android:maxLines="2"
-        android:layout_marginBottom="8dp"/>
+        android:layout_marginBottom="8dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -61,15 +60,17 @@
             android:layout_height="16dp"
             android:src="@drawable/ic_timestamp"
             android:contentDescription="@string/action_icon"
-            android:layout_marginEnd="4dp"/>
+            android:layout_marginEnd="4dp"
+            app:tint="?attr/colorOnSurface" />
 
         <TextView
             android:id="@+id/tvTimestamp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="12:34 PM"
+            android:text="@string/_12_34_pm"
             android:textSize="14sp"
-            android:textColor="#9E9E9E"/>
+            android:textColor="?attr/colorOnSurface" />
+
     </LinearLayout>
 
 </LinearLayout>

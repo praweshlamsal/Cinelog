@@ -5,13 +5,14 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     app:cardCornerRadius="8dp"
-    app:cardElevation="0dp">
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="?attr/colorSurface">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="?attr/colorSurface">
 
-        <!-- Movie Image (Poster) -->
         <ImageView
             android:id="@+id/movie_image"
             android:layout_width="match_parent"
@@ -22,39 +23,54 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Share Button -->
-        <ImageView
-            android:id="@+id/ivShare"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:padding="12dp"
-            android:src="@drawable/ic_share"
+        <androidx.cardview.widget.CardView
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="?attr/colorPrimaryVariant"
+            android:padding="8dp">
 
-        <!-- Edit Button -->
-        <ImageView
-            android:id="@+id/ivEdit"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:padding="12dp"
-            android:src="@drawable/ic_edit"
-            app:layout_constraintEnd_toStartOf="@id/ivShare"
-            app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimaryVariant">
 
-        <!-- Delete Button -->
+                <ImageView
+                    android:id="@+id/ivShare"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_share"
+                    app:tint="?attr/colorOnPrimary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Movie Title -->
-        <ImageView
-            android:id="@+id/ivDelete"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="12dp"
-            android:padding="12dp"
-            android:src="@drawable/ic_delete"
-            app:layout_constraintEnd_toStartOf="@id/ivEdit"
-            app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/ivEdit"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_edit"
+                    app:tint="?attr/colorOnPrimary"
+                    app:layout_constraintEnd_toStartOf="@id/ivShare"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/ivDelete"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_delete"
+                    app:tint="?attr/colorOnPrimary"
+                    app:layout_constraintEnd_toStartOf="@id/ivEdit"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/movie_title"
@@ -65,46 +81,56 @@
             android:layout_marginTop="4dp"
             android:maxLines="2"
             android:text="@string/movie_title"
-            android:textColor="@color/black"
+            android:textColor="?android:attr/textColorPrimary"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@id/movie_overview"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/movie_image" />
 
-        <!-- Movie Overview -->
         <TextView
             android:id="@+id/movie_overview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:layout_below="@id/movie_title"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
             android:maxLines="2"
             android:text="@string/overview"
-            android:textColor="@color/black"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="12sp"
             app:layout_constraintBottom_toTopOf="@id/movie_release_date"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/movie_title" />
 
-        <!-- Movie Release Date -->
         <TextView
             android:id="@+id/movie_release_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/movie_overview"
             android:layout_marginBottom="12dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
             android:text="@string/release_date"
-            android:textColor="@color/black"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/movie_overview" />
 
-        <!-- Floating Action Button -->
+
+        <TextView
+            android:id="@+id/movie_genre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:text="@string/genre"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/movie_release_date" />
+
         <ImageView
             android:id="@+id/fab_button"
             android:layout_width="40dp"
@@ -114,6 +140,7 @@
             android:padding="4dp"
             android:src="@drawable/ic_fab"
             android:contentDescription="@string/todo"
+            app:tint="?attr/colorSecondary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
