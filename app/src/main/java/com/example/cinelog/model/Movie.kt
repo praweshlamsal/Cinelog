@@ -28,4 +28,7 @@ data class Movie(
 
     @ColumnInfo(name = "search_query")
     val query: String = "",
+
+    @ColumnInfo(name = "genres")
+    val genres: List<String> = emptyList()
 )

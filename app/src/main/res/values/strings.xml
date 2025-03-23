@@ -32,4 +32,5 @@
     <string name="enable_dark_theme_for_better_visibility">Enable dark theme for better visibility</string>
     <string name="action">Action</string>
     <string name="_12_34_pm">12:34 PM</string>
+    <string name="select_genres">Select Genres</string>
 </resources>
