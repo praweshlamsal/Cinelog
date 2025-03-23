@@ -14,25 +14,18 @@ import androidx.lifecycle.lifecycleScope
 import com.example.cinelog.R
 import com.example.cinelog.data.remote.network.RetrofitClient
 import com.example.cinelog.data.repository.MovieRepository
-import com.example.cinelog.data.repository.UpcomingMovieRepository
 import com.example.cinelog.databinding.FragmentOthersBinding
-import com.example.cinelog.model.UpcomingMovie
 import com.example.cinelog.ui.history.HistoryActivity
 import com.example.cinelog.viewModel.MovieViewModel
 import com.example.cinelog.viewModel.MovieViewModelFactory
-import com.example.cinelog.viewModel.UpcomingMovieViewModel
-import com.example.cinelog.viewModel.UpcomingMovieViewModelFactory
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
 
 class OthersFragment : Fragment(R.layout.fragment_others) {
     private lateinit var binding: FragmentOthersBinding
     private lateinit var historyViewModel: MovieViewModel
-    private lateinit var upcomingViewModel: UpcomingMovieViewModel
 
 
-    private val _movieList = MutableLiveData<List<UpcomingMovie>>()
-    val movieList: LiveData<List<UpcomingMovie>> get() = _movieList
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,17 +33,8 @@ class OthersFragment : Fragment(R.layout.fragment_others) {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentOthersBinding.inflate(inflater, container, false)
-        val upcomingMovieRepo = UpcomingMovieRepository(RetrofitClient.upcomingApiService)
-        val upcomingFactory = UpcomingMovieViewModelFactory.UpcomingMovieViewModelFactory(upcomingMovieRepo)
-        upcomingViewModel = ViewModelProvider(this, upcomingFactory)[UpcomingMovieViewModel::class.java]
 
 
-        lifecycleScope.launch {
-            val movieResponse = upcomingMovieRepo.getUpcomingMoviesList()
-//            val currentList = _movieList.value ?: emptyList()
-            _movieList.postValue( movieResponse)
-            Log.d("UpcomingMovieViewModel", "Fetched ${movieResponse.size} movies successfully.")
-        }
         return binding.root
     }
 

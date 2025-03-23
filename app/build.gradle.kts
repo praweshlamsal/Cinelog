@@ -52,6 +52,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.firebase.messaging.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -72,6 +73,7 @@ dependencies {
     implementation(platform(libs.firebase))
     implementation(libs.firebaseAnalytics)
     implementation(libs.firestore)
+    implementation(libs.firebase.messaging.ktx)
 
     //for animation
     implementation(libs.lottie)
