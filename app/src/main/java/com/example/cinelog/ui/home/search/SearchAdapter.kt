@@ -21,6 +21,8 @@ class SearchAdapter(private var movies: List<Movie>) :
     override fun getItemCount(): Int = movies.size
 
     fun updateResults(newMovies: List<Movie>) {
+
+        movies = emptyList()
         movies = newMovies
         notifyDataSetChanged()
     }
