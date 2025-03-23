@@ -5,28 +5,32 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#88D4C9"
+    android:background="?android:attr/colorBackground"
     tools:context=".ui.shakeToSuggest.ShakeToSuggestActivity">
-<ImageView
-    android:id="@+id/ivBack"
-    android:padding="16dp"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:src="@drawable/ic_black_back"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/ivBack"
+        android:padding="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_black_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="?android:attr/textColorPrimary" />
+
     <TextView
         android:id="@+id/tvShakeYourPhone"
         android:layout_margin="12dp"
         android:textSize="32sp"
-        android:textColor="@color/black"
+        android:textColor="?android:attr/textColorPrimary"
         android:textStyle="bold"
         android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lavScream"
         android:layout_width="0dp"
@@ -53,104 +57,92 @@
         android:id="@+id/movieCard"
         android:layout_margin="8dp"
         app:cardCornerRadius="8dp"
-        >
+       >
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-
-        <!-- Movie Image (Poster) -->
-        <ImageView
-            android:layout_marginTop="12dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:id="@+id/movie_image"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_alignParentTop="true"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toTopOf="@id/movie_title"
-            android:src="@drawable/ic_movie" />
-
-        <ImageView
-            android:padding="12dp"
-            android:id="@+id/ivShare"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:src="@drawable/ic_share"/>
-
-        <!-- Movie Title -->
-        <TextView
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/movie_image"
-            android:id="@+id/movie_title"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:maxLines="2"
-            android:text="@string/movie_title"
-            app:layout_constraintBottom_toTopOf="@id/movie_overview"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:background="?attr/colorSurface">
 
-        <!-- Movie Overview -->
-        <TextView
-            app:layout_constraintBottom_toTopOf="@id/movie_release_date"
-            app:layout_constraintTop_toBottomOf="@id/movie_title"
-            app:layout_constraintStart_toStartOf="parent"
-            android:id="@+id/movie_overview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/movie_title"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:text="@string/overview"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
+            <ImageView
+                android:layout_marginTop="12dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:id="@+id/movie_image"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toTopOf="@id/movie_title"
+                android:src="@drawable/ic_movie" />
 
-        <!-- Movie Release Date -->
-        <TextView
-            app:layout_constraintStart_toStartOf="parent"
-            android:id="@+id/movie_release_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/movie_overview"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:text="@string/release_date"
-            android:layout_marginBottom="12dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/movie_overview"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
+            <ImageView
+                android:padding="12dp"
+                android:id="@+id/ivShare"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:src="@drawable/ic_share"
+                app:tint="?android:attr/textColorPrimary" />
 
-        <ImageView
-            android:padding="4dp"
-            android:id="@+id/fab_button"
-            android:contentDescription="@string/todo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            <TextView
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/movie_image"
+                android:id="@+id/movie_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:maxLines="2"
+                android:text="@string/movie_title"
+                app:layout_constraintBottom_toTopOf="@id/movie_overview"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="16sp" />
 
-            android:src="@drawable/ic_fab" />
+            <TextView
+                app:layout_constraintBottom_toTopOf="@id/movie_release_date"
+                app:layout_constraintTop_toBottomOf="@id/movie_title"
+                app:layout_constraintStart_toStartOf="parent"
+                android:id="@+id/movie_overview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@string/overview"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="12sp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                app:layout_constraintStart_toStartOf="parent"
+                android:id="@+id/movie_release_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/release_date"
+                android:layout_marginBottom="12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/movie_overview"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:padding="4dp"
+                android:id="@+id/fab_button"
+                android:contentDescription="@string/todo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/ic_fab"
+                app:tint="?attr/colorSecondary" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
 
@@ -159,12 +151,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:backgroundTint="#F5D03A"
+        android:backgroundTint="?attr/colorSecondary"
         android:text="@string/retry"
-        android:textColor="@color/black"
+        android:textColor="?attr/colorOnSecondary"
         app:layout_constraintStart_toStartOf="@id/movieCard"
         app:layout_constraintEnd_toEndOf="@id/movieCard"
-        app:layout_constraintTop_toBottomOf="@id/movieCard"/>
+        app:layout_constraintTop_toBottomOf="@id/movieCard" />
+
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lavCatInBottom"
         android:layout_width="match_parent"
@@ -177,9 +170,7 @@
         app:lottie_loop="true"
         app:lottie_speed="1.0" />
 
-
     <com.airbnb.lottie.LottieAnimationView
-
         android:id="@+id/lavShakeDevice"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -192,6 +183,7 @@
         app:lottie_fileName="shake_phone.json"
         app:lottie_loop="true"
         app:lottie_speed="1.0" />
+
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lavCatInHole"
         android:layout_width="match_parent"
@@ -205,6 +197,5 @@
         app:lottie_fileName="cat_pop_up.json"
         app:lottie_loop="true"
         app:lottie_speed="1.0" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

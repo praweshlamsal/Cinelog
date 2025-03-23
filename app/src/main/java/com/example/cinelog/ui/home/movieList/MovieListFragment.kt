@@ -35,7 +35,6 @@ import com.example.cinelog.ui.shakeToSuggest.ShakeToSuggestActivity
 import com.example.cinelog.viewModel.MovieViewModel
 import com.example.cinelog.viewModel.MovieViewModelFactory
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
@@ -69,6 +68,7 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list),MovieListView {
         categoryAdapter = CategoryAdapter()
         movieAdapter = MovieAdapter(this,false)
 
+
         binding.fbAddButton.setOnClickListener{
             val intent = Intent(requireContext(), SaveMovieActivity::class.java)
             startActivity(intent)
@@ -82,6 +82,9 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list),MovieListView {
         binding.moviesRecyclerView.apply {
             layoutManager = GridLayoutManager(context, 2)
             adapter = movieAdapter
+            //this.hasFixedSize() = true
+            this.isNestedScrollingEnabled = false
+            //
         }
 
 
@@ -92,7 +95,7 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list),MovieListView {
         movieViewModel.categoryList.observe(viewLifecycleOwner) { categoryList ->
             categoryAdapter.submitList(categoryList)
         }
-        binding.btRdmMovie.setOnClickListener{
+        binding.cvRandomMovie.setOnClickListener{
             val intent = Intent(requireContext(), ShakeToSuggestActivity::class.java)
             startActivity(intent)
         }

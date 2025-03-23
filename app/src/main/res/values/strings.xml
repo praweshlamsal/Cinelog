@@ -18,4 +18,18 @@
     <string name="suggest_random_movie">Suggest Random Movie</string>
     <string name="update_movie">Update movie</string>
     <string name="action_icon">This is all my movie icon</string>
+    <string name="empty_state_image">Empty State Image</string>
+    <string name="no_data_available">No Data Available</string>
+    <string name="please_check_back_later">Please check back later.</string>
+    <string name="history">History</string>
+    <string name="new_string">new_string</string>
+    <string name="demo_user">Demo User</string>
+    <string name="random_movie_title">Random Movie Title</string>
+    <string name="click_here_to_generate_random_movie">Click here to generate random movie</string>
+    <string name="top_10_hits_for_today">Top 10 Hits For Today</string>
+    <string name="view_your_past_activities">View your past activities</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="enable_dark_theme_for_better_visibility">Enable dark theme for better visibility</string>
+    <string name="action">Action</string>
+    <string name="_12_34_pm">12:34 PM</string>
 </resources>
