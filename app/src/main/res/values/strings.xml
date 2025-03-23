@@ -18,4 +18,9 @@
     <string name="suggest_random_movie">Suggest Random Movie</string>
     <string name="update_movie">Update movie</string>
     <string name="action_icon">This is all my movie icon</string>
+    <string name="notifications">Notifications</string>
+    <string name="my_movies">My Movies</string>
+    <string name="favorties">Favorties</string>
+    <string name="graph">Graph</string>
+    <string name="movies">Movies</string>
 </resources>
