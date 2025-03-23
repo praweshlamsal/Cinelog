@@ -31,6 +31,7 @@ import com.example.cinelog.model.Movie
 import com.example.cinelog.ui.home.movieList.adapters.CategoryAdapter
 import com.example.cinelog.ui.home.movieList.adapters.MovieAdapter
 import com.example.cinelog.ui.home.saveMovie.SaveMovieActivity
+import com.example.cinelog.ui.search.SearchActivity
 import com.example.cinelog.ui.shakeToSuggest.ShakeToSuggestActivity
 import com.example.cinelog.viewModel.MovieViewModel
 import com.example.cinelog.viewModel.MovieViewModelFactory
@@ -54,6 +55,7 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list),MovieListView {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         binding = FragmentMovieListBinding.inflate(inflater, container, false)
         sharedPrefHelper = SharedPrefHelper(requireContext())
         // Initialize ViewModel
@@ -67,6 +69,10 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list),MovieListView {
 
         categoryAdapter = CategoryAdapter()
         movieAdapter = MovieAdapter(this,false)
+        binding.ivSearchIcon.setOnClickListener{
+            val intent = Intent(requireContext(), SearchActivity::class.java)
+            startActivity(intent)
+        }
 
 
         binding.fbAddButton.setOnClickListener{
