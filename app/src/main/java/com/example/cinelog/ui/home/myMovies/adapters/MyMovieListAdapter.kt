@@ -64,6 +64,10 @@ class MyMovieListAdapter(private val movieListView: MyMoviesView, val isFab: Boo
                 movieListView.deleteMovie(movie)
             }
 
+            binding.root.setOnClickListener{
+                movieListView.navigateToDetails(movie)
+            }
+
             if (!isFab) {
                 binding.fabButton.setOnClickListener {
                     movieListView.onFabButtonClicked(movie, binding.fabButton)

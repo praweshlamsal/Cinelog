@@ -44,4 +44,5 @@
     <string name="check_network">check network</string>
     <string name="search_icon">search icon</string>
     <string name="genre">Genre</string>
+    <string name="rating">⭐ 0.00/10</string>
 </resources>

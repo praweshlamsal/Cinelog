@@ -1,7 +1,9 @@
 package com.example.cinelog.ui.home.myMovies
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +22,7 @@ import com.example.cinelog.ui.home.movieList.MovieListView
 import com.example.cinelog.ui.home.movieList.adapters.MovieAdapter
 import com.example.cinelog.ui.home.myMovies.adapters.MyMovieListAdapter
 import com.example.cinelog.ui.home.saveMovie.SaveMovieActivity
+import com.example.cinelog.ui.movieDetails.MovieDetailsActivity
 import com.example.cinelog.viewModel.MovieViewModel
 import com.example.cinelog.viewModel.MovieViewModelFactory
 import com.google.firebase.firestore.FirebaseFirestore
@@ -95,6 +98,21 @@ class MyMovieListFragment : Fragment(R.layout.fragment_favorites), MyMoviesView 
         movieViewModel.deleteMyMovie(movie)
     }
 
+    override fun navigateToDetails(movie: Movie) {
+        val intent = Intent(requireContext(), MovieDetailsActivity::class.java).apply {
+            putExtra("id",movie.id)
+            putExtra("title", movie.title)
+            putExtra("poster", movie.poster)
+            putExtra("imdbID", movie.imdbID)
+            putExtra("type", movie.type)
+            putExtra("year", movie.year)
+
+            Log.d(TAG, "navigateToDetails: " + movie.genres)
+            putStringArrayListExtra("genres", ArrayList(movie.genres))
+        }
+        startActivity(intent)
+    }
+
 
     override fun onSharedClicked(movie: Movie) {
         shareMovie(movie)
@@ -114,12 +132,3 @@ class MyMovieListFragment : Fragment(R.layout.fragment_favorites), MyMoviesView 
     }
 }
 
-/*
-All empty pages should be given no records found text beautifully.
-Loader for edit and delete.
-Action comedy drama category filter
-Search movie
-Add personal rating in new movies added
-Fav movie rating not shown
-Others tab design issues.
-*/

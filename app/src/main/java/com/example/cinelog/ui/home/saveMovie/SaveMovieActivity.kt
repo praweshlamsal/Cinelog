@@ -1,5 +1,6 @@
 package com.example.cinelog.ui.home.saveMovie
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -18,11 +19,15 @@ import com.example.cinelog.viewModel.MovieViewModel
 import com.example.cinelog.viewModel.MovieViewModelFactory
 import com.google.android.material.chip.Chip
 import com.google.firebase.firestore.FirebaseFirestore
+import java.util.UUID
 
 class SaveMovieActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySaveMovieBinding
     private lateinit var sharedPrefHelper: SharedPrefHelper
     private lateinit var movieviewmodel: MovieViewModel
+    private var isEditMode: Boolean = false
+    private lateinit var movieViewModel: MovieViewModel
+    private lateinit var  id: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,9 +36,7 @@ class SaveMovieActivity : AppCompatActivity() {
 
         sharedPrefHelper = SharedPrefHelper(this)
 
-        val movieRepository = MovieRepository(apiService = RetrofitClient.apiService, db = FirebaseFirestore.getInstance())
-        val factory = MovieViewModelFactory.MovieViewModelFactory(movieRepository)
-        movieviewmodel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
+
 
         setupGenreChips()
 
@@ -49,7 +52,44 @@ class SaveMovieActivity : AppCompatActivity() {
             onBackPressedDispatcher.onBackPressed()
         }
         supportActionBar?.title = "Save Movie"
+
+        isEditMode = intent.getBooleanExtra("isEditMode", false)
+
+        if (isEditMode) {
+            // Retrieve existing movie data
+            id = intent.getStringExtra("id") ?: ""
+            val title = intent.getStringExtra("title") ?: ""
+            val poster = intent.getStringExtra("poster") ?: ""
+            val imdbID = intent.getStringExtra("imdbID") ?: ""
+            val type = intent.getStringExtra("type") ?: ""
+            val year = intent.getStringExtra("year") ?: ""
+
+            // Assign values to the EditText fields
+            binding.etTitle.setText(title)
+            binding.etPoster.setText(poster)
+            binding.etImdbID.setText(imdbID)
+            binding.etType.setText(type)
+            binding.etYear.setText(year)
+
+            // Update button text to "Update Movie"
+            binding.btnSaveMovie.text = getString(R.string.update_movie)
+
+        } else {
+            Log.d("SaveMovieActivity", "Creating a New Movie")
+        }
+
+        val movieRepository = MovieRepository(
+            apiService = RetrofitClient.apiService,
+            db = FirebaseFirestore.getInstance()
+        )
+
+        val factory = MovieViewModelFactory.MovieViewModelFactory(movieRepository)
+        movieViewModel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
+
+
     }
+
+
 
     private fun setupGenreChips() {
         val genres = listOf("Action", "Drama", "Comedy", "Horror", "Sci-Fi", "Romance", "Adventure", "Thriller")
@@ -105,12 +145,21 @@ class SaveMovieActivity : AppCompatActivity() {
             return
         }
 
-        val movie = Movie(title = title, poster = poster, imdbID = imdbID, type = type, year = year, query = "null",genres = selectedGenres)
-//        sharedPrefHelper.saveMyMovie(movie)
-        movieviewmodel.saveMyMovie(movie)
+        if (isEditMode){
+            Log.d(TAG, "EditMovie: $id")
+            val movie = Movie( id = id, title = title, poster = poster, imdbID = imdbID, type = type, year = year, query = "null" , genres = selectedGenres)
+            movieViewModel.editMyMovie(movie)
+            showToast("Movie edited successfully")
+        }else{
+            val movie = Movie( id = UUID.randomUUID().toString(),title = title, poster = poster, imdbID = imdbID, type = type, year = year, query = "null", genres = selectedGenres)
+            movieViewModel.saveMyMovie(movie)
+            showToast("Movie saved successfully")
+        }
 
         showToast("Movie saved successfully")
         finish()
+
+
     }
 
     private fun getSelectedGenres(): List<String> {
