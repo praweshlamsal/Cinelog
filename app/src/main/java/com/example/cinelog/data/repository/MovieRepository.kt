@@ -93,7 +93,18 @@ class MovieRepository(private val apiService: ApiService, private val db: Fireba
             .addOnSuccessListener { querySnapshot ->
                 if (querySnapshot.isEmpty) {
                     // If movie does not exist, add it
-                    moviesRef.add(movie)
+                    val movieData = mapOf(
+                        "id" to movie.id,
+                        "imdbID" to movie.imdbID,
+                        "poster" to movie.poster,
+                        "query" to movie.query,
+                        "title" to movie.title,
+                        "type" to movie.type,
+                        "year" to movie.year,
+                        "genres" to movie.genres // Add genres field
+                    )
+
+                    moviesRef.add(movieData)
                         .addOnSuccessListener { documentReference ->
                             addHistoryEvent(
                                 action = "Saved Movie",
@@ -137,7 +148,18 @@ class MovieRepository(private val apiService: ApiService, private val db: Fireba
                  .addOnSuccessListener { querySnapshot ->
                      if (querySnapshot.isEmpty) {
                          // If movie does not exist in "myMovies", add it
-                         myMoviesRef.add(movie)
+                         val movieData = mapOf(
+                             "id" to movie.id,
+                             "imdbID" to movie.imdbID,
+                             "poster" to movie.poster,
+                             "query" to movie.query,
+                             "title" to movie.title,
+                             "type" to movie.type,
+                             "year" to movie.year,
+                             "genres" to movie.genres
+                         )
+
+                         myMoviesRef.add(movieData)
                              .addOnSuccessListener { documentReference ->
                                  Log.d(Constant.MOVIE_REPO, "My movie added: ${documentReference.id}")
                                  addHistoryEvent(

@@ -1,20 +1,28 @@
 package com.example.cinelog.ui.home.saveMovie
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 import com.example.cinelog.R
 import com.example.cinelog.data.local.sharedPref.SharedPrefHelper
+import com.example.cinelog.data.remote.network.RetrofitClient
+import com.example.cinelog.data.repository.MovieRepository
 import com.example.cinelog.databinding.ActivitySaveMovieBinding
 import com.example.cinelog.model.Movie
+import com.example.cinelog.viewModel.MovieViewModel
+import com.example.cinelog.viewModel.MovieViewModelFactory
 import com.google.android.material.chip.Chip
+import com.google.firebase.firestore.FirebaseFirestore
 
 class SaveMovieActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySaveMovieBinding
     private lateinit var sharedPrefHelper: SharedPrefHelper
+    private lateinit var movieviewmodel: MovieViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +30,10 @@ class SaveMovieActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         sharedPrefHelper = SharedPrefHelper(this)
+
+        val movieRepository = MovieRepository(apiService = RetrofitClient.apiService, db = FirebaseFirestore.getInstance())
+        val factory = MovieViewModelFactory.MovieViewModelFactory(movieRepository)
+        movieviewmodel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
 
         setupGenreChips()
 
@@ -94,7 +106,9 @@ class SaveMovieActivity : AppCompatActivity() {
         }
 
         val movie = Movie(title = title, poster = poster, imdbID = imdbID, type = type, year = year, query = "null",genres = selectedGenres)
-        sharedPrefHelper.saveMyMovie(movie)
+//        sharedPrefHelper.saveMyMovie(movie)
+        movieviewmodel.saveMyMovie(movie)
+
         showToast("Movie saved successfully")
         finish()
     }
@@ -105,6 +119,8 @@ class SaveMovieActivity : AppCompatActivity() {
             val chip = binding.chipGroupGenres.getChildAt(i) as Chip
             if (chip.isChecked) {
                 selectedGenres.add(chip.text.toString())
+                val TAG = "SaveMovieActivity"
+                Log.d(TAG, "getSelectedGenres: " + selectedGenres)
             }
         }
         return selectedGenres
