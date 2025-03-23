@@ -56,10 +56,18 @@ class MyMovieListFragment : Fragment(R.layout.fragment_favorites), MyMoviesView 
         movieViewModel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
 
         movieViewModel.movieList.observe(viewLifecycleOwner, Observer {
+            if (it.isEmpty()){
+                binding.clEmpty.visibility =View.VISIBLE
+            }
+            else{
+                binding.clEmpty.visibility = View.GONE
+            }
             movieAdapter.submitList(it)
+            movieAdapter.notifyDataSetChanged()
         })
 
-        movieViewModel.fetchMyMoviesFromFireStore();
+        movieViewModel.fetchMyMoviesFromFireStore()
+
 
 
     }
@@ -105,3 +113,13 @@ class MyMovieListFragment : Fragment(R.layout.fragment_favorites), MyMoviesView 
         startActivity(Intent.createChooser(shareIntent, "Share Movie via"))
     }
 }
+
+/*
+All empty pages should be given no records found text beautifully.
+Loader for edit and delete.
+Action comedy drama category filter
+Search movie
+Add personal rating in new movies added
+Fav movie rating not shown
+Others tab design issues.
+*/

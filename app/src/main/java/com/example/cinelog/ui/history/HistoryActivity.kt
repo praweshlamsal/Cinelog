@@ -1,6 +1,7 @@
 package com.example.cinelog.ui.history
 
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -50,9 +51,16 @@ class HistoryActivity : AppCompatActivity() {
 
         // Observe LiveData from ViewModel
         movieViewModel.historyEvents.observe(this, Observer { historyEvents ->
-            // Set the adapter with the list of history events
-            historyAdapter = HistoryAdapter(historyEvents)
-            binding.recyclerViewHistoryDetails.adapter = historyAdapter
+            if (historyEvents.isEmpty()){
+                binding.clEmpty.visibility = View.VISIBLE
+            }
+            else{
+                binding.clEmpty.visibility = View.GONE
+                // Set the adapter with the list of history events
+                historyAdapter = HistoryAdapter(historyEvents)
+                binding.recyclerViewHistoryDetails.adapter = historyAdapter
+            }
+
         })
 
         movieViewModel.fetchHistory()

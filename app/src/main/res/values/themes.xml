@@ -1,16 +1,31 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
     <style name="Theme.CineLog" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/colorPrimary</item> <!-- #ff33b5e5 -->
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item> <!-- #17A2D3 -->
+        <item name="colorOnPrimary">@color/colorOnPrimary</item> <!-- #FFFFFF -->
+
+        <!-- Secondary brand color -->
+        <item name="colorSecondary">@color/colorSecondary</item> <!-- #00bcd4 -->
+        <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item> <!-- #008c9e -->
+        <item name="colorOnSecondary">@color/white</item> <!-- Adjusted to #FFFFFF for contrast -->
+
+        <!-- Background color -->
+        <item name="android:colorBackground">@color/colorBackground</item> <!-- #f0f0f0 -->
+
+        <!-- Text colors -->
+        <item name="android:textColorPrimary">@color/colorOnBackground</item> <!-- #212121 -->
+        <item name="android:textColorSecondary">@color/colorOnSurface</item> <!-- #000000 -->
+
+        <!-- Surface color -->
+        <item name="colorSurface">@color/colorSurface</item> <!-- #ffffff -->
+        <item name="colorOnSurface">@color/colorOnSurface</item> <!-- #000000 -->
+
+        <!-- Error color -->
+        <item name="colorError">@color/colorError</item> <!-- #D32F2F -->
+        <item name="colorOnError">@color/colorOnError</item> <!-- #FFFFFF -->
+
+        <!-- Status bar color -->
+        <item name="android:statusBarColor">@color/colorBackground</item> <!-- #f0f0f0 for subtlety -->
     </style>
 </resources>
