@@ -25,7 +25,7 @@
         <!-- Share Button -->
         <ImageView
             android:id="@+id/ivShare"
-            android:layout_width="48dp"
+            android:layouti_width="48dp"
             android:layout_height="48dp"
             android:padding="12dp"
             android:src="@drawable/ic_share"
