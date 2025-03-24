@@ -43,13 +43,14 @@ class MyMovieListAdapter(private val movieListView: MyMoviesView, val isFab: Boo
             binding.movieOverview.text = movie.imdbID
             binding.movieReleaseDate.text = movie.year
 
+            binding.movieRating.text = "${movie.rating}/10 ⭐"
             // Join genres with a comma and display them
             val genresText = movie.genres.joinToString(", ")
             binding.movieGenre.text = "Genres: $genresText"
 
             Glide.with(binding.root.context)
                 .load(movie.poster)
-                .placeholder(R.drawable.ic_placeholder)
+                .placeholder(R.drawable.ic_my_movies)
                 .into(binding.movieImage)
 
             binding.ivShare.setOnClickListener {
@@ -62,6 +63,10 @@ class MyMovieListAdapter(private val movieListView: MyMoviesView, val isFab: Boo
 
             binding.ivDelete.setOnClickListener {
                 movieListView.deleteMovie(movie)
+            }
+
+            binding.root.setOnClickListener{
+                movieListView.navigateToDetails(movie)
             }
 
             if (!isFab) {

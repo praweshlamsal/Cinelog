@@ -30,5 +30,7 @@ data class Movie(
     val query: String = "",
 
     @ColumnInfo(name = "genres")
-    val genres: List<String> = emptyList()
+    val genres: List<String> = emptyList(),
+
+    val rating: String = "",
 )

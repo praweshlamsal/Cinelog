@@ -1,25 +1,27 @@
 package com.example.cinelog.ui.home.myMovies
 
+import android.app.AlertDialog
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cinelog.R
-import com.example.cinelog.data.local.sharedPref.SharedPrefHelper
 import com.example.cinelog.data.remote.network.RetrofitClient
 import com.example.cinelog.data.repository.MovieRepository
 import com.example.cinelog.databinding.FragmentFavoritesBinding
 import com.example.cinelog.model.Movie
-import com.example.cinelog.ui.home.movieList.MovieListView
-import com.example.cinelog.ui.home.movieList.adapters.MovieAdapter
 import com.example.cinelog.ui.home.myMovies.adapters.MyMovieListAdapter
 import com.example.cinelog.ui.home.saveMovie.SaveMovieActivity
+import com.example.cinelog.ui.movieDetails.MovieDetailsActivity
 import com.example.cinelog.viewModel.MovieViewModel
 import com.example.cinelog.viewModel.MovieViewModelFactory
 import com.google.firebase.firestore.FirebaseFirestore
@@ -38,14 +40,15 @@ class MyMovieListFragment : Fragment(R.layout.fragment_favorites), MyMoviesView 
         return binding.root
     }
 
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        movieAdapter = MyMovieListAdapter(this, true)
 
+        movieAdapter = MyMovieListAdapter(this, true)
         binding.moviesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.moviesRecyclerView.adapter = movieAdapter
+
+        val progressBar = binding.loadingProgressBar
+        val emptyStateLayout = binding.clEmpty
 
         val movieRepository = MovieRepository(
             apiService = RetrofitClient.apiService,
@@ -55,46 +58,91 @@ class MyMovieListFragment : Fragment(R.layout.fragment_favorites), MyMoviesView 
         val factory = MovieViewModelFactory.MovieViewModelFactory(movieRepository)
         movieViewModel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
 
+        // Show loading indicator and hide empty state initially
+        progressBar.visibility = View.VISIBLE
+        emptyStateLayout.visibility = View.GONE
+
+        // Observe movie list
         movieViewModel.movieList.observe(viewLifecycleOwner, Observer {
-            if (it.isEmpty()){
-                binding.clEmpty.visibility =View.VISIBLE
+            progressBar.visibility = View.GONE // Hide loading indicator when data is fetched
+            if (it.isEmpty()) {
+                emptyStateLayout.visibility = View.VISIBLE // Show empty state if no movies
+            } else {
+                emptyStateLayout.visibility = View.GONE // Hide empty state if movies are present
+                movieAdapter.submitList(it)
+                movieAdapter.notifyDataSetChanged()
             }
-            else{
-                binding.clEmpty.visibility = View.GONE
-            }
-            movieAdapter.submitList(it)
-            movieAdapter.notifyDataSetChanged()
         })
 
+        // Fetch movies initially when the fragment is created
         movieViewModel.fetchMyMoviesFromFireStore()
-
-
-
     }
 
 
-    override fun onFabButtonClicked(movie: Movie, fabIcon: ImageView) {
+    override fun onResume() {
+        super.onResume()
+        movieViewModel.fetchMyMoviesFromFireStore()
+        movieAdapter.submitList(emptyList())
+    }
 
+    override fun onFabButtonClicked(movie: Movie, fabIcon: ImageView) {
+        // Handle FAB button click (optional)
     }
 
     override fun editMovie(movie: Movie) {
         val intent = Intent(requireContext(), SaveMovieActivity::class.java).apply {
-            putExtra("id",movie.id)
+            putExtra("id", movie.id)
             putExtra("title", movie.title)
             putExtra("poster", movie.poster)
             putExtra("imdbID", movie.imdbID)
             putExtra("type", movie.type)
             putExtra("year", movie.year)
             putExtra("isEditMode", true)
+            putStringArrayListExtra("genres", ArrayList(movie.genres))
         }
         startActivity(intent)
     }
 
-
     override fun deleteMovie(movie: Movie) {
-        movieViewModel.deleteMyMovie(movie)
+        val dialog = AlertDialog.Builder(requireContext())
+            .setTitle("Delete Movie")
+            .setMessage("Are you sure you want to delete this movie?")
+            .setPositiveButton("Yes") { dialogInterface, _ ->
+                movieViewModel.deleteMyMovie(movie)
+                movieViewModel.fetchMyMoviesFromFireStore()
+                Toast.makeText(requireContext(), "Movie deleted successfully", Toast.LENGTH_SHORT).show()
+
+                // Dismiss the dialog
+                dialogInterface.dismiss()
+            }
+            .setNegativeButton("No") { dialogInterface, _ ->
+                dialogInterface.dismiss()
+            }
+            .create()
+
+        dialog.show()
     }
 
+
+    override fun navigateToDetails(movie: Movie) {
+        val rating: Float = if (movie.rating.isEmpty()) {
+            0.0F
+        } else {
+            movie.rating.toFloat()
+        }
+        val intent = Intent(requireContext(), MovieDetailsActivity::class.java).apply {
+            putExtra("id", movie.id)
+            putExtra("title", movie.title)
+            putExtra("poster", movie.poster)
+            putExtra("imdbID", movie.imdbID)
+            putExtra("type", movie.type)
+            putExtra("year", movie.year)
+            putExtra("rating", rating)
+            Log.d(TAG, "navigateToDetails: " + movie.genres)
+            putStringArrayListExtra("genres", ArrayList(movie.genres))
+        }
+        startActivity(intent)
+    }
 
     override fun onSharedClicked(movie: Movie) {
         shareMovie(movie)
@@ -113,13 +161,3 @@ class MyMovieListFragment : Fragment(R.layout.fragment_favorites), MyMoviesView 
         startActivity(Intent.createChooser(shareIntent, "Share Movie via"))
     }
 }
-
-/*
-All empty pages should be given no records found text beautifully.
-Loader for edit and delete.
-Action comedy drama category filter
-Search movie
-Add personal rating in new movies added
-Fav movie rating not shown
-Others tab design issues.
-*/

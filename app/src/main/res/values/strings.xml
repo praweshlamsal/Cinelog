@@ -49,4 +49,5 @@
     <string name="favorties">Favorties</string>
     <string name="graph">Graph</string>
     <string name="movies">Movies</string>
+    <string name="rating">0.00/10 ⭐ </string>
 </resources>
