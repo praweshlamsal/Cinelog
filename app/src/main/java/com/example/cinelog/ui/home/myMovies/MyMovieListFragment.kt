@@ -86,7 +86,6 @@ class MyMovieListFragment : Fragment(R.layout.fragment_favorites), MyMoviesView 
     }
 
     override fun onFabButtonClicked(movie: Movie, fabIcon: ImageView) {
-        // Handle FAB button click (optional)
     }
 
     override fun editMovie(movie: Movie) {
