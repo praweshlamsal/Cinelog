@@ -55,6 +55,7 @@ class MovieDetailsActivity : AppCompatActivity() {
         Log.d(TAG, "movieDetailActivity: " + genres)
 
 
+
         val movieRepository = MovieRepository(
             apiService = RetrofitClient.apiService,
             db = FirebaseFirestore.getInstance()
