@@ -46,9 +46,10 @@ class MovieDetailsActivity : AppCompatActivity() {
         val imdbID = intent.getStringExtra("imdbID") ?: ""
         val type = intent.getStringExtra("type") ?: ""
         val year = intent.getStringExtra("year") ?: ""
-        val rating = intent.getStringExtra("rating") ?: ""
+        val rating = intent.getFloatExtra("rating", 0f) // Default to 0f if not passed
 
-        binding.ratingBar.rating = rating.toFloat()
+
+        binding.ratingBar.rating = rating
 
         val genres = intent.getStringArrayListExtra("genres") ?: arrayListOf()
         Log.d(TAG, "movieDetailActivity: " + genres)
