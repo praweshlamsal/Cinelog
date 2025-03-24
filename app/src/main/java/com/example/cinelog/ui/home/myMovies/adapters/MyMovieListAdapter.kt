@@ -49,7 +49,7 @@ class MyMovieListAdapter(private val movieListView: MyMoviesView, val isFab: Boo
 
             Glide.with(binding.root.context)
                 .load(movie.poster)
-                .placeholder(R.drawable.ic_placeholder)
+                .placeholder(R.drawable.ic_my_movies)
                 .into(binding.movieImage)
 
             binding.ivShare.setOnClickListener {
