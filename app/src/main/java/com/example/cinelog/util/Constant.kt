@@ -14,5 +14,6 @@ class Constant {
         const val LINE_CHART = "line_chart"
         const val GRAPH = "graph"
         const val HISTORY = "history"
+        const val NOTIFICATION = "movieNotifications"
     }
 }

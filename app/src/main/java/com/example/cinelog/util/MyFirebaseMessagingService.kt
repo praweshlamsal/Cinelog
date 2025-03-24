@@ -12,7 +12,9 @@ import android.media.RingtoneManager
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.cinelog.R
+import com.example.cinelog.data.local.sharedPref.SharedPrefHelper
 import com.example.cinelog.ui.home.MainActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -21,8 +23,12 @@ import java.net.URL
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
-    private val sharedPreferences: SharedPreferences by lazy {
-        getSharedPreferences("notification_prefs", MODE_PRIVATE)
+    private lateinit var sharedPrefHelper: SharedPrefHelper
+
+    override fun onCreate() {
+        super.onCreate()
+        // Initialize SharedPrefHelper in onCreate() to ensure context is available
+        sharedPrefHelper = SharedPrefHelper(applicationContext)
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
@@ -33,25 +39,21 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         val message = remoteMessage.notification?.body ?: "You have a new update."
         val imageUrl = remoteMessage.data["posterUrl"] // Optional image
         Log.d("testing", "Message received: ${remoteMessage.data}")
-
         // Increment notification count
         incrementNotificationCount()
-
         // Send notification
         sendNotification(title, message, imageUrl)
+
     }
 
     private fun incrementNotificationCount() {
-        // Get current notification count
-        val currentCount = sharedPreferences.getInt("notification_count", 0)
-
-        // Increment and store new count
+        val currentCount = sharedPrefHelper.getNotificationCount()
         val newCount = currentCount + 1
-        sharedPreferences.edit().putInt("notification_count", newCount).apply()
-
-        // Send the updated count to MainActivity
-        val intent = Intent("com.example.cinelog.UPDATE_NOTIFICATION_COUNT")
-        intent.putExtra("notification_count", newCount)
+        sharedPrefHelper.setNotification(newCount)
+        // Send broadcast to update UI
+        val intent = Intent("com.example.cinelog.UPDATE_NOTIFICATION_COUNT").apply {
+            putExtra("notification_count", newCount)
+        }
         sendBroadcast(intent)
     }
 

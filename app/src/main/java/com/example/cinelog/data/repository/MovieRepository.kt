@@ -1,5 +1,6 @@
 package com.example.cinelog.data.repository
 
+import Notification
 import android.util.Log
 import com.example.cinelog.data.remote.ApiService
 import com.example.cinelog.model.BarChartData
@@ -294,6 +295,17 @@ class MovieRepository(private val apiService: ApiService, private val db: Fireba
             }
     }
 
+    fun getNotificaation(callback:(List<Notification>)->Unit){
+        val notificationRef = db.collection((Constant.NOTIFICATION))
+        notificationRef.get().addOnSuccessListener { result ->
+            val notificationList = result.mapNotNull { document ->
+                document.toObject(Notification::class.java)
+            }
+            callback(notificationList)
+        }.addOnFailureListener { e -> Log.e(Constant.NOTIFICATION,"Here is notification error", e)
+        callback(emptyList())
+        }
+    }
 
 }
 
