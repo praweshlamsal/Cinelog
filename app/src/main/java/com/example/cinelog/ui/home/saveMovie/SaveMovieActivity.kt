@@ -20,6 +20,7 @@ import com.example.cinelog.viewModel.MovieViewModelFactory
 import com.google.android.material.chip.Chip
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.UUID
+import kotlin.math.log
 
 class SaveMovieActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySaveMovieBinding
@@ -64,14 +65,15 @@ class SaveMovieActivity : AppCompatActivity() {
             val year = intent.getStringExtra("year") ?: ""
             // Get the list of genres from the intent
             val genres = intent.getStringArrayListExtra("genres") ?: arrayListOf()
-
+            Log.d(TAG, " SaveMovieActivity onCreate: "+ genres)
 
             for (genre in genres) {
-                val chip = Chip(this).apply {
-                    text = genre
-
+                for (i in 0 until binding.chipGroupGenres.childCount) {
+                    val chip = binding.chipGroupGenres.getChildAt(i) as Chip
+                    if (chip.text == genre) {
+                        chip.isChecked = true
+                    }
                 }
-                binding.chipGroupGenres.addView(chip)
             }
 
 

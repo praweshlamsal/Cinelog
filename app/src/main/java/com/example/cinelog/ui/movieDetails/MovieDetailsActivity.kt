@@ -47,7 +47,7 @@ class MovieDetailsActivity : AppCompatActivity() {
         val type = intent.getStringExtra("type") ?: ""
         val year = intent.getStringExtra("year") ?: ""
         val rating = intent.getFloatExtra("rating", 0f) // Default to 0f if not passed
-
+        Log.d(TAG, "movieDetailActivity: Rating " + rating)
 
         binding.ratingBar.rating = rating
 
