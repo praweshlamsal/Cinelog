@@ -106,6 +106,8 @@ class MyMovieListFragment : Fragment(R.layout.fragment_favorites), MyMoviesView 
             putExtra("imdbID", movie.imdbID)
             putExtra("type", movie.type)
             putExtra("year", movie.year)
+            putExtra("rating", movie.rating)
+
 
             Log.d(TAG, "navigateToDetails: " + movie.genres)
             putStringArrayListExtra("genres", ArrayList(movie.genres))

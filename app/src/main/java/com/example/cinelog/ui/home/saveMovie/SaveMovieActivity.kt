@@ -24,10 +24,9 @@ import java.util.UUID
 class SaveMovieActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySaveMovieBinding
     private lateinit var sharedPrefHelper: SharedPrefHelper
-    private lateinit var movieviewmodel: MovieViewModel
     private var isEditMode: Boolean = false
     private lateinit var movieViewModel: MovieViewModel
-    private lateinit var  id: String
+    private lateinit var id: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +62,18 @@ class SaveMovieActivity : AppCompatActivity() {
             val imdbID = intent.getStringExtra("imdbID") ?: ""
             val type = intent.getStringExtra("type") ?: ""
             val year = intent.getStringExtra("year") ?: ""
+            // Get the list of genres from the intent
+            val genres = intent.getStringArrayListExtra("genres") ?: arrayListOf()
+
+
+            for (genre in genres) {
+                val chip = Chip(this).apply {
+                    text = genre
+
+                }
+                binding.chipGroupGenres.addView(chip)
+            }
+
 
             // Assign values to the EditText fields
             binding.etTitle.setText(title)
@@ -90,9 +101,17 @@ class SaveMovieActivity : AppCompatActivity() {
     }
 
 
-
     private fun setupGenreChips() {
-        val genres = listOf("Action", "Drama", "Comedy", "Horror", "Sci-Fi", "Romance", "Adventure", "Thriller")
+        val genres = listOf(
+            "Action",
+            "Drama",
+            "Comedy",
+            "Horror",
+            "Sci-Fi",
+            "Romance",
+            "Adventure",
+            "Thriller"
+        )
         val chipGroup = binding.chipGroupGenres
 
         for (genre in genres) {
@@ -145,13 +164,31 @@ class SaveMovieActivity : AppCompatActivity() {
             return
         }
 
-        if (isEditMode){
+        if (isEditMode) {
             Log.d(TAG, "EditMovie: $id")
-            val movie = Movie( id = id, title = title, poster = poster, imdbID = imdbID, type = type, year = year, query = "null" , genres = selectedGenres)
+            val movie = Movie(
+                id = id,
+                title = title,
+                poster = poster,
+                imdbID = imdbID,
+                type = type,
+                year = year,
+                query = "null",
+                genres = selectedGenres
+            )
             movieViewModel.editMyMovie(movie)
             showToast("Movie edited successfully")
-        }else{
-            val movie = Movie( id = UUID.randomUUID().toString(),title = title, poster = poster, imdbID = imdbID, type = type, year = year, query = "null", genres = selectedGenres)
+        } else {
+            val movie = Movie(
+                id = UUID.randomUUID().toString(),
+                title = title,
+                poster = poster,
+                imdbID = imdbID,
+                type = type,
+                year = year,
+                query = "null",
+                genres = selectedGenres
+            )
             movieViewModel.saveMyMovie(movie)
             showToast("Movie saved successfully")
         }
@@ -178,6 +215,7 @@ class SaveMovieActivity : AppCompatActivity() {
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
+
     override fun onSupportNavigateUp(): Boolean {
         onBackPressedDispatcher.onBackPressed()
         return true
