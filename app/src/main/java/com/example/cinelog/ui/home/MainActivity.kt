@@ -37,7 +37,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.othersFragment
             )
         )
-        //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
         NavigationUI.setupWithNavController(binding.bottomNav, navController)
     }
 

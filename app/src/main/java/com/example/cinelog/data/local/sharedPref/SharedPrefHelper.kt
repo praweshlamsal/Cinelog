@@ -67,4 +67,16 @@ class SharedPrefHelper(context: Context) {
         private const val KEY_MOVIES_LIST = "key_movies_list"
         private const val KEY_MY_MOVIES_LIST = "key_my_movies_list"
     }
+
+    fun getNotificationCount(): Int {
+        return sharedPreferences.getInt("notification_count", 0)
+    }
+
+    fun resetNotificationCount() {
+        sharedPreferences.edit().putInt("notification_count", 0).apply()
+    }
+
+    fun setNotification(num:Int){
+        sharedPreferences.edit().putInt("notification_count",num).apply()
+    }
 }

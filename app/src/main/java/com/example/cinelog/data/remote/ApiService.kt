@@ -13,4 +13,5 @@ interface ApiService {
         @Query("apikey") apiKey: String,
         @Query("page") page: Int
     ): Response<MovieResponse>
+
 }
