@@ -1,0 +1,25 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+
+    <!-- Rocket Body -->
+    <path
+        android:fillColor="#9E9E9E"
+        android:pathData="M100,50 L120,80 L80,80 Z"/>
+
+    <!-- Flame -->
+    <path
+        android:fillColor="#FF5722"
+        android:pathData="M90,120 Q100,150 110,120 L100,140 Z"/>
+
+    <!-- Stars -->
+    <path
+        android:fillColor="#FFD740"
+        android:pathData="M30,40 L33,47 40,47 35,52 37,60 30,55 23,60 25,52 20,47 27,47z"/>
+
+    <path
+        android:fillColor="#FFD740"
+        android:pathData="M160,80 L163,87 170,87 165,92 167,100 160,95 153,100 155,92 150,87 157,87z"/>
+</vector>

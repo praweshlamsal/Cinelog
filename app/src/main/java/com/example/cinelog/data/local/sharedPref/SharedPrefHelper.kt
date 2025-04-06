@@ -61,11 +61,16 @@ class SharedPrefHelper(context: Context) {
         sharedPreferences.edit().clear().apply()
     }
 
+    var isOnboardingCompleted: Boolean
+        get() = sharedPreferences.getBoolean(ONBOARDING_KEY, false)
+        set(value) = sharedPreferences.edit().putBoolean(ONBOARDING_KEY, value).apply()
+
     companion object {
         private const val PREF_NAME = "movies_pref"
         private const val KEY_MOVIE = "key_movie"
         private const val KEY_MOVIES_LIST = "key_movies_list"
         private const val KEY_MY_MOVIES_LIST = "key_my_movies_list"
+        private const val ONBOARDING_KEY = "onboarding_completed"
     }
 
     fun getNotificationCount(): Int {
