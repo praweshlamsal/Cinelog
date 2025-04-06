@@ -57,7 +57,7 @@
     <!-- Onboarding Titles -->
     <string name="title_1">Welcome to App</string>
     <string name="title_2">Discover Features</string>
-    <string name="title_3">Get Started</string>
+    <string name="title_3">Getting Started</string>
 
     <!-- Onboarding Descriptions -->
     <string name="desc_1">Your journey begins here</string>
