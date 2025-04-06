@@ -19,6 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="?attr/colorSurface"
+        android:visibility="gone"
         app:itemIconTint="@drawable/bottom_nav_icon_tint"
         app:itemTextColor="@drawable/bottom_nav_text_color"
         app:menu="@menu/bottom_nav_menu" />

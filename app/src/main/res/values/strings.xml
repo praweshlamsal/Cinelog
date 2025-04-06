@@ -44,5 +44,23 @@
     <string name="check_network">check network</string>
     <string name="search_icon">search icon</string>
     <string name="genre">Genre</string>
+    <string name="notifications">Notifications</string>
+    <string name="my_movies">My Movies</string>
+    <string name="favorties">Favorties</string>
+    <string name="graph">Graph</string>
+    <string name="movies">Movies</string>
     <string name="rating">0.00/10 ⭐ </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="skip">Skip</string>
+    <string name="next">Next</string>
+    <!-- Onboarding Titles -->
+    <string name="title_1">Welcome to App</string>
+    <string name="title_2">Discover Features</string>
+    <string name="title_3">Getting Started</string>
+
+    <!-- Onboarding Descriptions -->
+    <string name="desc_1">Your journey begins here</string>
+    <string name="desc_2">Explore amazing features</string>
+    <string name="desc_3">Let\'s start creating!</string>
 </resources>

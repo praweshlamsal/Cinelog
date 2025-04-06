@@ -1,5 +1,6 @@
 package com.example.cinelog.viewModel
 
+import Notification
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -35,6 +36,9 @@ class MovieViewModel(private val movieRepository: MovieRepository) : ViewModel()
 
     private val _historyEvents = MutableLiveData<List<HistoryEvent>>()
     val historyEvents: LiveData<List<HistoryEvent>> get() = _historyEvents
+
+    private val _notificationList = MutableLiveData<List<Notification>>()
+    val notificationList: LiveData<List<Notification>> get() = _notificationList
 
     // Fetching Movies from the repository (API)
     suspend fun fetchMovies(searchQuery: String, page: Int) {
@@ -125,5 +129,11 @@ class MovieViewModel(private val movieRepository: MovieRepository) : ViewModel()
     fun editMyMovie(movie: Movie) {
         movieRepository.editMyMoviesFirebase(movie)
         fetchMyMoviesFromFireStore()
+    }
+
+    fun fetchNotification(){
+        movieRepository.getNotificaation { data ->
+            _notificationList.postValue(data)
+        }
     }
 }

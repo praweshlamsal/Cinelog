@@ -1,16 +1,21 @@
 package com.example.cinelog.ui.home.movieList
 
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -31,6 +36,7 @@ import com.example.cinelog.model.Movie
 import com.example.cinelog.ui.home.movieList.adapters.CategoryAdapter
 import com.example.cinelog.ui.home.movieList.adapters.MovieAdapter
 import com.example.cinelog.ui.home.saveMovie.SaveMovieActivity
+import com.example.cinelog.ui.notifications.NotificationActivity
 import com.example.cinelog.ui.search.SearchActivity
 import com.example.cinelog.ui.shakeToSuggest.ShakeToSuggestActivity
 import com.example.cinelog.viewModel.MovieViewModel
@@ -48,9 +54,12 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list),MovieListView {
     private lateinit var movieAdapter: MovieAdapter
     private lateinit var categoryAdapter: CategoryAdapter
     private lateinit var sharedPrefHelper: SharedPrefHelper
+    private var notificationCount = 0
+    private lateinit var notificationReceiver: BroadcastReceiver
 
     private var currentPage = 1
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -74,6 +83,10 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list),MovieListView {
             startActivity(intent)
         }
 
+        binding.ivNotificationIcon.setOnClickListener{
+            val intent = Intent(requireContext(), NotificationActivity::class.java)
+            startActivity(intent)
+        }
 
         binding.fbAddButton.setOnClickListener{
             val intent = Intent(requireContext(), SaveMovieActivity::class.java)
@@ -129,7 +142,55 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list),MovieListView {
             }
         })
 
+        notificationCount = sharedPrefHelper.getNotificationCount()
+        updateNotificationBadge(notificationCount)
+
+        // Replace existing static count code with this
+        binding.ivNotificationIcon.setOnClickListener {
+            // Reset count when notifications are opened
+            sharedPrefHelper.resetNotificationCount()
+            notificationCount = 0
+            updateNotificationBadge(notificationCount)
+
+            val intent = Intent(requireContext(), NotificationActivity::class.java)
+            startActivity(intent)
+        }
+
+        Log.d("Notificationtag",sharedPrefHelper.getNotificationCount().toString())
+        // Add BroadcastReceiver
+        setupNotificationReceiver()
+        var count = notificationCount
+        binding.notificationBadge.text = count.toString()
+        binding.notificationBadge.visibility = if (count > 0) View.VISIBLE else View.GONE
+
         return binding.root
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun setupNotificationReceiver() {
+        notificationReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                notificationCount = sharedPrefHelper.getNotificationCount()
+                val count = intent?.getIntExtra("notification_count",0) ?: 0
+                updateNotificationBadge(count)
+            }
+        }
+
+        requireContext().registerReceiver(
+            notificationReceiver,
+            IntentFilter("com.example.cinelog.UPDATE_NOTIFICATION_COUNT"),
+            Context.RECEIVER_NOT_EXPORTED,
+        )
+    }
+
+    private fun updateNotificationBadge(count:Int) {
+        binding.notificationBadge.text = count.toString()
+        binding.notificationBadge.visibility = if (count > 0) View.VISIBLE else View.GONE
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        requireContext().unregisterReceiver(notificationReceiver)
     }
 
     private fun shareMovie(movie: Movie) {

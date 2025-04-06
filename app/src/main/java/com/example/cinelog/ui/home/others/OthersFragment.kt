@@ -26,7 +26,8 @@ class OthersFragment : Fragment(R.layout.fragment_others) {
         val themeSettings = SaveThemeSettings(requireContext())
         themeSettings.loadThemePreference()
 
-        val sharedPreferences = requireContext().getSharedPreferences("AppPreferences", MODE_PRIVATE)
+        val sharedPreferences =
+            requireContext().getSharedPreferences("AppPreferences", MODE_PRIVATE)
         binding.themeToggle.isChecked = sharedPreferences.getBoolean("DarkMode", false)
 
         // Theme toggle listener
@@ -45,11 +46,7 @@ class OthersFragment : Fragment(R.layout.fragment_others) {
             startActivity(intent)
         }
 
-        // Ensure themeToggle consumes its own click events
-        binding.themeToggle.setOnClickListener {
-            // Toggle the switch manually if needed; event is consumed here
-            // This prevents propagation to parent views
-        }
+
 
         return binding.root
     }

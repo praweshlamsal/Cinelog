@@ -35,4 +35,5 @@ class SearchAdapter(private var movies: List<Movie>) :
             binding.tvSearchType.text = "Type: ${movie.type}"
             Glide.with(itemView.context).load(movie.poster).into(binding.ivSearchPoster)
         }
-    }}
+    }
+    }

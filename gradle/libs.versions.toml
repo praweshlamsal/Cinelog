@@ -23,6 +23,7 @@ mpandroidchart = "3.1.0"
 googleservices= "4.4.2"
 firebasebom = "33.9.0"
 lottieVersion ="6.1.0"
+firebaseMessagingKtx = "24.1.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -55,6 +56,8 @@ firebase ={ group= "com.google.firebase", name ="firebase-bom", version.ref="fir
 firebaseAnalytics={ group = "com.google.firebase", name= "firebase-analytics"}
 firestore={group= "com.google.firebase", name="firebase-firestore-ktx"}
 lottie = {group= "com.airbnb.android", name = "lottie", version.ref= "lottieVersion"}
+#firebase-messaging = { module = "com.google.firebase:firebase-messaging", version.ref = "firebase-bom" }
+firebase-messaging-ktx = { group = "com.google.firebase", name = "firebase-messaging-ktx", version.ref = "firebaseMessagingKtx" }
 
 
 

@@ -1,0 +1,26 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+
+    <!-- Phone Body -->
+    <path
+        android:fillColor="#607D8B"
+        android:pathData="M50,30 L150,30 Q160,30 160,40 L160,160 Q160,170 150,170 L50,170 Q40,170 40,160 L40,40 Q40,30 50,30z"/>
+
+    <!-- Screen Content -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M60,50 L140,50 L140,150 L60,150 Z"/>
+
+    <!-- Notification Bars -->
+    <path
+        android:fillColor="#B0BEC5"
+        android:pathData="M70,60 L130,60 M70,70 L130,70 M70,80 L110,80"/>
+
+    <!-- App Icons -->
+    <path
+        android:fillColor="#2196F3"
+        android:pathData="M80,100 L80,140 L120,140 L120,100 Z"/>
+</vector>
