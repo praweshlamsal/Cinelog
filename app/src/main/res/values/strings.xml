@@ -63,4 +63,6 @@
     <string name="desc_1">Your journey begins here</string>
     <string name="desc_2">Explore amazing features</string>
     <string name="desc_3">Let\'s start creating!</string>
+    <string name="language">Language</string>
+    <string name="change_language_of_the_app">Change language of the app</string>
 </resources>
