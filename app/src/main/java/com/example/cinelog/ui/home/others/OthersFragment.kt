@@ -55,8 +55,8 @@ class OthersFragment : Fragment(R.layout.fragment_others) {
 
         // Language selection dialog
         binding.languageItem.setOnClickListener {
-            val languages = arrayOf("English", "Español", "Deutsch")
-            val languageCodes = arrayOf("en", "es", "de")
+            val languages = arrayOf("English", "Español", "Deutsch", "Nepali")
+            val languageCodes = arrayOf("en", "es", "de", "np")
 
             val builder = android.app.AlertDialog.Builder(requireContext())
             builder.setTitle("Choose Language")

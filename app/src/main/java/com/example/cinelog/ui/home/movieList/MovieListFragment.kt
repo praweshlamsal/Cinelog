@@ -144,7 +144,7 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list), MovieListView 
 
 
 
-        movieViewModel.fetchCategories()
+        movieViewModel.fetchCategories(requireContext())
 
 
         notificationCount = sharedPrefHelper.getNotificationCount()

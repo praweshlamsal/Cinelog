@@ -66,13 +66,23 @@
     <string name="desc_3">Laten we beginnen met creëren!</string>
     <string name="language">Taal</string>
     <string name="change_language_of_the_app">Verander de taal van de app</string>
-    <string name="year_2023" translatable="false">Jaar: 2023</string>
-    <string name="imdb_id_tt1234567" translatable="false">IMDB ID: tt1234567</string>
-    <string name="type_movie" translatable="false">Type: Film</string>
-    <string name="genres_action_sci_fi" translatable="false">Genres: Actie, Sci-Fi</string>
-    <string name="save_rating" translatable="false">Sla beoordeling op</string>
-    <string name="movie_poster" translatable="false">Film Poster</string>
-    <string name="amazing_spiderman_90" translatable="false">Amazing Spiderman 90</string>
-    <string name="released_2021_01_20" translatable="false">Uitgebracht: 2021-01-20</string>
-    <string name="march_23_2025_at_9_58_42_am" translatable="false">23 maart 2025 om 9:58:42 AM</string>
+    <string name="year_2023" >Jaar: 2023</string>
+    <string name="imdb_id_tt1234567" >IMDB ID: tt1234567</string>
+    <string name="type_movie" >Type: Film</string>
+    <string name="genres_action_sci_fi" >Genres: Actie, Sci-Fi</string>
+    <string name="save_rating" >Sla beoordeling op</string>
+    <string name="movie_poster" >Film Poster</string>
+    <string name="amazing_spiderman_90" >Amazing Spiderman 90</string>
+    <string name="released_2021_01_20" >Uitgebracht: 2021-01-20</string>
+    <string name="march_23_2025_at_9_58_42_am">23 maart 2025 om 9:58:42 AM</string>
+
+    <string name="action_">Actie</string>
+    <string name="category_comedy">Komedie</string>
+    <string name="category_drama">Drama</string>
+    <string name="category_horror">Horror</string>
+    <string name="category_thriller">Thriller</string>
+    <string name="category_scifi">Sciencefiction</string>
+    <string name="filter">Filteri</string>
+
+
 </resources>
