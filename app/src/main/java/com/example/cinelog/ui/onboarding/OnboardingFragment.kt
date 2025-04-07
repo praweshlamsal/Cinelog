@@ -22,7 +22,7 @@ class OnboardingFragment: Fragment(R.layout.fragment_onboarding) {
         binding = FragmentOnboardingBinding.bind(view)
         sharedPrefHelper = SharedPrefHelper(requireContext())
 
-        viewModel = ViewModelProvider(this).get(OnboardingViewModel::class.java)
+        viewModel = ViewModelProvider(this)[OnboardingViewModel::class.java]
 
         setupViewPager()
         setupObservers()
@@ -36,12 +36,13 @@ class OnboardingFragment: Fragment(R.layout.fragment_onboarding) {
                 viewModel.updatePage(position)
             }
         })
+        binding.indicator.setPageCount(3)
+        binding.indicator.setCurrentPage(0)
     }
 
     private fun setupObservers() {
         viewModel.currentPage.observe(viewLifecycleOwner) { position ->
             updateUI(position)
-            (view as? PageIndicatorView)?.setPageCount(3)
         }
 
         viewModel.navigationEvent.observe(viewLifecycleOwner) { shouldNavigate ->
@@ -64,7 +65,6 @@ class OnboardingFragment: Fragment(R.layout.fragment_onboarding) {
 
     private fun updateUI(position: Int) {
         with(binding) {
-            indicator.setPageCount(3)
             btnNext.text = if (position == 2) "Get Started" else "Next"
             btnSkip.visibility = if (position == 2) View.GONE else View.VISIBLE
             indicator.setCurrentPage(position)
