@@ -146,29 +146,11 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list), MovieListView 
 
         movieViewModel.fetchCategories()
 
-//        binding.moviesRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-//                super.onScrolled(recyclerView, dx, dy)
-//
-//                val layoutManager = recyclerView.layoutManager as GridLayoutManager
-//                val visibleItemCount = layoutManager.childCount
-//                val totalItemCount = layoutManager.itemCount
-//                val pastVisibleItems = layoutManager.findFirstVisibleItemPosition()
-//                if ((visibleItemCount + pastVisibleItems) >= totalItemCount) {
-//                    currentPage++
-//                    lifecycleScope.launch {
-//                        movieViewModel.fetchMovies("batman", currentPage)
-//                    }
-//                }
-//            }
-//        })
 
         notificationCount = sharedPrefHelper.getNotificationCount()
         updateNotificationBadge(notificationCount)
 
-        // Replace existing static count code with this
         binding.ivNotificationIcon.setOnClickListener {
-            // Reset count when notifications are opened
             sharedPrefHelper.resetNotificationCount()
             notificationCount = 0
             updateNotificationBadge(notificationCount)
