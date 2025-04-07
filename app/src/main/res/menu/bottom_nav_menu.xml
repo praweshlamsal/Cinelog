@@ -19,7 +19,7 @@
 
     <item
         android:id="@+id/othersFragment"
-        android:icon="@drawable/ic_notification"
-        android:title="@string/notifications" />
+        android:icon="@drawable/ic_other"
+        android:title="@string/others" />
 
 </menu>

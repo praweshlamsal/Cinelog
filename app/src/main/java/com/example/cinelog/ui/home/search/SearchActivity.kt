@@ -1,6 +1,7 @@
 package com.example.cinelog.ui.search
 
 import SearchAdapter
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import com.example.cinelog.data.repository.MovieRepository
 import com.example.cinelog.databinding.ActivitySearchBinding
 import com.example.cinelog.databinding.ItemSearchResultBinding
 import com.example.cinelog.model.Movie
+import com.example.cinelog.ui.home.others.LanguageHelper
 import com.example.cinelog.viewModel.MovieViewModel
 import com.example.cinelog.viewModel.MovieViewModelFactory
 import com.google.firebase.firestore.FirebaseFirestore
@@ -121,5 +123,10 @@ class SearchActivity : AppCompatActivity() {
         binding.clEmpty.visibility = View.GONE
         binding.clError.visibility = View.GONE
         searchAdapter.updateResults(emptyList())
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        val context = newBase?.let { LanguageHelper.applySavedLocale(it) }
+        super.attachBaseContext(context)
     }
 }
