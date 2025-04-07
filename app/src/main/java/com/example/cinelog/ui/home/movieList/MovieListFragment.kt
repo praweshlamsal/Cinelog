@@ -50,7 +50,7 @@ import android.widget.Toast
 import java.util.Calendar
 import android.widget.DatePicker
 
-class MovieListFragment : Fragment(R.layout.fragment_movie_list),MovieListView {
+class MovieListFragment : Fragment(R.layout.fragment_movie_list), MovieListView {
 
     private lateinit var binding: FragmentMovieListBinding
     private lateinit var movieViewModel: MovieViewModel
@@ -59,9 +59,8 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list),MovieListView {
     private lateinit var sharedPrefHelper: SharedPrefHelper
     private var notificationCount = 0
     private lateinit var notificationReceiver: BroadcastReceiver
-    var selectedYear:Int = 0
+    var selectedYear: Int = 0
     private var allMovies: List<Movie> = emptyList()
-
 
 
     private var currentPage = 1
@@ -81,23 +80,23 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list),MovieListView {
 
         val factory = MovieViewModelFactory.MovieViewModelFactory(movieRepository)
         movieViewModel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
-        binding.btDatefilter.setOnClickListener{
+        binding.btDatefilter.setOnClickListener {
             customDate()
         }
 
         categoryAdapter = CategoryAdapter()
-        movieAdapter = MovieAdapter(this,false)
-        binding.ivSearchIcon.setOnClickListener{
+        movieAdapter = MovieAdapter(this, false)
+        binding.ivSearchIcon.setOnClickListener {
             val intent = Intent(requireContext(), SearchActivity::class.java)
             startActivity(intent)
         }
 
-        binding.ivNotificationIcon.setOnClickListener{
+        binding.ivNotificationIcon.setOnClickListener {
             val intent = Intent(requireContext(), NotificationActivity::class.java)
             startActivity(intent)
         }
 
-        binding.fbAddButton.setOnClickListener{
+        binding.fbAddButton.setOnClickListener {
             val intent = Intent(requireContext(), SaveMovieActivity::class.java)
             startActivity(intent)
         }
@@ -116,41 +115,53 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list),MovieListView {
         }
 
         movieViewModel.movieList.observe(viewLifecycleOwner) { movieList ->
-            allMovies = movieList
-            movieAdapter.submitList(movieList)
+
+            if (movieList.isEmpty()) {
+                //logic needed to be implemented
+            } else {
+                binding.progressBar.visibility = View.GONE
+                binding.moviesRecyclerView.visibility = View.VISIBLE
+                allMovies = movieList
+                movieAdapter.submitList(movieList)
+            }
         }
 
 
         movieViewModel.categoryList.observe(viewLifecycleOwner) { categoryList ->
             categoryAdapter.submitList(categoryList)
         }
-        binding.cvRandomMovie.setOnClickListener{
+        binding.cvRandomMovie.setOnClickListener {
             val intent = Intent(requireContext(), ShakeToSuggestActivity::class.java)
             startActivity(intent)
         }
 
 
         lifecycleScope.launch {
-            movieViewModel.fetchMovies("movie", currentPage)
+            binding.moviesRecyclerView.visibility = View.GONE
+            binding.progressBar.visibility = View.VISIBLE
+            movieViewModel.fetchMovies(getRandomKeyword(), currentPage)
         }
+
+
+
         movieViewModel.fetchCategories()
 
-        binding.moviesRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-
-                val layoutManager = recyclerView.layoutManager as GridLayoutManager
-                val visibleItemCount = layoutManager.childCount
-                val totalItemCount = layoutManager.itemCount
-                val pastVisibleItems = layoutManager.findFirstVisibleItemPosition()
-                if ((visibleItemCount + pastVisibleItems) >= totalItemCount) {
-                    currentPage++
-                    lifecycleScope.launch {
-                        movieViewModel.fetchMovies("batman", currentPage)
-                    }
-                }
-            }
-        })
+//        binding.moviesRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+//                super.onScrolled(recyclerView, dx, dy)
+//
+//                val layoutManager = recyclerView.layoutManager as GridLayoutManager
+//                val visibleItemCount = layoutManager.childCount
+//                val totalItemCount = layoutManager.itemCount
+//                val pastVisibleItems = layoutManager.findFirstVisibleItemPosition()
+//                if ((visibleItemCount + pastVisibleItems) >= totalItemCount) {
+//                    currentPage++
+//                    lifecycleScope.launch {
+//                        movieViewModel.fetchMovies("batman", currentPage)
+//                    }
+//                }
+//            }
+//        })
 
         notificationCount = sharedPrefHelper.getNotificationCount()
         updateNotificationBadge(notificationCount)
@@ -166,7 +177,7 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list),MovieListView {
             startActivity(intent)
         }
 
-        Log.d("Notificationtag",sharedPrefHelper.getNotificationCount().toString())
+        Log.d("Notificationtag", sharedPrefHelper.getNotificationCount().toString())
         // Add BroadcastReceiver
         setupNotificationReceiver()
         var count = notificationCount
@@ -175,6 +186,7 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list),MovieListView {
 
         return binding.root
     }
+
     private fun customDate() {
         val calendar = Calendar.getInstance()
         val currentYear = calendar.get(Calendar.YEAR)
@@ -183,9 +195,19 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list),MovieListView {
             requireContext(),
             { _: DatePicker, year: Int, _: Int, _: Int ->
                 selectedYear = year  // ✅ Save the year
-                movieAdapter.submitList(filterByDate(allMovies))
+                val filteredMovies = filterByDate(allMovies)
+                movieAdapter.submitList(filteredMovies)
+
+                if (filteredMovies.isEmpty()) {
+                    Toast.makeText(
+                        requireContext(),
+                        "No movies found for $selectedYear",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
                 movieAdapter.notifyDataSetChanged()
-                Toast.makeText(requireContext(), "Selected Year: $selectedYear", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Selected Year: $selectedYear", Toast.LENGTH_SHORT)
+                    .show()
 
                 // 🔁 You can now use selectedYear for filtering or logic
             },
@@ -215,7 +237,7 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list),MovieListView {
         notificationReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
                 notificationCount = sharedPrefHelper.getNotificationCount()
-                val count = intent?.getIntExtra("notification_count",0) ?: 0
+                val count = intent?.getIntExtra("notification_count", 0) ?: 0
                 updateNotificationBadge(count)
             }
         }
@@ -228,15 +250,34 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list),MovieListView {
     }
 
     private fun filterByDate(movieList: List<Movie>): List<Movie> {
-        return movieList.filter { movie ->
-            val movieYear = movie.year.toIntOrNull()
+        val filtered = movieList.filter { movie ->
+            val cleanedYear = movie.year.trim().take(4)
+            val movieYear = cleanedYear.toIntOrNull()
+
+            Log.d(
+                "MovieFilter",
+                "Movie: ${movie.title}, Raw Year: '${movie.year}', Parsed: $movieYear"
+            )
 
             movieYear != null && movieYear == selectedYear
         }
+
+        Log.d("MovieFilter", "Filtered Movies: ${filtered.size}, Selected Year: $selectedYear")
+        return filtered
     }
 
 
-    private fun updateNotificationBadge(count:Int) {
+    private fun getRandomKeyword(): String {
+        val keywords = listOf(
+            "action", "comedy", "romance", "horror", "thriller",
+            "drama", "sci-fi", "fantasy", "adventure", "animation",
+            "superhero", "crime", "family", "mystery", "war",
+            "western", "sports", "musical", "documentary", "history"
+        )
+        return keywords.random()
+    }
+
+    private fun updateNotificationBadge(count: Int) {
         binding.notificationBadge.text = count.toString()
         binding.notificationBadge.visibility = if (count > 0) View.VISIBLE else View.GONE
     }
@@ -285,7 +326,8 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list),MovieListView {
     }
 
     private fun Bitmap.toUri(context: Context): Uri {
-        val imagesFolder = File(context.cacheDir, "images").apply { mkdirs() } // ✅ Create cache directory
+        val imagesFolder =
+            File(context.cacheDir, "images").apply { mkdirs() } // ✅ Create cache directory
         val file = File(imagesFolder, "shared_movie.png")
 
         try {

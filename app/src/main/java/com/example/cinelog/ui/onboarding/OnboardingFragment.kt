@@ -23,7 +23,6 @@ class OnboardingFragment: Fragment(R.layout.fragment_onboarding) {
         sharedPrefHelper = SharedPrefHelper(requireContext())
 
         viewModel = ViewModelProvider(this)[OnboardingViewModel::class.java]
-
         setupViewPager()
         setupObservers()
         setupClickListeners()
