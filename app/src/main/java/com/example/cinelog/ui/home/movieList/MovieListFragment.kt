@@ -14,7 +14,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
@@ -46,6 +45,10 @@ import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import android.app.DatePickerDialog
+import android.widget.Toast
+import java.util.Calendar
+import android.widget.DatePicker
 
 class MovieListFragment : Fragment(R.layout.fragment_movie_list),MovieListView {
 
@@ -56,6 +59,10 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list),MovieListView {
     private lateinit var sharedPrefHelper: SharedPrefHelper
     private var notificationCount = 0
     private lateinit var notificationReceiver: BroadcastReceiver
+    var selectedYear:Int = 0
+    private var allMovies: List<Movie> = emptyList()
+
+
 
     private var currentPage = 1
 
@@ -64,7 +71,6 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list),MovieListView {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         binding = FragmentMovieListBinding.inflate(inflater, container, false)
         sharedPrefHelper = SharedPrefHelper(requireContext())
         // Initialize ViewModel
@@ -75,6 +81,9 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list),MovieListView {
 
         val factory = MovieViewModelFactory.MovieViewModelFactory(movieRepository)
         movieViewModel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
+        binding.btDatefilter.setOnClickListener{
+            customDate()
+        }
 
         categoryAdapter = CategoryAdapter()
         movieAdapter = MovieAdapter(this,false)
@@ -106,10 +115,11 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list),MovieListView {
             //
         }
 
-
         movieViewModel.movieList.observe(viewLifecycleOwner) { movieList ->
+            allMovies = movieList
             movieAdapter.submitList(movieList)
         }
+
 
         movieViewModel.categoryList.observe(viewLifecycleOwner) { categoryList ->
             categoryAdapter.submitList(categoryList)
@@ -165,6 +175,40 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list),MovieListView {
 
         return binding.root
     }
+    private fun customDate() {
+        val calendar = Calendar.getInstance()
+        val currentYear = calendar.get(Calendar.YEAR)
+
+        val datePickerDialog = DatePickerDialog(
+            requireContext(),
+            { _: DatePicker, year: Int, _: Int, _: Int ->
+                selectedYear = year  // ✅ Save the year
+                movieAdapter.submitList(filterByDate(allMovies))
+                movieAdapter.notifyDataSetChanged()
+                Toast.makeText(requireContext(), "Selected Year: $selectedYear", Toast.LENGTH_SHORT).show()
+
+                // 🔁 You can now use selectedYear for filtering or logic
+            },
+            currentYear, 0, 1
+        )
+
+        // Hide month & day to simulate a year-only picker
+        datePickerDialog.setOnShowListener {
+            try {
+                val datePicker = datePickerDialog.datePicker
+                val dayFieldId = resources.getIdentifier("day", "id", "android")
+                val monthFieldId = resources.getIdentifier("month", "id", "android")
+
+                datePicker.findViewById<View>(dayFieldId)?.visibility = View.GONE
+                datePicker.findViewById<View>(monthFieldId)?.visibility = View.GONE
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+
+        datePickerDialog.show()
+    }
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setupNotificationReceiver() {
@@ -182,6 +226,15 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list),MovieListView {
             Context.RECEIVER_NOT_EXPORTED,
         )
     }
+
+    private fun filterByDate(movieList: List<Movie>): List<Movie> {
+        return movieList.filter { movie ->
+            val movieYear = movie.year.toIntOrNull()
+
+            movieYear != null && movieYear == selectedYear
+        }
+    }
+
 
     private fun updateNotificationBadge(count:Int) {
         binding.notificationBadge.text = count.toString()

@@ -30,6 +30,8 @@ class MovieAdapter(private val movieListView: MovieListView, val isFab: Boolean)
         holder.bind(movie)
     }
 
+
+
     override fun getItemCount(): Int {
         return movies.size
     }
