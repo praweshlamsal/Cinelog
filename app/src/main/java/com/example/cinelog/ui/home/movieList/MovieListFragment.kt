@@ -175,36 +175,32 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list), MovieListView 
 
         val datePickerDialog = DatePickerDialog(
             requireContext(),
-            { _: DatePicker, year: Int, _: Int, _: Int ->
-                selectedYear = year  // ✅ Save the year
+            { _, year, _, _ ->
+                selectedYear = year
+
                 val filteredMovies = filterByDate(allMovies)
                 movieAdapter.submitList(filteredMovies)
 
-                if (filteredMovies.isEmpty()) {
-                    Toast.makeText(
-                        requireContext(),
-                        "No movies found for $selectedYear",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                val message = if (filteredMovies.isEmpty()) {
+                    "No movies found for $selectedYear"
+                } else {
+                    "Filtered by year: $selectedYear"
                 }
-                movieAdapter.notifyDataSetChanged()
-                Toast.makeText(requireContext(), "Selected Year: $selectedYear", Toast.LENGTH_SHORT)
-                    .show()
 
-                // 🔁 You can now use selectedYear for filtering or logic
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
             },
             currentYear, 0, 1
         )
 
-        // Hide month & day to simulate a year-only picker
+        // 👇 Hide month & day to simulate year-only picker
         datePickerDialog.setOnShowListener {
             try {
                 val datePicker = datePickerDialog.datePicker
-                val dayFieldId = resources.getIdentifier("day", "id", "android")
-                val monthFieldId = resources.getIdentifier("month", "id", "android")
+                val dayId = resources.getIdentifier("day", "id", "android")
+                val monthId = resources.getIdentifier("month", "id", "android")
 
-                datePicker.findViewById<View>(dayFieldId)?.visibility = View.GONE
-                datePicker.findViewById<View>(monthFieldId)?.visibility = View.GONE
+                datePicker.findViewById<View>(dayId)?.visibility = View.GONE
+                datePicker.findViewById<View>(monthId)?.visibility = View.GONE
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -212,6 +208,7 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list), MovieListView 
 
         datePickerDialog.show()
     }
+
 
 
     @RequiresApi(Build.VERSION_CODES.O)
