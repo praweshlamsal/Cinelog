@@ -48,11 +48,33 @@ class OthersFragment : Fragment(R.layout.fragment_others) {
         }
 
         // ✅ Language item click listener
-        binding.languageItem.setOnClickListener {
-            val intent = Intent(Settings.ACTION_LOCALE_SETTINGS)
-            startActivity(intent)
-        }
+//        binding.languageItem.setOnClickListener {
+//            val intent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+//            startActivity(intent)
+//        }
 
+        // Language selection dialog
+        binding.languageItem.setOnClickListener {
+            val languages = arrayOf("English", "Español", "Deutsch")
+            val languageCodes = arrayOf("en", "es", "de")
+
+            val builder = android.app.AlertDialog.Builder(requireContext())
+            builder.setTitle("Choose Language")
+            builder.setItems(languages) { _, which ->
+                val selectedLanguage = languageCodes[which]
+
+                // Save to SharedPreferences
+                val prefs = requireContext().getSharedPreferences("AppPreferences", MODE_PRIVATE)
+                prefs.edit().putString("AppLanguage", selectedLanguage).apply()
+
+                // Apply the language
+                LanguageHelper.setLocale(requireContext(), selectedLanguage)
+
+                // Restart the activity to apply changes
+                requireActivity().recreate()
+            }
+            builder.show()
+        }
 
         return binding.root
     }

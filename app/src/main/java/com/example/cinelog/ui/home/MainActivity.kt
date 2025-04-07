@@ -1,5 +1,6 @@
 package com.example.cinelog.ui.home
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,7 @@ import androidx.navigation.ui.NavigationUI
 import com.example.cinelog.R
 import com.example.cinelog.data.local.sharedPref.SharedPrefHelper
 import com.example.cinelog.databinding.ActivityMainBinding
+import com.example.cinelog.ui.home.others.LanguageHelper
 import com.example.cinelog.util.SaveThemeSettings
 
 class MainActivity : AppCompatActivity() {
@@ -57,4 +59,11 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
+
+    override fun attachBaseContext(newBase: Context?) {
+        val context = newBase?.let { LanguageHelper.applySavedLocale(it) }
+        super.attachBaseContext(context)
+    }
+
+
 }

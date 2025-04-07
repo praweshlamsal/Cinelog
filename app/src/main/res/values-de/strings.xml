@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CineLog</string>
+    <string name="movie_title">Filmtitel</string>
+    <string name="overview">Übersicht</string>
+    <string name="release_date">Veröffentlichungsdatum</string>
+    <string name="todo">ZU TUN</string>
+    <string name="category">Kategorie</string>
+    <string name="search_movie">Film Suchen</string>
+    <string name="save_movie">Film Speichern</string>
+    <string name="poster_url">Plakat URL</string>
+    <string name="imdb_id">IMDB ID</string>
+    <string name="type_movie_series">Typ (Film/Serie)</string>
+    <string name="year">Jahr</string>
+    <string name="my_movie">Mein Film</string>
+    <string name="movie_details">Filmdetails</string>
+    <string name="shake_your_device">SCHÜTTE DEIN GERÄT</string>
+    <string name="retry">Wiederholen</string>
+    <string name="suggest_random_movie">Zufälligen Film Vorschlagen</string>
+    <string name="update_movie">Film Aktualisieren</string>
+    <string name="action_icon">Dies ist mein Film-Icon</string>
+    <string name="empty_state_image">Leeres Statusbild</string>
+    <string name="no_data_available">Keine Daten verfügbar</string>
+    <string name="please_check_back_later">Bitte später noch einmal überprüfen.</string>
+    <string name="history">Verlauf</string>
+    <string name="new_string">neuer_string</string>
+    <string name="demo_user">Demo Benutzer</string>
+    <string name="random_movie_title">Zufälliger Filmtitel</string>
+    <string name="click_here_to_generate_random_movie">Klicken Sie hier, um einen zufälligen Film zu generieren</string>
+    <string name="top_10_hits_for_today">Top 10 Hits für Heute</string>
+    <string name="view_your_past_activities">Ihre vergangenen Aktivitäten ansehen</string>
+    <string name="dark_mode">Dunkelmodus</string>
+    <string name="enable_dark_theme_for_better_visibility">Dunkles Thema für bessere Sichtbarkeit aktivieren</string>
+    <string name="action">Aktion</string>
+    <string name="_12_34_pm">12:34 PM</string>
+    <string name="select_genres">Genres Auswählen</string>
+    <string name="clear_serach">Suche löschen</string>
+    <string name="no_result_found">Kein Ergebnis gefunden</string>
+    <string name="try_different_search_term">Versuchen Sie einen anderen Suchbegriff</string>
+    <string name="rating_8_5">Bewertung: 8.5</string>
+    <string name="category_action">Kategorie: Action</string>
+    <string name="search">Suchen</string>
+    <string name="network_error">Netzwerkfehler</string>
+    <string name="error_state_image">Fehlerstatusbild</string>
+    <string name="check_network">Netzwerk überprüfen</string>
+    <string name="search_icon">Such-Icon</string>
+    <string name="genre">Genre</string>
+    <string name="notifications">Benachrichtigungen</string>
+    <string name="my_movies">Meine Filme</string>
+    <string name="favorties">Favoriten</string>
+    <string name="graph">Diagramm</string>
+    <string name="movies">Filme</string>
+    <string name="rating">0.00/10 ⭐</string>
+    <string name="hello_blank_fragment">Hallo leeres Fragment</string>
+    <string name="skip">Überspringen</string>
+    <string name="next">Weiter</string>
+
+    <!-- Onboarding Titles -->
+    <string name="title_1">Willkommen in der App</string>
+    <string name="title_2">Entdecke die Funktionen</string>
+    <string name="title_3">Erste Schritte</string>
+
+    <!-- Onboarding Descriptions -->
+    <string name="desc_1">Deine Reise beginnt hier</string>
+    <string name="desc_2">Entdecke erstaunliche Funktionen</string>
+    <string name="desc_3">Lass uns loslegen!</string>
+
+    <string name="language">Sprache</string>
+    <string name="change_language_of_the_app">Sprache der App ändern</string>
+</resources>
