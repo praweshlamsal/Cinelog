@@ -41,10 +41,10 @@ class GraphFragment : Fragment(R.layout.fragment_graph) {
         val barChart = view.findViewById<BarChart>(R.id.barChart)
         val lineChart = view.findViewById<LineChart>(R.id.lineChart)
 
-        // Apply theme background to charts
-        pieChart.setBackgroundColor(ResourcesCompat.getColor(resources, android.R.color.transparent, requireContext().theme))
-        barChart.setBackgroundColor(ResourcesCompat.getColor(resources, android.R.color.transparent, requireContext().theme))
-        lineChart.setBackgroundColor(ResourcesCompat.getColor(resources, android.R.color.transparent, requireContext().theme))
+        val transparentColor = ResourcesCompat.getColor(resources, android.R.color.transparent, requireContext().theme)
+        pieChart.setBackgroundColor(transparentColor)
+        barChart.setBackgroundColor(transparentColor)
+        lineChart.setBackgroundColor(transparentColor)
 
         movieViewModel.pieChartDataList.observe(viewLifecycleOwner, Observer {
             setupPieChart(pieChart, it)
@@ -66,7 +66,7 @@ class GraphFragment : Fragment(R.layout.fragment_graph) {
     private fun setupPieChart(pieChart: PieChart, data: List<PieChartData>) {
         val entries = data.map { PieEntry(it.percentage, it.category) }
 
-        val dataSet = PieDataSet(entries, "Genre Popularity").apply {
+        val dataSet = PieDataSet(entries, getString(R.string.chart_genre_popularity)).apply {
             colors = listOf(
                 ResourcesCompat.getColor(resources, android.R.color.holo_red_dark, requireContext().theme),
                 ResourcesCompat.getColor(resources, android.R.color.holo_blue_dark, requireContext().theme),
@@ -74,12 +74,12 @@ class GraphFragment : Fragment(R.layout.fragment_graph) {
                 ResourcesCompat.getColor(resources, android.R.color.holo_orange_dark, requireContext().theme),
                 ResourcesCompat.getColor(resources, android.R.color.holo_purple, requireContext().theme)
             )
-            valueTextColor = ResourcesCompat.getColor(resources, android.R.color.black, requireContext().theme) // ?android:attr/textColorPrimary
+            valueTextColor = ResourcesCompat.getColor(resources, android.R.color.black, requireContext().theme)
         }
 
         pieChart.data = PieData(dataSet)
-        pieChart.description.text = "Movie Genre Popularity (%)"
-        pieChart.description.textColor = ResourcesCompat.getColor(resources, android.R.color.black, requireContext().theme) // ?android:attr/textColorPrimary
+        pieChart.description.text = getString(R.string.chart_genre_description)
+        pieChart.description.textColor = ResourcesCompat.getColor(resources, android.R.color.black, requireContext().theme)
         pieChart.animateY(1000)
         pieChart.setEntryLabelColor(ResourcesCompat.getColor(resources, android.R.color.black, requireContext().theme))
         pieChart.legend.textColor = ResourcesCompat.getColor(resources, android.R.color.black, requireContext().theme)
@@ -89,7 +89,7 @@ class GraphFragment : Fragment(R.layout.fragment_graph) {
         val entries = data.mapIndexed { index, barData -> BarEntry(index.toFloat(), barData.watchHours) }
         val labels = data.map { it.movieName }
 
-        val dataSet = BarDataSet(entries, "Top 5 Watched Movies").apply {
+        val dataSet = BarDataSet(entries, getString(R.string.chart_top_movies)).apply {
             colors = listOf(
                 ResourcesCompat.getColor(resources, android.R.color.holo_blue_dark, requireContext().theme),
                 ResourcesCompat.getColor(resources, android.R.color.holo_blue_light, requireContext().theme),
@@ -97,11 +97,11 @@ class GraphFragment : Fragment(R.layout.fragment_graph) {
                 ResourcesCompat.getColor(resources, android.R.color.holo_green_dark, requireContext().theme),
                 ResourcesCompat.getColor(resources, android.R.color.holo_red_dark, requireContext().theme)
             )
-            valueTextColor = ResourcesCompat.getColor(resources, android.R.color.black, requireContext().theme) // ?android:attr/textColorPrimary
+            valueTextColor = ResourcesCompat.getColor(resources, android.R.color.black, requireContext().theme)
         }
 
         barChart.data = BarData(dataSet)
-        barChart.description.text = "Total Watch Hours per Movie"
+        barChart.description.text = getString(R.string.chart_bar_description)
         barChart.description.textColor = ResourcesCompat.getColor(resources, android.R.color.black, requireContext().theme)
         barChart.setFitBars(true)
         barChart.animateY(1000)
@@ -121,15 +121,15 @@ class GraphFragment : Fragment(R.layout.fragment_graph) {
         val entries = data.mapIndexed { index, lineData -> Entry(index.toFloat(), lineData.watchHours) }
         val labels = data.map { it.day }
 
-        val dataSet = LineDataSet(entries, "Daily Watch Time (Hours)").apply {
+        val dataSet = LineDataSet(entries, getString(R.string.chart_daily_watch)).apply {
             color = ResourcesCompat.getColor(resources, android.R.color.holo_blue_dark, requireContext().theme)
-            valueTextColor = ResourcesCompat.getColor(resources, android.R.color.black, requireContext().theme) // ?android:attr/textColorPrimary
+            valueTextColor = ResourcesCompat.getColor(resources, android.R.color.black, requireContext().theme)
             setDrawCircles(true)
             setCircleColor(ResourcesCompat.getColor(resources, android.R.color.holo_red_dark, requireContext().theme))
         }
 
         lineChart.data = LineData(dataSet)
-        lineChart.description.text = "Daily Watch Hours Trend"
+        lineChart.description.text = getString(R.string.chart_line_description)
         lineChart.description.textColor = ResourcesCompat.getColor(resources, android.R.color.black, requireContext().theme)
         lineChart.animateX(1000)
 

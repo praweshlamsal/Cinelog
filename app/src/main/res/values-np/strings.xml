@@ -86,4 +86,13 @@
     <string name="category_thriller">थ्रिलर</string>
     <string name="category_scifi">विज्ञान-कथा</string>
     <string name="filter">छान्नुहोस्</string>
+
+
+    <string name="others">अन्य</string>
+    <string name="chart_genre_popularity">श्रेणीको लोकप्रियता</string>
+    <string name="chart_genre_description">चलचित्र श्रेणीको लोकप्रियता (%)</string>
+    <string name="chart_top_movies">शीर्ष ५ हेरिएका चलचित्रहरू</string>
+    <string name="chart_bar_description">प्रत्येक चलचित्रको हेर्ने कुल घण्टा</string>
+    <string name="chart_daily_watch">दैनिक हेर्ने समय (घण्टा)</string>
+    <string name="chart_line_description">दैनिक हेर्ने समयको प्रवृत्ति</string>
 </resources>

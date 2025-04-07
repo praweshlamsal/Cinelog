@@ -66,14 +66,14 @@
     <string name="desc_3">Laten we beginnen met creëren!</string>
     <string name="language">Taal</string>
     <string name="change_language_of_the_app">Verander de taal van de app</string>
-    <string name="year_2023" >Jaar: 2023</string>
-    <string name="imdb_id_tt1234567" >IMDB ID: tt1234567</string>
-    <string name="type_movie" >Type: Film</string>
-    <string name="genres_action_sci_fi" >Genres: Actie, Sci-Fi</string>
-    <string name="save_rating" >Sla beoordeling op</string>
-    <string name="movie_poster" >Film Poster</string>
-    <string name="amazing_spiderman_90" >Amazing Spiderman 90</string>
-    <string name="released_2021_01_20" >Uitgebracht: 2021-01-20</string>
+    <string name="year_2023">Jaar: 2023</string>
+    <string name="imdb_id_tt1234567">IMDB ID: tt1234567</string>
+    <string name="type_movie">Type: Film</string>
+    <string name="genres_action_sci_fi">Genres: Actie, Sci-Fi</string>
+    <string name="save_rating">Sla beoordeling op</string>
+    <string name="movie_poster">Film Poster</string>
+    <string name="amazing_spiderman_90">Amazing Spiderman 90</string>
+    <string name="released_2021_01_20">Uitgebracht: 2021-01-20</string>
     <string name="march_23_2025_at_9_58_42_am">23 maart 2025 om 9:58:42 AM</string>
 
     <string name="action_">Actie</string>
@@ -83,6 +83,16 @@
     <string name="category_thriller">Thriller</string>
     <string name="category_scifi">Sciencefiction</string>
     <string name="filter">Filteri</string>
+
+    <string name="others">Overige</string>
+
+    <string name="chart_genre_popularity">Populariteit per genre</string>
+    <string name="chart_genre_description">Populariteit van filmgenres (%)</string>
+    <string name="chart_top_movies">Top 5 Meest Bekeken Films</string>
+    <string name="chart_bar_description">Totaal aantal kijkuren per film</string>
+    <string name="chart_daily_watch">Dagelijkse kijktijd (uren)</string>
+    <string name="chart_line_description">Trend van dagelijkse kijktijd</string>
+
 
 
 </resources>

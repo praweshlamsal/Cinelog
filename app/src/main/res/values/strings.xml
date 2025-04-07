@@ -86,4 +86,11 @@
     <string name="filter">Filter</string>
     <string name="others">Others</string>
 
+    <string name="chart_genre_popularity">Genre Popularity</string>
+    <string name="chart_genre_description">Movie Genre Popularity (%)</string>
+    <string name="chart_top_movies">Top 5 Watched Movies</string>
+    <string name="chart_bar_description">Total Watch Hours per Movie</string>
+    <string name="chart_daily_watch">Daily Watch Time (Hours)</string>
+    <string name="chart_line_description">Daily Watch Hours Trend</string>
+
 </resources>
