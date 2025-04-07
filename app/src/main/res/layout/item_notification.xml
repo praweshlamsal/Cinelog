@@ -19,7 +19,7 @@
             android:layout_height="120dp"
             android:layout_marginEnd="12dp"
             android:scaleType="centerCrop"
-            android:contentDescription="Movie Poster" />
+            android:contentDescription="@string/movie_poster" />
 
         <!-- Movie Info -->
         <LinearLayout
@@ -39,7 +39,7 @@
                 android:textStyle="bold"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="Amazing Spiderman 90"
+                android:text="@string/amazing_spiderman_90"
                 android:layout_marginBottom="4dp" />
 
             <!-- Release Date -->
@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
                 android:textColor="@android:color/darker_gray"
-                android:text="Released: 2021-01-20"
+                android:text="@string/released_2021_01_20"
                 android:layout_marginBottom="4dp" />
 
             <!-- Timestamp -->
@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
                 android:textColor="@android:color/black"
-                android:text="March 23, 2025 at 9:58:42 AM" />
+                android:text="@string/march_23_2025_at_9_58_42_am" />
 
         </LinearLayout>
     </LinearLayout>

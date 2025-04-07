@@ -35,7 +35,7 @@
         android:id="@+id/tvMovieTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Movie Title"
+        android:text="@string/movie_title"
         android:textSize="20sp"
         android:textStyle="bold"
         android:paddingTop="8dp" />
@@ -45,7 +45,7 @@
         android:id="@+id/tvMovieYear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Year: 2023"
+        android:text="@string/year_2023"
         android:textSize="16sp"
         android:paddingTop="4dp" />
 
@@ -54,7 +54,7 @@
         android:id="@+id/tvImdbId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="IMDB ID: tt1234567"
+        android:text="@string/imdb_id_tt1234567"
         android:textSize="16sp"
         android:paddingTop="4dp" />
 
@@ -63,7 +63,7 @@
         android:id="@+id/tvMovieType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Type: Movie"
+        android:text="@string/type_movie"
         android:textSize="16sp"
         android:paddingTop="4dp" />
 
@@ -72,7 +72,7 @@
         android:id="@+id/tvGenres"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Genres: Action, Sci-Fi"
+        android:text="@string/genres_action_sci_fi"
         android:textSize="16sp"
         android:textStyle="bold"
         android:paddingTop="8dp" />
@@ -92,7 +92,7 @@
         android:id="@+id/btnSaveRating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save Rating"
+        android:text="@string/save_rating"
         android:paddingTop="8dp" />
 
     </LinearLayout>

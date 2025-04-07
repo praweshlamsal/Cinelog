@@ -65,4 +65,13 @@
     <string name="desc_3">Let\'s start creating!</string>
     <string name="language">Language</string>
     <string name="change_language_of_the_app">Change language of the app</string>
+    <string name="year_2023" translatable="false">Year: 2023</string>
+    <string name="imdb_id_tt1234567" translatable="false">IMDB ID: tt1234567</string>
+    <string name="type_movie" translatable="false">Type: Movie</string>
+    <string name="genres_action_sci_fi" translatable="false">Genres: Action, Sci-Fi</string>
+    <string name="save_rating" translatable="false">Save Rating</string>
+    <string name="movie_poster" translatable="false">Movie Poster</string>
+    <string name="amazing_spiderman_90" translatable="false">Amazing Spiderman 90</string>
+    <string name="released_2021_01_20" translatable="false">Released: 2021-01-20</string>
+    <string name="march_23_2025_at_9_58_42_am" translatable="false">March 23, 2025 at 9:58:42 AM</string>
 </resources>
