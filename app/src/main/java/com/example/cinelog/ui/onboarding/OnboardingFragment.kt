@@ -30,7 +30,7 @@ class OnboardingFragment: Fragment(R.layout.fragment_onboarding) {
     }
 
     private fun setupViewPager() {
-        binding.viewPager.adapter = OnboardingAdapter(this)
+        binding.viewPager.adapter = OnboardingAdapter(this, requireContext())
         binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 viewModel.updatePage(position)

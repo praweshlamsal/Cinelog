@@ -3,6 +3,7 @@ package com.example.cinelog.ui.onboarding
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
+import com.airbnb.lottie.LottieDrawable
 import com.example.cinelog.R
 import com.example.cinelog.databinding.FragmentOnboardingPageBinding
 import com.example.cinelog.model.OnboardingPage
@@ -27,7 +28,9 @@ class OnboardingPageFragment : Fragment(R.layout.fragment_onboarding_page) {
         with(binding) {
             title.setText(page.title)
             description.setText(page.description)
-            image.setImageResource(page.imageRes)
+            image.setAnimationFromJson(page.imageRes)
+            image.repeatCount = LottieDrawable.INFINITE
+            image.playAnimation()
         }
     }
 
