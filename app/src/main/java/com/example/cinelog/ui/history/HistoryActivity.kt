@@ -1,5 +1,6 @@
 package com.example.cinelog.ui.history
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
@@ -15,6 +16,7 @@ import com.example.cinelog.data.remote.network.RetrofitClient
 import com.example.cinelog.data.repository.MovieRepository
 import com.example.cinelog.databinding.ActivityHistoryBinding
 import com.example.cinelog.ui.history.adapters.HistoryAdapter
+import com.example.cinelog.ui.home.others.LanguageHelper
 import com.example.cinelog.viewModel.MovieViewModel
 import com.example.cinelog.viewModel.MovieViewModelFactory
 import com.google.firebase.firestore.FirebaseFirestore
@@ -64,5 +66,12 @@ class HistoryActivity : AppCompatActivity() {
         })
 
         movieViewModel.fetchHistory()
+
+
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        val context = newBase?.let { LanguageHelper.applySavedLocale(it) }
+        super.attachBaseContext(context)
     }
 }
