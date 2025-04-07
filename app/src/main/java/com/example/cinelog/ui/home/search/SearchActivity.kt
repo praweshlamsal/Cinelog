@@ -1,4 +1,4 @@
-package com.example.cinelog.ui.search
+package com.example.cinelog.ui.home.search
 
 import SearchAdapter
 import android.content.Context

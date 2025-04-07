@@ -36,7 +36,7 @@ import com.example.cinelog.ui.home.movieList.adapters.CategoryAdapter
 import com.example.cinelog.ui.home.movieList.adapters.MovieAdapter
 import com.example.cinelog.ui.home.saveMovie.SaveMovieActivity
 import com.example.cinelog.ui.notifications.NotificationActivity
-import com.example.cinelog.ui.search.SearchActivity
+
 import com.example.cinelog.ui.shakeToSuggest.ShakeToSuggestActivity
 import com.example.cinelog.viewModel.MovieViewModel
 import com.example.cinelog.viewModel.MovieViewModelFactory
@@ -49,6 +49,7 @@ import android.app.DatePickerDialog
 import android.widget.Toast
 import java.util.Calendar
 import android.widget.DatePicker
+import com.example.cinelog.ui.home.search.SearchActivity
 
 class MovieListFragment : Fragment(R.layout.fragment_movie_list), MovieListView {
 

@@ -19,14 +19,13 @@
         android:theme="@style/Theme.CineLog"
         tools:targetApi="31">
         <activity
+            android:name=".ui.home.search.SearchActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.notifications.NotificationActivity"
             android:exported="false" />
-
         <activity
             android:name=".ui.movieDetails.MovieDetailsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.search.SearchActivity"
             android:exported="false" />
         <activity
             android:name=".ui.history.HistoryActivity"
@@ -45,18 +44,22 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+        <activity
+            android:name=".splash.SplashActivity"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".ui.home.saveMovie.SaveMovieActivity"
             android:exported="false" />
         <activity
             android:name=".ui.home.MainActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
