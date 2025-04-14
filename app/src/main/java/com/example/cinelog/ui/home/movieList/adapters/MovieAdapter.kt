@@ -6,16 +6,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.cinelog.R
 import com.example.cinelog.databinding.ItemMovieBinding
-import com.example.cinelog.model.Movie
+import com.example.cinelog.model.MovieV2
 import com.example.cinelog.ui.home.movieList.MovieListView
 
 
 class MovieAdapter(private val movieListView: MovieListView, val isFab: Boolean) :
     RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
-    private var movies = listOf<Movie>()
+    private var movies = listOf<MovieV2>()
 
-    fun submitList(newMovies: List<Movie>) {
+    fun submitList(newMovies: List<MovieV2>) {
         movies = newMovies
         notifyDataSetChanged()
     }
@@ -39,13 +39,13 @@ class MovieAdapter(private val movieListView: MovieListView, val isFab: Boolean)
     inner class MovieViewHolder(private val binding: ItemMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(movie: Movie) {
+        fun bind(movie: MovieV2) {
             binding.movieTitle.text = movie.title
-            binding.movieOverview.text = movie.imdbID
-            binding.movieReleaseDate.text = movie.year
+            binding.movieOverview.text = movie.overview
+            binding.movieReleaseDate.text = movie.release_date
 
             Glide.with(binding.root.context)
-                .load(movie.poster)
+                .load(movie.poster_path)
                 .placeholder(R.drawable.ic_placeholder)
                 .into(binding.movieImage)
 

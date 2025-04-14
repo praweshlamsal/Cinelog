@@ -35,13 +35,8 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>
 
     inner class CategoryViewHolder(private val binding: ItemCategoryBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(category: Category) {
-
             binding.tvCategory.text = category.name
-
-            Glide.with(binding.root.context)
-                .load(category.imageUrl)
-                .placeholder(R.drawable.ic_placeholder)
-                .into(binding.ivCategory)
+            binding.tvLetter.text = category.name.first().uppercase()
         }
     }
 }

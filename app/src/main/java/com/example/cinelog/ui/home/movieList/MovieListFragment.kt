@@ -49,7 +49,9 @@ import android.app.DatePickerDialog
 import android.widget.Toast
 import java.util.Calendar
 import android.widget.DatePicker
+import com.example.cinelog.model.MovieV2
 import com.example.cinelog.ui.home.search.SearchActivity
+import com.example.cinelog.util.Constant
 
 class MovieListFragment : Fragment(R.layout.fragment_movie_list), MovieListView {
 
@@ -61,7 +63,7 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list), MovieListView 
     private var notificationCount = 0
     private lateinit var notificationReceiver: BroadcastReceiver
     var selectedYear: Int = 0
-    private var allMovies: List<Movie> = emptyList()
+    private var allMovies: List<MovieV2> = emptyList()
 
 
     private var currentPage = 1
@@ -115,7 +117,7 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list), MovieListView 
             //
         }
 
-        movieViewModel.movieList.observe(viewLifecycleOwner) { movieList ->
+        movieViewModel.movieListV2.observe(viewLifecycleOwner) { movieList ->
 
             if (movieList.isEmpty()) {
                 //logic needed to be implemented
@@ -140,12 +142,12 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list), MovieListView 
         lifecycleScope.launch {
             binding.moviesRecyclerView.visibility = View.GONE
             binding.progressBar.visibility = View.VISIBLE
-            movieViewModel.fetchMovies(getRandomKeyword(), currentPage)
+            movieViewModel.fetchTopMovies()
         }
 
 
 
-        movieViewModel.fetchCategories(requireContext())
+        movieViewModel.fetchCategories(Constant.API_KEY)
 
 
         notificationCount = sharedPrefHelper.getNotificationCount()
@@ -229,14 +231,14 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list), MovieListView 
         )
     }
 
-    private fun filterByDate(movieList: List<Movie>): List<Movie> {
+    private fun filterByDate(movieList: List<MovieV2>): List<MovieV2> {
         val filtered = movieList.filter { movie ->
-            val cleanedYear = movie.year.trim().take(4)
+            val cleanedYear = movie.release_date.trim().take(4)
             val movieYear = cleanedYear.toIntOrNull()
 
             Log.d(
                 "MovieFilter",
-                "Movie: ${movie.title}, Raw Year: '${movie.year}', Parsed: $movieYear"
+                "Movie: ${movie.title}, Raw Year: '${movie.release_date.trim()}', Parsed: $movieYear"
             )
 
             movieYear != null && movieYear == selectedYear
@@ -267,22 +269,22 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list), MovieListView 
         requireContext().unregisterReceiver(notificationReceiver)
     }
 
-    private fun shareMovie(movie: Movie) {
+    private fun shareMovie(movie: MovieV2) {
         val context = requireContext() // Get Fragment's context
 
         // Prepare text message with movie details
         val shareText = """
             Hello fans have you watched this ?
-        🎬 *${movie.title}* (${movie.year})
-        📽️ Type: ${movie.type}
-        🌟 IMDb: https://www.imdb.com/title/${movie.imdbID}
+        🎬 *${movie.title}* (${movie.release_date})
+        📽️ OverView: ${movie.overview}
+        🌟 IMDb: https://www.imdb.com/title/${movie.popularity}
         
         🎥 Check it out! 🍿
     """.trimIndent()
 
         Glide.with(context)
             .asBitmap()
-            .load(movie.poster)
+            .load(movie.poster_path)
             .diskCacheStrategy(DiskCacheStrategy.ALL) // Cache for faster loading
             .into(object : CustomTarget<Bitmap>() {
                 override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
@@ -321,11 +323,11 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list), MovieListView 
         return FileProvider.getUriForFile(context, "${context.packageName}.provider", file)
     }
 
-    override fun onSharedClicked(movie: Movie) {
+    override fun onSharedClicked(movie: MovieV2) {
         shareMovie(movie)
     }
 
-    override fun onFabButtonClicked(movie: Movie, fabIcon: ImageView) {
+    override fun onFabButtonClicked(movie: MovieV2, fabIcon: ImageView) {
         sharedPrefHelper.saveMovie(movie)
         fabIcon.setImageResource(R.drawable.ic_fab_fill)
 

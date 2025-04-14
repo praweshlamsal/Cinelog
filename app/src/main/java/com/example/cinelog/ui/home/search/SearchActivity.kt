@@ -90,7 +90,7 @@ class SearchActivity : AppCompatActivity() {
         binding.clError.visibility = View.GONE
 
         lifecycleScope.launch {
-            movieViewModel.fetchMovies(query, 1) // Page 1 for initial search
+            movieViewModel.fetchTopMovies() // Page 1 for initial search
         }
     }
 

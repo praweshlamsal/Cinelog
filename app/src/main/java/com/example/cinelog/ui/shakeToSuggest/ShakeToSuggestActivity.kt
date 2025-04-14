@@ -122,7 +122,7 @@ class ShakeToSuggestActivity : AppCompatActivity(), SensorEventListener {
 
         vibratePhone()
 
-        viewModel.fetchRandomMovie()
+        viewModel.fetchTopMovies()
 
         binding.lavScream.postDelayed({
             binding.lavScream.visibility = View.GONE

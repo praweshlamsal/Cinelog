@@ -4,35 +4,41 @@ import Notification
 import android.util.Log
 import com.example.cinelog.data.remote.ApiService
 import com.example.cinelog.model.BarChartData
+import com.example.cinelog.model.Category
+import com.example.cinelog.model.GenreResponse
 import com.example.cinelog.model.HistoryEvent
 import com.example.cinelog.model.LineChartData
 import com.example.cinelog.model.Movie
+import com.example.cinelog.model.MovieResponse
+import com.example.cinelog.model.MovieResponseV2
+import com.example.cinelog.model.MovieV2
 import com.example.cinelog.model.PieChartData
 import com.example.cinelog.util.Constant
+import com.google.android.gms.common.api.Response
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 
 
 class MovieRepository(private val apiService: ApiService, private val db: FirebaseFirestore) {
 
-    suspend fun getMovies(searchQuery: String, page: Int): List<Movie> {
-        return try {
-            val response = apiService.getMovieList(searchQuery, Constant.API_KEY, page)
-            Log.d(Constant.MOVIE_REPO, "API Response: $response")
-
-            if (response.isSuccessful) {
-                response.body()?.Search?.also {
-                    Log.d(Constant.MOVIE_REPO, "Movies Retrieved: ${it.size}")
-                } ?: emptyList()
-            } else {
-                Log.e(Constant.MOVIE_REPO, "API Error: ${response.errorBody()?.string()}")
-                emptyList()
-            }
-        } catch (e: Exception) {
-            Log.e(Constant.MOVIE_REPO, "Exception: ${e.localizedMessage}")
-            emptyList()
-        }
-    }
+//    suspend fun getMovies(searchQuery: String, page: Int): List<Movie> {
+//        return try {
+//            val response = apiService.getMovieList(searchQuery, Constant.API_KEY, page)
+//            Log.d(Constant.MOVIE_REPO, "API Response: $response")
+//
+//            if (response.isSuccessful) {
+//                response.body()?.Search?.also {
+//                    Log.d(Constant.MOVIE_REPO, "Movies Retrieved: ${it.size}")
+//                } ?: emptyList()
+//            } else {
+//                Log.e(Constant.MOVIE_REPO, "API Error: ${response.errorBody()?.string()}")
+//                emptyList()
+//            }
+//        } catch (e: Exception) {
+//            Log.e(Constant.MOVIE_REPO, "Exception: ${e.localizedMessage}")
+//            emptyList()
+//        }
+//    }
 
     fun getPieChartData(graphId: String, callback: (List<PieChartData>) -> Unit) {
         db.collection(Constant.GRAPH)
@@ -196,10 +202,10 @@ class MovieRepository(private val apiService: ApiService, private val db: Fireba
             }
     }
 
-    suspend fun getRandomMovie(): Movie {
-        return getMovies("movie" , 1).random()
-
-    }
+//    suspend fun getRandomMovie(): Movie {
+//        return getMovies("movie" , 1).random()
+//
+//    }
     fun deleteMyMovieFirebase(movie: Movie) {
         val myMoviesRef = db.collection(Constant.MY_MOVIES_COLLECTION)
 
@@ -306,6 +312,36 @@ class MovieRepository(private val apiService: ApiService, private val db: Fireba
         callback(emptyList())
         }
     }
+
+    suspend fun getTopRatedMovies(): List<MovieV2> {
+        val allMovies = mutableListOf<MovieV2>()
+        var page = 1
+        val totalPages = 5 // Assuming you want the first 5 pages for top 100 movies
+
+        try {
+            while (page <= totalPages) {
+                val response: retrofit2.Response<MovieResponseV2> = apiService.getTopRatedMovies(
+                    Constant.API_KEY, page = page)
+                if (response.isSuccessful) {
+                    val movieResponse = response.body()
+                    movieResponse?.results?.let { allMovies.addAll(it) }
+                } else {
+                    Log.e("MovieRepository", "Failed to fetch movies, page: $page")
+                }
+                page++
+            }
+        } catch (e: Exception) {
+            Log.e("MovieRepository", "Error fetching movies: ${e.message}")
+        }
+
+        return allMovies
+    }
+
+    suspend fun getGenres(apiKey: String, language: String = "en-US"): retrofit2.Response<GenreResponse> {
+        return apiService.getGenres(apiKey, language)
+    }
+
+
 
 }
 

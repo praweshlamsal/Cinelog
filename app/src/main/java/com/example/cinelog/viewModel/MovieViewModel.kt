@@ -1,25 +1,30 @@
 package com.example.cinelog.viewModel
 
 import Notification
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cinelog.R
 import com.example.cinelog.data.repository.MovieRepository
 import com.example.cinelog.model.BarChartData
 import com.example.cinelog.model.Category
+import com.example.cinelog.model.GenreResponse
 import com.example.cinelog.model.HistoryEvent
 import com.example.cinelog.model.LineChartData
 import com.example.cinelog.model.Movie
+import com.example.cinelog.model.MovieV2
 import com.example.cinelog.model.PieChartData
 import kotlinx.coroutines.launch
+import retrofit2.Response
 
 class MovieViewModel(private val movieRepository: MovieRepository) : ViewModel() {
 
     private val _movieList = MutableLiveData<List<Movie>>()
     val movieList: LiveData<List<Movie>> = _movieList
+
+
+    private val _movieListV2 = MutableLiveData<List<MovieV2>>()
+    val movieListV2: LiveData<List<MovieV2>> = _movieListV2
 
     private val _randomMovie = MutableLiveData<Movie>()
     val randomMovie: LiveData<Movie> get() = _randomMovie
@@ -41,13 +46,13 @@ class MovieViewModel(private val movieRepository: MovieRepository) : ViewModel()
 
     private val _notificationList = MutableLiveData<List<Notification>>()
     val notificationList: LiveData<List<Notification>> get() = _notificationList
-
+/*
     // Fetching Movies from the repository (API)
     suspend fun fetchMovies(searchQuery: String, page: Int) {
         val movieResponse = movieRepository.getMovies(searchQuery, page)
         val currentList = _movieList.value ?: emptyList()
         _movieList.postValue(movieResponse)
-    }
+    }*/
 
     // Fetching PieChart data from FireStore
     fun fetchPieChartData(graphId: String) {
@@ -96,7 +101,7 @@ class MovieViewModel(private val movieRepository: MovieRepository) : ViewModel()
 
     // Fetching predefined categories
 
-    fun fetchCategories(context: Context){
+/*    fun fetchCategories(context: Context){
         val categories = listOf(
             Category(context.getString(R.string.action_), "https://cdn-icons-png.flaticon.com/512/16391/16391182.png"),
             Category(context.getString(R.string.category_comedy), "https://cdn-icons-png.flaticon.com/512/2162/2162831.png"),
@@ -107,15 +112,37 @@ class MovieViewModel(private val movieRepository: MovieRepository) : ViewModel()
         )
         _categoryList.value = categories
 
+    }*/
+fun fetchCategories(apiKey: String) {
+    viewModelScope.launch {
+        try {
+            val response: Response<GenreResponse> = movieRepository.getGenres(apiKey)
+            if (response.isSuccessful) {
+                _categoryList.postValue(response.body()?.genres ?: emptyList())
+            } else {
+                // Handle API failure
+                _categoryList.postValue(emptyList()) // or show an error message
+            }
+        } catch (e: Exception) {
+            // Handle exception (e.g., no internet)
+            _categoryList.postValue(emptyList()) // or show an error message
+        }
+    }
+}
+
+    fun fetchTopMovies() {
+        viewModelScope.launch {
+            val movies = movieRepository.getTopRatedMovies()
+            _movieListV2.postValue(movies)
+        }
     }
 
-
-    fun fetchRandomMovie() {
+   /* fun fetchRandomMovie() {
         viewModelScope.launch {
             val movie = movieRepository.getRandomMovie()
             _randomMovie.postValue(movie)
         }
-    }
+    }*/
 
 
 

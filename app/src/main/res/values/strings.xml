@@ -91,5 +91,6 @@
     <string name="chart_bar_description">Total Watch Hours per Movie</string>
     <string name="chart_daily_watch">Daily Watch Time (Hours)</string>
     <string name="chart_line_description">Daily Watch Hours Trend</string>
+    <string name="genre_name">Genre Name</string>
 
 </resources>

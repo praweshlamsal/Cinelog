@@ -2,7 +2,7 @@ package com.example.cinelog.data.local.sharedPref
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.example.cinelog.model.Movie
+import com.example.cinelog.model.MovieV2
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -12,7 +12,7 @@ class SharedPrefHelper(context: Context) {
         context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
     private val gson = Gson()
 
-    fun saveMovie(movie: Movie) {
+    fun saveMovie(movie: MovieV2) {
         val movies = getMoviesList().toMutableList()
         if (movies.none { it.title == movie.title }) {
             movies.add(movie)
@@ -20,25 +20,25 @@ class SharedPrefHelper(context: Context) {
         }
     }
 
-    fun getMovie(): Movie? {
+    fun getMovie(): MovieV2? {
         val json = sharedPreferences.getString(KEY_MOVIE, null)
         return json?.let {
-            gson.fromJson(it, Movie::class.java)
+            gson.fromJson(it, MovieV2::class.java)
         }
     }
 
-    private fun saveMoviesList(movies: List<Movie>) {
+    private fun saveMoviesList(movies: List<MovieV2>) {
         val json = gson.toJson(movies)
         sharedPreferences.edit().putString(KEY_MOVIES_LIST, json).apply()
     }
 
-    fun getMoviesList(): List<Movie> {
+    fun getMoviesList(): List<MovieV2> {
         val json = sharedPreferences.getString(KEY_MOVIES_LIST, null) ?: return emptyList()
-        val type = object : TypeToken<List<Movie>>() {}.type
+        val type = object : TypeToken<List<MovieV2>>() {}.type
         return gson.fromJson(json, type)
     }
 
-    fun saveMyMovie(movie: Movie) {
+    fun saveMyMovie(movie: MovieV2) {
         val myMovies = getMyMoviesList().toMutableList()
         if (myMovies.none { it.title == movie.title }) {
             myMovies.add(movie)
@@ -46,13 +46,13 @@ class SharedPrefHelper(context: Context) {
         }
     }
 
-    fun getMyMoviesList(): List<Movie> {
+    fun getMyMoviesList(): List<MovieV2> {
         val json = sharedPreferences.getString(KEY_MY_MOVIES_LIST, null) ?: return emptyList()
-        val type = object : TypeToken<List<Movie>>() {}.type
+        val type = object : TypeToken<List<MovieV2>>() {}.type
         return gson.fromJson(json, type)
     }
 
-    private fun saveMyMoviesList(movies: List<Movie>) {
+    private fun saveMyMoviesList(movies: List<MovieV2>) {
         val json = gson.toJson(movies)
         sharedPreferences.edit().putString(KEY_MY_MOVIES_LIST, json).apply()
     }

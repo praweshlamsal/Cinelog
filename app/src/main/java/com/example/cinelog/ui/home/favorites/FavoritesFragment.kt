@@ -23,6 +23,7 @@ import com.example.cinelog.R
 import com.example.cinelog.data.local.sharedPref.SharedPrefHelper
 import com.example.cinelog.databinding.FragmentFavoritesBinding
 import com.example.cinelog.model.Movie
+import com.example.cinelog.model.MovieV2
 import com.example.cinelog.ui.home.movieList.MovieListView
 import com.example.cinelog.ui.home.movieList.adapters.MovieAdapter
 import java.io.File
@@ -63,22 +64,22 @@ class FavoritesFragment() : Fragment(R.layout.fragment_favorites), MovieListView
         }
     }
 
-    private fun shareMovie(movie: Movie) {
+    private fun shareMovie(movie: MovieV2) {
         val context = requireContext() // Get Fragment's context
 
         // Prepare text message with movie details
         val shareText = """
             Hello fans have you watched this ?
-        🎬 *${movie.title}* (${movie.year})
-        📽️ Type: ${movie.type}
-        🌟 IMDb: https://www.imdb.com/title/${movie.imdbID}
+        🎬 *${movie.title}* (${movie.release_date})
+        📽️ OverView: ${movie.overview}
+        🌟 IMDb: https://www.imdb.com/title/${movie.popularity}
         
         🎥 Check it out! 🍿
     """.trimIndent()
 
         Glide.with(context)
             .asBitmap()
-            .load(movie.poster)
+            .load(movie.poster_path)
             .diskCacheStrategy(DiskCacheStrategy.ALL) // Cache for faster loading
             .into(object : CustomTarget<Bitmap>() {
                 override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
@@ -117,13 +118,10 @@ class FavoritesFragment() : Fragment(R.layout.fragment_favorites), MovieListView
         return FileProvider.getUriForFile(context, "${context.packageName}.provider", file)
     }
 
-
-    override fun onSharedClicked(movie: Movie) {
+    override fun onSharedClicked(movie: MovieV2) {
         shareMovie(movie)
     }
-
-    override fun onFabButtonClicked(movie: Movie, fabIcon: ImageView) {
+    override fun onFabButtonClicked(movie: MovieV2, fabIcon: ImageView) {
         TODO("Not yet implemented")
     }
-
 }
