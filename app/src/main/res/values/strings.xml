@@ -54,15 +54,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="skip">Skip</string>
     <string name="next">Next</string>
-    <!-- Onboarding Titles -->
-    <string name="title_1">Welcome to Cinelog</string>
-    <string name="title_2">Discover Features</string>
-    <string name="title_3">Getting Started</string>
 
-    <!-- Onboarding Descriptions -->
-    <string name="desc_1">Your journey begins here</string>
-    <string name="desc_2">Explore amazing features</string>
-    <string name="desc_3">Let\'s start creating!</string>
     <string name="language">Language</string>
     <string name="change_language_of_the_app">Change language of the app</string>
     <string name="year_2023" translatable="false">Year: 2023</string>
@@ -91,5 +83,28 @@
     <string name="chart_bar_description">Total Watch Hours per Movie</string>
     <string name="chart_daily_watch">Daily Watch Time (Hours)</string>
     <string name="chart_line_description">Daily Watch Hours Trend</string>
+
+
+    <string name="title_1">Welcome to Cinelog</string>
+    <string name="desc_1">Log, rate, and review the movies you watch. Your personalized movie diary starts here.</string>
+
+    <string name="title_2">Shake to Discover</string>
+    <string name="desc_2">Not sure what to watch? Shake your phone to get a random movie from your list.</string>
+
+    <string name="title_3">Track Your Film Habits</string>
+    <string name="desc_3">See your movie-watching trends with beautiful graphs and insights.</string>
+
+    <string name="title_4">Filter by Year</string>
+    <string name="desc_4">Easily find diary entries by release year to revisit your favorite movie eras.</string>
+
+    <string name="title_5">Save and Favorite Films</string>
+    <string name="desc_5">Mark the films you love and keep them organized for quick access anytime.</string>
+
+    <string name="title_6">Add Reviews Instantly</string>
+    <string name="desc_6">Write notes, give ratings, and store details the moment you finish a movie.</string>
+
+    <string name="title_7">Customize Your App</string>
+    <string name="desc_7">Switch between light and dark themes, and choose your preferred language in settings.</string>
+
 
 </resources>

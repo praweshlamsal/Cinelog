@@ -48,7 +48,6 @@ import java.io.IOException
 import android.app.DatePickerDialog
 import android.widget.Toast
 import java.util.Calendar
-import android.widget.DatePicker
 import com.example.cinelog.ui.home.search.SearchActivity
 
 class MovieListFragment : Fragment(R.layout.fragment_movie_list), MovieListView {

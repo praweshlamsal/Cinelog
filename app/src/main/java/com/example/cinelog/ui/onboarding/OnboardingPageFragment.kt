@@ -28,9 +28,7 @@ class OnboardingPageFragment : Fragment(R.layout.fragment_onboarding_page) {
         with(binding) {
             title.setText(page.title)
             description.setText(page.description)
-            image.setAnimationFromJson(page.imageRes)
-            image.repeatCount = LottieDrawable.INFINITE
-            image.playAnimation()
+            image.setImageResource(page.imageRes)
         }
     }
 

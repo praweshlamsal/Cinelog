@@ -55,15 +55,7 @@
     <string name="hello_blank_fragment">Hola fragmento vacío</string>
     <string name="skip">Saltar</string>
     <string name="next">Siguiente</string>
-    <!-- Onboarding Titulos -->
-    <string name="title_1">Bienvenido a Cinelog</string>
-    <string name="title_2">Descubre funciones</string>
-    <string name="title_3">Comenzando</string>
 
-    <!-- Onboarding Descripciones -->
-    <string name="desc_1">Tu viaje comienza aquí</string>
-    <string name="desc_2">Explora increíbles funciones</string>
-    <string name="desc_3">¡Vamos a empezar a crear!</string>
     <string name="language">Idioma</string>
     <string name="change_language_of_the_app">Cambiar el idioma de la aplicación</string>
     <string name="year_2023">Año: 2023</string>
@@ -92,5 +84,27 @@
     <string name="chart_bar_description">Horas totales de visualización por película</string>
     <string name="chart_daily_watch">Tiempo de visualización diario (horas)</string>
     <string name="chart_line_description">Tendencia de horas de visualización diaria</string>
+
+
+    <string name="title_1">Bienvenido a Cinelog</string>
+    <string name="desc_1">Registra, califica y reseña las películas que ves. Tu diario de cine personalizado comienza aquí.</string>
+
+    <string name="title_2">Agita para descubrir</string>
+    <string name="desc_2">¿No sabes qué ver? Agita tu teléfono para obtener una película aleatoria de tu lista.</string>
+
+    <string name="title_3">Sigue tus hábitos de cine</string>
+    <string name="desc_3">Visualiza tus tendencias de películas con gráficos e ideas atractivas.</string>
+
+    <string name="title_4">Filtrar por año</string>
+    <string name="desc_4">Encuentra fácilmente entradas del diario por año de estreno y revive tus épocas favoritas.</string>
+
+    <string name="title_5">Guardar y marcar favoritas</string>
+    <string name="desc_5">Marca las películas que te encantan y organízalas para acceder rápidamente.</string>
+
+    <string name="title_6">Agrega reseñas al instante</string>
+    <string name="desc_6">Escribe notas, califica y guarda los detalles justo después de ver una película.</string>
+
+    <string name="title_7">Personaliza la app</string>
+    <string name="desc_7">Cambia entre temas claro y oscuro, y elige tu idioma preferido en la configuración.</string>
 
 </resources>

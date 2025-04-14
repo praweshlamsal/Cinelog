@@ -7,5 +7,5 @@ import java.io.Serializable
 data class OnboardingPage(
     @StringRes val title: Int,
     @StringRes val description: Int,
-    @DrawableRes val imageRes: String
+    @DrawableRes val imageRes: Int
 ): Serializable

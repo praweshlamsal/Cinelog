@@ -11,7 +11,7 @@ class OnboardingViewModel : ViewModel() {
     private val _navigationEvent = MutableLiveData<Boolean>()
     val navigationEvent: LiveData<Boolean> = _navigationEvent
 
-    private val totalPages = 3
+    private val totalPages = 7
 
     fun updatePage(position: Int) {
         _currentPage.value = position

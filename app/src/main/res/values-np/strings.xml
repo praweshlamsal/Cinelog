@@ -56,14 +56,6 @@
     <string name="next">अर्को</string>
 
     <!-- Onboarding Titles -->
-    <string name="title_1">सिने-लॉगमा स्वागत छ</string>
-    <string name="title_2">सुविधाहरू पत्ता लगाउनुहोस्</string>
-    <string name="title_3">सुरु गर्दै</string>
-
-    <!-- Onboarding Descriptions -->
-    <string name="desc_1">तपाईंको यात्रा यहाँबाट सुरु हुन्छ</string>
-    <string name="desc_2">शानदार सुविधाहरू अन्वेषण गर्नुहोस्</string>
-    <string name="desc_3">सिर्जना गर्न सुरु गरौं!</string>
     <string name="language">भाषा</string>
     <string name="change_language_of_the_app">एपको भाषा परिवर्तन गर्नुहोस्</string>
 
@@ -95,4 +87,26 @@
     <string name="chart_bar_description">प्रत्येक चलचित्रको हेर्ने कुल घण्टा</string>
     <string name="chart_daily_watch">दैनिक हेर्ने समय (घण्टा)</string>
     <string name="chart_line_description">दैनिक हेर्ने समयको प्रवृत्ति</string>
+
+    <string name="title_1">Cinelog मा स्वागत छ</string>
+    <string name="desc_1">तपाईंले हेर्ने फिल्महरू रेकर्ड, रेट र समीक्षा गर्नुहोस्। तपाईंको व्यक्तिगत फिल्म डायरी यहाँबाट सुरु हुन्छ।</string>
+
+    <string name="title_2">फिल्म खोज्न फोन हल्लाउनुहोस्</string>
+    <string name="desc_2">के हेर्ने थाहा छैन? आफ्नो सूचिबाट कुनै एक फिल्म हेर्नका लागि फोन हल्लाउनुहोस्।</string>
+
+    <string name="title_3">तपाईंको फिल्म हेर्ने बानी ट्र्याक गर्नुहोस्</string>
+    <string name="desc_3">सुन्दर ग्राफहरू मार्फत तपाईंको फिल्म हेर्ने प्रवृत्तिहरू हेर्नुहोस्।</string>
+
+    <string name="title_4">वर्ष अनुसार फिल्टर गर्नुहोस्</string>
+    <string name="desc_4">रिलिज वर्ष अनुसार सजिलै आफ्नो डायरी फेला पार्नुहोस् र पुराना मनपर्ने क्षणहरू सम्झनुहोस्।</string>
+
+    <string name="title_5">फिल्महरू सेभ गर्नुहोस् र मनपर्नेमा राख्नुहोस्</string>
+    <string name="desc_5">तपाईंले मन पराउने फिल्महरू चिन्ह लगाउनुहोस् र छिटो पहुँचको लागि व्यवस्थित राख्नुहोस्।</string>
+
+    <string name="title_6">छिटो समीक्षा थप्नुहोस्</string>
+    <string name="desc_6">फिल्म हेरेपछि तुरुन्त नोट्स लेख्नुहोस्, रेट गर्नुहोस् र विवरण सेभ गर्नुहोस्।</string>
+
+    <string name="title_7">एप्लिकेसन अनुकूलन गर्नुहोस्</string>
+    <string name="desc_7">लाइट वा डार्क मोड छान्नुहोस्, र मनपर्ने भाषा सेटिङबाट परिवर्तन गर्नुहोस्।</string>
+
 </resources>

@@ -35,7 +35,7 @@ class OnboardingFragment: Fragment(R.layout.fragment_onboarding) {
                 viewModel.updatePage(position)
             }
         })
-        binding.indicator.setPageCount(3)
+        binding.indicator.setPageCount(7)
         binding.indicator.setCurrentPage(0)
     }
 

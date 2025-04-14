@@ -55,15 +55,7 @@
     <string name="hello_blank_fragment">Hallo lege fragment</string>
     <string name="skip">Overslaan</string>
     <string name="next">Volgende</string>
-    <!-- Onboarding Titels -->
-    <string name="title_1">Welkom bij Cinelog</string>
-    <string name="title_2">Ontdek functies</string>
-    <string name="title_3">Aan de slag</string>
 
-    <!-- Onboarding Beschrijvingen -->
-    <string name="desc_1">Je reis begint hier</string>
-    <string name="desc_2">Ontdek geweldige functies</string>
-    <string name="desc_3">Laten we beginnen met creëren!</string>
     <string name="language">Taal</string>
     <string name="change_language_of_the_app">Verander de taal van de app</string>
     <string name="year_2023">Jaar: 2023</string>
@@ -92,6 +84,28 @@
     <string name="chart_bar_description">Totaal aantal kijkuren per film</string>
     <string name="chart_daily_watch">Dagelijkse kijktijd (uren)</string>
     <string name="chart_line_description">Trend van dagelijkse kijktijd</string>
+
+    <string name="title_1">Welkom bij Cinelog</string>
+    <string name="desc_1">Log, beoordeel en recenseer de films die je bekijkt. Jouw persoonlijke filmdagboek begint hier.</string>
+
+    <string name="title_2">Schud om te ontdekken</string>
+    <string name="desc_2">Weet je niet wat je moet kijken? Schud je telefoon voor een willekeurige film uit je lijst.</string>
+
+    <string name="title_3">Volg je kijkgewoonten</string>
+    <string name="desc_3">Bekijk je filmkijktrends met prachtige grafieken en inzichten.</string>
+
+    <string name="title_4">Filter op jaar</string>
+    <string name="desc_4">Vind eenvoudig dagboekvermeldingen op jaartal en herbeleef je favoriete filmperiodes.</string>
+
+    <string name="title_5">Films opslaan and favorieten</string>
+    <string name="desc_5">Markeer de films die je leuk vindt en houd ze georganiseerd voor snelle toegang.</string>
+
+    <string name="title_6">Voeg snel recensies toe</string>
+    <string name="desc_6">Schrijf notities, geef beoordelingen en sla details op zodra je een film hebt bekeken.</string>
+
+    <string name="title_7">Pas de app aan</string>
+    <string name="desc_7">Schakel tussen licht en donker thema, en kies je voorkeurstaal in de instellingen.</string>
+
 
 
 

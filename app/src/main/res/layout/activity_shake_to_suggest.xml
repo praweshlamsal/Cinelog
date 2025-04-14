@@ -16,13 +16,12 @@
         android:src="@drawable/ic_black_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="?android:attr/textColorPrimary" />
+        app:tint="@color/colorPrimary" />
 
     <TextView
         android:id="@+id/tvShakeYourPhone"
         android:layout_margin="12dp"
         android:textSize="32sp"
-        android:textColor="?android:attr/textColorPrimary"
         android:textStyle="bold"
         android:text=""
         android:layout_width="wrap_content"
@@ -62,7 +61,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorSurface">
+            android:background="@color/white">
 
             <ImageView
                 android:layout_marginTop="12dp"
@@ -83,7 +82,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:src="@drawable/ic_share"
-                app:tint="?android:attr/textColorPrimary" />
+                 />
 
             <TextView
                 app:layout_constraintStart_toStartOf="parent"
@@ -97,7 +96,7 @@
                 android:maxLines="2"
                 android:text="@string/movie_title"
                 app:layout_constraintBottom_toTopOf="@id/movie_overview"
-                android:textColor="?android:attr/textColorPrimary"
+
                 android:textSize="16sp" />
 
             <TextView
@@ -112,7 +111,7 @@
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:text="@string/overview"
-                android:textColor="?attr/colorOnSurface"
+
                 android:textSize="12sp" />
 
             <TextView
@@ -126,7 +125,7 @@
                 android:layout_marginBottom="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/movie_overview"
-                android:textColor="?attr/colorOnSurface"
+
                 android:textSize="12sp" />
 
             <ImageView
@@ -140,7 +139,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:src="@drawable/ic_fab"
-                app:tint="?attr/colorSecondary" />
+                app:tint="@color/colorSecondary" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -151,9 +150,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:backgroundTint="?attr/colorSecondary"
         android:text="@string/retry"
-        android:textColor="?attr/colorOnSecondary"
+        android:textColor="@color/colorSecondary"
         app:layout_constraintStart_toStartOf="@id/movieCard"
         app:layout_constraintEnd_toEndOf="@id/movieCard"
         app:layout_constraintTop_toBottomOf="@id/movieCard" />
@@ -180,7 +178,7 @@
         app:layout_constraintHeight_percent="0.3"
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
-        app:lottie_fileName="shake_phone.json"
+        app:lottie_fileName="shake_phonde.json"
         app:lottie_loop="true"
         app:lottie_speed="1.0" />
 
