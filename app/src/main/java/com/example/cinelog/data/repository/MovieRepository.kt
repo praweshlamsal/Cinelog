@@ -200,13 +200,21 @@ class MovieRepository(private val apiService: ApiService, private val db: Fireba
         return getMovies("movie" , 1).random()
 
     }
-    fun deleteMyMovieFirebase(movie: Movie) {
+    fun deleteMyMovieFirebase(movie: Movie, onComplete: () -> Unit) {
         val myMoviesRef = db.collection(Constant.MY_MOVIES_COLLECTION)
 
         myMoviesRef.whereEqualTo("title", movie.title)
             .get()
             .addOnSuccessListener { querySnapshot ->
-                for (document in querySnapshot) {
+                val documents = querySnapshot.documents
+
+                if (documents.isEmpty()) {
+                    Log.w(Constant.MOVIE_REPO, "No movie found with title: ${movie.title}")
+                    onComplete()
+                    return@addOnSuccessListener
+                }
+
+                for ((index, document) in documents.withIndex()) {
                     myMoviesRef.document(document.id)
                         .delete()
                         .addOnSuccessListener {
@@ -215,21 +223,28 @@ class MovieRepository(private val apiService: ApiService, private val db: Fireba
                                 movie = movie.title
                             )
                             Log.d(Constant.MOVIE_REPO, "Movie deleted: ${document.id}")
+                            // Call onComplete only after the last deletion
+                            if (index == documents.lastIndex) {
+                                onComplete()
+                            }
                         }
                         .addOnFailureListener { e ->
                             Log.e(Constant.MOVIE_REPO, "Error deleting movie", e)
+                            if (index == documents.lastIndex) {
+                                onComplete()
+                            }
                         }
                 }
             }
             .addOnFailureListener { e ->
                 Log.e(Constant.MOVIE_REPO, "Error finding movie to delete", e)
+                onComplete()
             }
-
     }
 
-    fun editMyMoviesFirebase(movie: Movie) {
+    fun editMyMoviesFirebase(movie: Movie, onComplete: () -> Unit) {
         val myMoviesRef = db.collection(Constant.MY_MOVIES_COLLECTION)
-        Log.d(Constant.MOVIE_REPO, "Movie updated: }")
+        Log.d(Constant.MOVIE_REPO, "Trying to update movie with ID: ${movie.id}")
 
         myMoviesRef.whereEqualTo("id", movie.id)
             .limit(1)
@@ -246,16 +261,20 @@ class MovieRepository(private val apiService: ApiService, private val db: Fireba
                                 movie = movie.title
                             )
                             Log.d(Constant.MOVIE_REPO, "Movie updated: ${document.id}")
+                            onComplete()
                         }
                         .addOnFailureListener { e ->
                             Log.e(Constant.MOVIE_REPO, "Error updating movie", e)
+                            onComplete()
                         }
                 } else {
                     Log.e(Constant.MOVIE_REPO, "Movie not found with ID: ${movie.id}")
+                    onComplete()
                 }
             }
             .addOnFailureListener { e ->
                 Log.e(Constant.MOVIE_REPO, "Error finding movie to update", e)
+                onComplete()
             }
     }
 

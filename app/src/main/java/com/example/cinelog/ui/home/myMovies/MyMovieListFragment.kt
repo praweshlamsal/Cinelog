@@ -74,9 +74,12 @@ class MyMovieListFragment : Fragment(R.layout.fragment_favorites), MyMoviesView 
             }
         })
 
+
         // Fetch movies initially when the fragment is created
         movieViewModel.fetchMyMoviesFromFireStore()
     }
+
+
 
 
     override fun onResume() {
@@ -104,26 +107,20 @@ class MyMovieListFragment : Fragment(R.layout.fragment_favorites), MyMoviesView 
     }
 
     override fun deleteMovie(movie: Movie) {
-        val dialog = AlertDialog.Builder(requireContext())
+        AlertDialog.Builder(requireContext())
             .setTitle("Delete Movie")
             .setMessage("Are you sure you want to delete this movie?")
-            .setPositiveButton("Yes") { dialogInterface, _ ->
+            .setPositiveButton("Yes") { dialog, _ ->
                 movieViewModel.deleteMyMovie(movie)
-                movieViewModel.fetchMyMoviesFromFireStore()
-                movieAdapter.submitList(emptyList())
                 Toast.makeText(requireContext(), "Movie deleted successfully", Toast.LENGTH_SHORT).show()
-
-                // Dismiss the dialog
-                dialogInterface.dismiss()
+                dialog.dismiss()
             }
-            .setNegativeButton("No") { dialogInterface, _ ->
-                dialogInterface.dismiss()
+            .setNegativeButton("No") { dialog, _ ->
+                dialog.dismiss()
             }
             .create()
-
-        dialog.show()
+            .show()
     }
-
 
     override fun navigateToDetails(movie: Movie) {
         val rating: Float = if (movie.rating.isEmpty()) {

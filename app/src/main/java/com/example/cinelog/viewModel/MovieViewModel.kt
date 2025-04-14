@@ -126,13 +126,16 @@ class MovieViewModel(private val movieRepository: MovieRepository) : ViewModel()
     }
 
     fun deleteMyMovie(movie: Movie) {
-        movieRepository.deleteMyMovieFirebase(movie)
-        fetchMyMoviesFromFireStore()
+        movieRepository.deleteMyMovieFirebase(movie) {
+            // Once delete is done, fetch updated list
+            fetchMyMoviesFromFireStore()
+        }
     }
 
     fun editMyMovie(movie: Movie) {
-        movieRepository.editMyMoviesFirebase(movie)
-        fetchMyMoviesFromFireStore()
+        movieRepository.editMyMoviesFirebase(movie) {
+            fetchMyMoviesFromFireStore() // Refresh the list after edit
+        }
     }
 
     fun fetchNotification(){

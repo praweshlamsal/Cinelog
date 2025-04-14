@@ -1,11 +1,13 @@
 package com.example.cinelog.ui.home.saveMovie
 
 import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
@@ -15,6 +17,7 @@ import com.example.cinelog.data.remote.network.RetrofitClient
 import com.example.cinelog.data.repository.MovieRepository
 import com.example.cinelog.databinding.ActivitySaveMovieBinding
 import com.example.cinelog.model.Movie
+import com.example.cinelog.ui.home.MainActivity
 import com.example.cinelog.viewModel.MovieViewModel
 import com.example.cinelog.viewModel.MovieViewModelFactory
 import com.google.android.material.chip.Chip
@@ -180,6 +183,10 @@ class SaveMovieActivity : AppCompatActivity() {
             )
             movieViewModel.editMyMovie(movie)
             showToast("Movie edited successfully")
+            val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            this.finish()
         } else {
             val movie = Movie(
                 id = UUID.randomUUID().toString(),
@@ -193,10 +200,11 @@ class SaveMovieActivity : AppCompatActivity() {
             )
             movieViewModel.saveMyMovie(movie)
             showToast("Movie saved successfully")
+            finish()
         }
 
         showToast("Movie saved successfully")
-        finish()
+
 
 
     }
