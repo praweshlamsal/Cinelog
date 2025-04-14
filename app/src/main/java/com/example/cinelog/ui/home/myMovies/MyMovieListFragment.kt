@@ -85,6 +85,7 @@ class MyMovieListFragment : Fragment(R.layout.fragment_favorites), MyMoviesView 
         movieAdapter.submitList(emptyList())
     }
 
+
     override fun onFabButtonClicked(movie: Movie, fabIcon: ImageView) {
     }
 
@@ -109,6 +110,7 @@ class MyMovieListFragment : Fragment(R.layout.fragment_favorites), MyMoviesView 
             .setPositiveButton("Yes") { dialogInterface, _ ->
                 movieViewModel.deleteMyMovie(movie)
                 movieViewModel.fetchMyMoviesFromFireStore()
+                movieAdapter.submitList(emptyList())
                 Toast.makeText(requireContext(), "Movie deleted successfully", Toast.LENGTH_SHORT).show()
 
                 // Dismiss the dialog
