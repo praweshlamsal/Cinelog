@@ -4,17 +4,14 @@ import Notification
 import android.util.Log
 import com.example.cinelog.data.remote.ApiService
 import com.example.cinelog.model.BarChartData
-import com.example.cinelog.model.Category
 import com.example.cinelog.model.GenreResponse
 import com.example.cinelog.model.HistoryEvent
 import com.example.cinelog.model.LineChartData
 import com.example.cinelog.model.Movie
-import com.example.cinelog.model.MovieResponse
 import com.example.cinelog.model.MovieResponseV2
 import com.example.cinelog.model.MovieV2
 import com.example.cinelog.model.PieChartData
 import com.example.cinelog.util.Constant
-import com.google.android.gms.common.api.Response
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 
@@ -53,7 +50,7 @@ class MovieRepository(private val apiService: ApiService, private val db: Fireba
             }
             .addOnFailureListener { e ->
                 Log.e(Constant.MOVIE_REPO, "Error fetching pie chart data", e)
-                callback(emptyList()) // Return empty list if error
+                callback(emptyList())
             }
     }
 

@@ -31,7 +31,6 @@ import com.example.cinelog.data.local.sharedPref.SharedPrefHelper
 import com.example.cinelog.data.remote.network.RetrofitClient
 import com.example.cinelog.data.repository.MovieRepository
 import com.example.cinelog.databinding.FragmentMovieListBinding
-import com.example.cinelog.model.Movie
 import com.example.cinelog.ui.home.movieList.adapters.CategoryAdapter
 import com.example.cinelog.ui.home.movieList.adapters.MovieAdapter
 import com.example.cinelog.ui.home.saveMovie.SaveMovieActivity
@@ -48,7 +47,6 @@ import java.io.IOException
 import android.app.DatePickerDialog
 import android.widget.Toast
 import java.util.Calendar
-import android.widget.DatePicker
 import com.example.cinelog.model.MovieV2
 import com.example.cinelog.ui.home.search.SearchActivity
 import com.example.cinelog.util.Constant

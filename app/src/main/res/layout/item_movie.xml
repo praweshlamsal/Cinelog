@@ -2,16 +2,18 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="260dp"
+    android:layout_height="320dp"
     app:cardElevation="0dp"
     android:layout_margin="8dp"
     app:cardCornerRadius="8dp"
+    android:paddingVertical="12dp"
     app:cardBackgroundColor="?attr/colorSurface">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/card_border">
+        android:layout_height="match_parent"
+        android:background="@color/light_grey"
+        >
 
         <ImageView
             android:layout_margin="8dp"
@@ -32,7 +34,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:src="@drawable/ic_share"
-            app:tint="?android:attr/textColorPrimary" />
+             />
 
         <TextView
             android:layout_marginHorizontal="8dp"
@@ -61,7 +63,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
             android:ellipsize="end"
-            android:maxLines="2"
+            android:maxLines="1"
             android:text="@string/overview"
             android:textColor="?attr/colorOnSurface"
             android:textSize="12sp" />
@@ -82,6 +84,7 @@
             android:textSize="12sp" />
 
         <ImageView
+            app:layout_constraintTop_toBottomOf="@id/movie_release_date"
             android:padding="4dp"
             android:id="@+id/fab_button"
             android:contentDescription="@string/todo"
@@ -90,7 +93,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="12dp"
             android:src="@drawable/ic_fab"
             app:tint="?attr/colorSecondary" />
 

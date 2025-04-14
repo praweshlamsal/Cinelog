@@ -45,7 +45,7 @@ class MovieAdapter(private val movieListView: MovieListView, val isFab: Boolean)
             binding.movieReleaseDate.text = movie.release_date
 
             Glide.with(binding.root.context)
-                .load(movie.poster_path)
+                .load("https://image.tmdb.org/t/p/w500"+movie.poster_path)
                 .placeholder(R.drawable.ic_placeholder)
                 .into(binding.movieImage)
 
