@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?android:attr/colorBackground"
+    android:background="@color/colorBackground"
     tools:context=".ui.shakeToSuggest.ShakeToSuggestActivity">
 
     <ImageView
@@ -178,7 +178,7 @@
         app:layout_constraintHeight_percent="0.3"
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
-        app:lottie_fileName="shake_phonde.json"
+        app:lottie_fileName="shake_phone.json"
         app:lottie_loop="true"
         app:lottie_speed="1.0" />
 
