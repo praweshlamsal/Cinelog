@@ -65,7 +65,7 @@ class OnboardingFragment: Fragment(R.layout.fragment_onboarding) {
     private fun updateUI(position: Int) {
         with(binding) {
             btnNext.text = if (position == 6) "Get Started" else "Next"
-            btnSkip.visibility = if (position == 2) View.GONE else View.VISIBLE
+            btnSkip.visibility = if (position == 6) View.GONE else View.VISIBLE
             indicator.setCurrentPage(position)
         }
     }
